@@ -3,11 +3,13 @@
     public class Student
     {
         public Guid Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string MiddleName { get; set; }
-        public string AboutMe { get; set; }
-        public int Rate { get; set; }
+
+        //Own
+        public StudentGeneralInfo StudentGeneralInfo { get; set; }
+
+        //1to1
+        public int StudentAccountInfoId { get; set; }
+        public StudentGeneralInfo StudentAccountInfo { get; set; }
 
     }
 }
