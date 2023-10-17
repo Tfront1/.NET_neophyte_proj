@@ -6,19 +6,19 @@ namespace neophyte_proj.Models.TeacherModel
 {
     public class Teacher
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         //Own
-        public StudentGeneralInfo TeacherGeneralInfo { get; set; }
+        public TeacherGeneralInfo TeacherGeneralInfo { get; set; }
 
         //1to1
         public int TeacherAccountInfoId { get; set; }
-        public StudentGeneralInfo TeacherAccountInfo { get; set; }
+        public TeacherAccountInfo TeacherAccountInfo { get; set; }
 
         //1ton
         public ICollection<TeacherFeedBack> TeacherFeedBacks { get; set; }
 
         //nton
-        public ICollection<CourseStudent> CourseTeacher { get; set; }
+        public ICollection<CourseTeacher> CourseTeacher { get; set; }
     }
 }

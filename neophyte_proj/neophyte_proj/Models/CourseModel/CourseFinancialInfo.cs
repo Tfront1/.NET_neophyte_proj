@@ -2,7 +2,7 @@
 {
     public class CourseFinancialInfo
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public decimal Price { get; set; }
         //1to1
         public int CourseId { get; set; }

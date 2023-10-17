@@ -1,4 +1,6 @@
-﻿namespace neophyte_proj.Models.StudentModel
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace neophyte_proj.Models.StudentModel
 {
     public class StudentGeneralInfo
     {
