@@ -6,7 +6,7 @@ namespace neophyte_proj.Models.CourseModel
 {
     public class Course
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         //Own
         public CourseGeneralInfo CourseGeneralInfo { get; set; }
@@ -20,7 +20,7 @@ namespace neophyte_proj.Models.CourseModel
         public ICollection<CourseBage> CourseBages { get; set; }
 
         //nton
-        public ICollection<CourseStudent> Students { get; set; }
-        public ICollection<CourseTeacher> Teachers { get; set; }
+        public ICollection<CourseStudent> CourseStudent { get; set; }
+        public ICollection<CourseTeacher> CourseTeacher { get; set; }
     }
 }
