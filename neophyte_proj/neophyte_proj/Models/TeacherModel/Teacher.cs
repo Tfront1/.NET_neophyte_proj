@@ -1,4 +1,5 @@
 ﻿using neophyte_proj.Models.CourseModel;
+using neophyte_proj.Models.IntermediateModels;
 using neophyte_proj.Models.StudentModel;
 
 namespace neophyte_proj.Models.TeacherModel
@@ -16,6 +17,8 @@ namespace neophyte_proj.Models.TeacherModel
 
         //1ton
         public ICollection<TeacherFeedBack> TeacherFeedBacks { get; set; }
-        public ICollection<Course> Courses { get; set; }
+
+        //nton
+        public ICollection<CourseStudent> CourseTeacher { get; set; }
     }
 }
