@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using neophyte_proj.Context;
+using neophyte_proj.WebApi.Context;
 
 #nullable disable
 
-namespace neophyte_proj.Migrations
+namespace neophyte_proj.WebApi.Migrations
 {
     [DbContext(typeof(NeophyteApplicationContext))]
     [Migration("20231017194135_init")]

@@ -1,5 +1,5 @@
 
-namespace neophyte_proj
+namespace neophyte_proj.WebApi
 {
     public class Program
     {

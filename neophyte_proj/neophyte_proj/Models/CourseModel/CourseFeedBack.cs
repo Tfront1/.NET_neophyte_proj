@@ -1,4 +1,4 @@
-﻿namespace neophyte_proj.Models.CourseModel
+﻿namespace neophyte_proj.WebApi.Models.CourseModel
 {
     public class CourseFeedBack
     {

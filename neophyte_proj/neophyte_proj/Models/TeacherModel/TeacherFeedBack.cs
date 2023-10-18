@@ -1,4 +1,4 @@
-﻿namespace neophyte_proj.Models.TeacherModel
+﻿namespace neophyte_proj.WebApi.Models.TeacherModel
 {
     public class TeacherFeedBack
     {

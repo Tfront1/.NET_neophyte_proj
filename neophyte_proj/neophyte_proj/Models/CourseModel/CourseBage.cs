@@ -1,6 +1,6 @@
-﻿using neophyte_proj.Models.StudentModel;
+﻿using neophyte_proj.WebApi.Models.StudentModel;
 
-namespace neophyte_proj.Models.CourseModel
+namespace neophyte_proj.WebApi.Models.CourseModel
 {
     public class CourseBage
     {
