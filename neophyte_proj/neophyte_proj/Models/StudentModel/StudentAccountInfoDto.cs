@@ -1,6 +1,6 @@
 ﻿namespace neophyte_proj.WebApi.Models.StudentModel
 {
-    public class StudentAccountInfo
+    public class StudentAccountInfoDto
     {
         public int Id { get; set; }
         public string UserName { get; set; }

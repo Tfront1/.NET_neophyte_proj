@@ -52,15 +52,28 @@ namespace DataAccess.Repositories.CourseRepo.Repos
         }
         public async Task<bool> Save()
         {
+
             try
             {
+                if (_context.Database.CurrentTransaction == null) // Перевірка на наявність транзакції
+                {
+                    await _context.Database.BeginTransactionAsync(); // Початок транзакції, якщо її немає
+                }
+
                 await _context.SaveChangesAsync();
+                await _context.Database.CommitTransactionAsync(); // Завершення транзакції
+
+                return true;
             }
             catch (Exception ex)
             {
+                // Обробка помилки при збереженні
+                if (_context.Database.CurrentTransaction != null)
+                {
+                    await _context.Database.RollbackTransactionAsync(); // Відкат транзакції у разі помилки
+                }
                 return false;
             }
-            return true;
         }
 
         public async Task<IEnumerable<Teacher>> GetTeachers(Course course)

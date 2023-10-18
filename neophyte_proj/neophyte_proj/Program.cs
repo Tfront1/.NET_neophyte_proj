@@ -8,6 +8,7 @@ using DataAccess.Repositories.TeacherRepo.Repos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using neophyte_proj.DataAccess.Context;
+using neophyte_proj.WebApi.Services;
 
 namespace neophyte_proj.WebApi
 {
@@ -33,6 +34,7 @@ namespace neophyte_proj.WebApi
             builder.Services.AddDbContext<NeophyteApplicationContext>(options => 
                 options.UseMySql(connectionString, serverVersion));
 
+            builder.Services.AddAutoMapper(typeof(Program).Assembly);
             //Repo injection
             builder.AddApplicationServices();
 
@@ -55,7 +57,7 @@ namespace neophyte_proj.WebApi
             app.Run();
         }
     }
-    public static class Services {
+    public static class ServicesCl {
         public static void AddApplicationServices(this WebApplicationBuilder builder)
         {
             var services = builder.Services;
@@ -70,6 +72,9 @@ namespace neophyte_proj.WebApi
             services.AddTransient<ITeacherRepository, TeacherRepository>();
             services.AddTransient<ITeacherFeedBackRepository, TeacherFeedBackRepository>();
             services.AddTransient<ITeacherAccountInfoRepository, TeacherAccountInfoRepository>();
+
+
+            services.AddTransient<ICourseService, CourseService>();
         }
     }
 }

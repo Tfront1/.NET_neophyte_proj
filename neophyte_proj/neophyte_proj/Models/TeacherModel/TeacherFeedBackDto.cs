@@ -1,6 +1,6 @@
 ﻿namespace neophyte_proj.WebApi.Models.TeacherModel
 {
-    public class TeacherFeedBack
+    public class TeacherFeedBackDto
     {
         public int Id { get; set; }
         public string Author { get; set; }

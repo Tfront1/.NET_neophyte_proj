@@ -1,6 +1,10 @@
-﻿using DataAccess.Repositories.CourseRepo.Interfaces;
+﻿using AutoMapper;
+using DataAccess.Repositories.CourseRepo.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using neophyte_proj.DataAccess.Models.CourseModel;
+using neophyte_proj.WebApi.Models.CourseModel;
+using neophyte_proj.WebApi.Services;
 
 namespace neophyte_proj.WebApi.Controllers
 {
@@ -8,25 +12,20 @@ namespace neophyte_proj.WebApi.Controllers
     [ApiController]
     public class CoursesController : ControllerBase
     {
-        private readonly ICourseRepository _courseRepository;
-        public CoursesController(ICourseRepository courseRepository)
+        private readonly ICourseService _courseService;
+        private readonly IMapper _mapper;
+        public CoursesController(ICourseService courseService, IMapper mapper)
         {
-            _courseRepository = courseRepository;
+            _courseService = courseService;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(TeacherDTO dto)
+        public async Task<IActionResult> Create(CourseDto courseDto)
         {
-            var creationResult = await _courseRepository.Create(dto).ConfigureAwait(false);
-
-            return CreatedAtAction(
-                nameof(GetById),
-                new { id = creationResult.Teacher.Id, },
-                new TeacherCreationResponse
-                {
-                    Teacher = creationResult.Teacher,
-                    UploadingAvatarImageResult = creationResult.UploadingAvatarImageResult?.CreateSingleUploadingResult(),
-                });
+            _ = courseDto ?? throw new ArgumentNullException(nameof(courseDto));
+            await _courseService.Create(courseDto).ConfigureAwait(false);
+            return new JsonResult(Ok(courseDto));
         }
     }
 }
