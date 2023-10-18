@@ -7,5 +7,15 @@
         public int LessonsCount { get; set; }
         public int PlacesNumber { get; set; }
         public int Rate { get; set; }
+
+        //copy
+        public void Copy(CourseGeneralInfo courseGeneralInfo)
+        {
+            this.Name = courseGeneralInfo.Name;
+            this.Description= courseGeneralInfo.Description;
+            this.LessonsCount= courseGeneralInfo.LessonsCount;
+            this.PlacesNumber = courseGeneralInfo.PlacesNumber;
+            this.Rate= courseGeneralInfo.Rate;
+        }
     }
 }

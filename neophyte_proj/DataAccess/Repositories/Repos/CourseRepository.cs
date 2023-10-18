@@ -30,10 +30,11 @@ namespace neophyte_proj.DataAccess.Repositories.Repos
         }
         public void Update(Course course)
         {
-            //var cour = _context.Courses.Find(course.Id);
-            //if (cour != null) {
-            //    cour.
-            //}
+            var cour = _context.Courses.Find(course.Id);
+            if (cour != null)
+            {
+                cour.Copy(course);
+            }
         }
         public void Delete(int id)
         {

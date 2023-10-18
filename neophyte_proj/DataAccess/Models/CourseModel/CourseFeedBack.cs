@@ -12,5 +12,15 @@
         //nto1
         public int CourseId { get; set; }
         public Course Course { get; set; }
+
+        //copy
+        public void Copy(CourseFeedBack courseFeedBack)
+        {
+            this.Author= courseFeedBack.Author;
+            this.Rating= courseFeedBack.Rating;
+            this.Tittle= courseFeedBack.Tittle;
+            this.Text = courseFeedBack.Text;
+            this.IsAuthorStudent = courseFeedBack.IsAuthorStudent;
+        }
     }
 }

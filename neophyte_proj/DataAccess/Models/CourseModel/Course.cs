@@ -23,10 +23,33 @@ namespace neophyte_proj.DataAccess.Models.CourseModel
         public ICollection<CourseStudent> CourseStudent { get; set; }
         public ICollection<CourseTeacher> CourseTeacher { get; set; }
 
+        //Meth
+        public void Copy(Course course)
+        {
+            this.CourseGeneralInfo.Copy(course.CourseGeneralInfo);
+            this.CourseFinancialInfo.Copy(course.CourseFinancialInfo);
+            this.CourseFeedBacks = null;
+            foreach(CourseFeedBack cfb in course.CourseFeedBacks)
+            {
+                this.CourseFeedBacks.Add(cfb);
+            }
+            this.CourseBages = null;
+            foreach (CourseBage cfb in course.CourseBages)
+            {
+                this.CourseBages.Add(cfb);
+            }
+            this.CourseStudent = null;
+            foreach (CourseStudent cfb in course.CourseStudent)
+            {
+                this.CourseStudent.Add(cfb);
+            }
+            this.CourseTeacher = null;
+            foreach (CourseTeacher cfb in course.CourseTeacher)
+            {
+                this.CourseTeacher.Add(cfb);
+            }
 
-        //m
-        public void Copy(Course course) {
-            this.Id = course.Id;
         }
+
     }
 }

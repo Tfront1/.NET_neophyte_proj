@@ -7,5 +7,11 @@
         //1to1
         public int CourseId { get; set; }
         public Course Course { get; set; }
+
+        //copy
+        public void Copy(CourseFinancialInfo courseFinancialInfo)
+        {
+            this.Price = courseFinancialInfo.Price;
+        }
     }
 }
