@@ -1,4 +1,10 @@
 
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using neophyte_proj.DataAccess.Context;
+using neophyte_proj.DataAccess.Repositories.Interfaces;
+using neophyte_proj.DataAccess.Repositories.Repos;
+
 namespace neophyte_proj.WebApi
 {
     public class Program
@@ -13,6 +19,19 @@ namespace neophyte_proj.WebApi
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            var configuration = new ConfigurationBuilder()
+                .AddUserSecrets<NeophyteApplicationContext>().Build();
+
+            //Context injection
+            var connectionString = configuration.GetConnectionString("neophyte");
+            var serverVersion = new MySqlServerVersion(new Version(8, 0, 34));
+            builder.Services.AddDbContext<NeophyteApplicationContext>(options => 
+                options.UseMySql(connectionString, serverVersion));
+
+            //Repo injection
+            builder.Services.AddTransient<ICourseRepository, CourseRepository>();
+
 
             var app = builder.Build();
 

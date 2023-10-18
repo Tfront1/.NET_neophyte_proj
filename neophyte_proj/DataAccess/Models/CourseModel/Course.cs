@@ -22,5 +22,11 @@ namespace neophyte_proj.DataAccess.Models.CourseModel
         //nton
         public ICollection<CourseStudent> CourseStudent { get; set; }
         public ICollection<CourseTeacher> CourseTeacher { get; set; }
+
+
+        //m
+        public void Copy(Course course) {
+            this.Id = course.Id;
+        }
     }
 }
