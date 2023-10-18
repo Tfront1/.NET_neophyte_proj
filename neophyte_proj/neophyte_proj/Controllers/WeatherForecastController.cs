@@ -1,21 +1,24 @@
+using DataAccess.Repositories.CourseRepo.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace neophyte_proj.Controllers
+namespace neophyte_proj.WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        private readonly ICourseRepository _courseRepository;
         private static readonly string[] Summaries = new[]
         {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
+        };
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, ICourseRepository courseRepository)
         {
             _logger = logger;
+            _courseRepository = courseRepository;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
