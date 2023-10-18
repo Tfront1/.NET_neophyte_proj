@@ -34,17 +34,7 @@ namespace neophyte_proj.WebApi
                 options.UseMySql(connectionString, serverVersion));
 
             //Repo injection
-            builder.Services.AddTransient<ICourseRepository, CourseRepository>();
-            builder.Services.AddTransient<ICourseFinancialInfoRepository, CourseFinancialInfoRepository>();
-            builder.Services.AddTransient<ICourseFeedBackRepository, CourseFeedBackRepository>();
-            builder.Services.AddTransient<ICourseBageRepository, CourseBageRepository>();
-
-            builder.Services.AddTransient<IStudentRepository, StudentRepository>();
-            builder.Services.AddTransient<IStudentAccountInfoRepository, StudentAccountInfoRepository>();
-
-            builder.Services.AddTransient<ITeacherRepository, TeacherRepository>();
-            builder.Services.AddTransient<ITeacherFeedBackRepository, TeacherFeedBackRepository>();
-            builder.Services.AddTransient<ITeacherAccountInfoRepository, TeacherAccountInfoRepository>();
+            builder.AddApplicationServices();
 
             var app = builder.Build();
 
@@ -63,6 +53,23 @@ namespace neophyte_proj.WebApi
             app.MapControllers();
 
             app.Run();
+        }
+    }
+    public static class Services {
+        public static void AddApplicationServices(this WebApplicationBuilder builder)
+        {
+            var services = builder.Services;
+            services.AddTransient<ICourseRepository, CourseRepository>();
+            services.AddTransient<ICourseFinancialInfoRepository, CourseFinancialInfoRepository>();
+            services.AddTransient<ICourseFeedBackRepository, CourseFeedBackRepository>();
+            services.AddTransient<ICourseBageRepository, CourseBageRepository>();
+
+            services.AddTransient<IStudentRepository, StudentRepository>();
+            services.AddTransient<IStudentAccountInfoRepository, StudentAccountInfoRepository>();
+
+            services.AddTransient<ITeacherRepository, TeacherRepository>();
+            services.AddTransient<ITeacherFeedBackRepository, TeacherFeedBackRepository>();
+            services.AddTransient<ITeacherAccountInfoRepository, TeacherAccountInfoRepository>();
         }
     }
 }
