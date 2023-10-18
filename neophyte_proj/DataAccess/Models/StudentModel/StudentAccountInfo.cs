@@ -11,5 +11,13 @@ namespace neophyte_proj.DataAccess.Models.StudentModel
         //1to1
         public int StudentId { get; set; }
         public Student Student { get; set; }
+
+        //copy
+        public void Copy(StudentAccountInfo studentAccountInfo)
+        {
+            this.UserName= studentAccountInfo.UserName;
+            this.Password= studentAccountInfo.Password;
+            this.RegistrationDate= studentAccountInfo.RegistrationDate;
+        }
     }
 }

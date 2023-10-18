@@ -20,5 +20,21 @@ namespace neophyte_proj.DataAccess.Models.StudentModel
 
         //nton
         public ICollection<CourseStudent> CourseStudent { get; set; }
+
+        //copy
+        public void Copy(Student student)
+        {
+            this.StudentGeneralInfo.Copy(student.StudentGeneralInfo);
+            this.StudentAccountInfo.Copy(student.StudentAccountInfo);
+            this.CourseBages.Clear();
+            foreach (CourseBage cb in student.CourseBages) {
+                this.CourseBages.Add(cb);
+            }
+            this.CourseStudent.Clear();
+            foreach (CourseStudent cs in student.CourseStudent)
+            {
+                this.CourseStudent.Add(cs);
+            }
+        }
     }
 }
