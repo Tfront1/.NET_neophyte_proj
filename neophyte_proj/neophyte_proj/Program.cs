@@ -1,6 +1,10 @@
 
 using DataAccess.Repositories.CourseRepo.Interfaces;
 using DataAccess.Repositories.CourseRepo.Repos;
+using DataAccess.Repositories.StudentRepo.Interfaces;
+using DataAccess.Repositories.StudentRepo.Repos;
+using DataAccess.Repositories.TeacherRepo.Interfaces;
+using DataAccess.Repositories.TeacherRepo.Repos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using neophyte_proj.DataAccess.Context;
@@ -31,7 +35,16 @@ namespace neophyte_proj.WebApi
 
             //Repo injection
             builder.Services.AddTransient<ICourseRepository, CourseRepository>();
+            builder.Services.AddTransient<ICourseFinancialInfoRepository, CourseFinancialInfoRepository>();
+            builder.Services.AddTransient<ICourseFeedBackRepository, CourseFeedBackRepository>();
+            builder.Services.AddTransient<ICourseBageRepository, CourseBageRepository>();
 
+            builder.Services.AddTransient<IStudentRepository, StudentRepository>();
+            builder.Services.AddTransient<IStudentAccountInfoRepository, StudentAccountInfoRepository>();
+
+            builder.Services.AddTransient<ITeacherRepository, TeacherRepository>();
+            builder.Services.AddTransient<ITeacherFeedBackRepository, TeacherFeedBackRepository>();
+            builder.Services.AddTransient<ITeacherAccountInfoRepository, TeacherAccountInfoRepository>();
 
             var app = builder.Build();
 
