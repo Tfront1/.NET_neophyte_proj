@@ -1,6 +1,9 @@
 ﻿using DataAccess.Repositories.TeacherRepo.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using neophyte_proj.DataAccess.Context;
 using neophyte_proj.DataAccess.Models.CourseModel;
+using neophyte_proj.DataAccess.Models.IntermediateModels;
+using neophyte_proj.DataAccess.Models.StudentModel;
 using neophyte_proj.DataAccess.Models.TeacherModel;
 using System;
 using System.Collections.Generic;
@@ -61,6 +64,18 @@ namespace DataAccess.Repositories.TeacherRepo.Repos
             {
                 await teach.Copy(teacher);
             }
+        }
+
+        public async Task<IEnumerable<Course>> GetCourses(Teacher teacher)
+        {
+            var courseTeacher = await _context
+                .Set<CourseTeacher>()
+                .Include(x => x.Course)
+                .Include(x => x.Teacher)
+                .Where(x => x.TeacherId == teacher.Id)
+                .ToListAsync();
+
+            return courseTeacher.Select(cs => cs.Course);
         }
     }
 }

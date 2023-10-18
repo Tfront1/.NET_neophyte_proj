@@ -13,7 +13,7 @@
         public Teacher Teacher { get; set; }
 
         //copy
-        public void Copy(TeacherFeedBack teacherFeedBack)
+        public async Task Copy(TeacherFeedBack teacherFeedBack)
         {
             this.Author = teacherFeedBack.Author;
             this.Rating = teacherFeedBack.Rating;

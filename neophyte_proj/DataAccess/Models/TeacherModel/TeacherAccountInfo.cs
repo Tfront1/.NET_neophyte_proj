@@ -11,7 +11,7 @@
         public Teacher Teacher { get; set; }
 
         //copy
-        public void Copy(TeacherAccountInfo teacherAccountInfo)
+        public async Task Copy(TeacherAccountInfo teacherAccountInfo)
         {
             this.UserName= teacherAccountInfo.UserName;
             this.Password= teacherAccountInfo.Password;

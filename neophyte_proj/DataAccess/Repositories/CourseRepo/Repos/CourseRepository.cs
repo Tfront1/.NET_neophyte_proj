@@ -1,6 +1,10 @@
 ﻿using DataAccess.Repositories.CourseRepo.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using neophyte_proj.DataAccess.Context;
 using neophyte_proj.DataAccess.Models.CourseModel;
+using neophyte_proj.DataAccess.Models.IntermediateModels;
+using neophyte_proj.DataAccess.Models.StudentModel;
+using neophyte_proj.DataAccess.Models.TeacherModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +59,29 @@ namespace DataAccess.Repositories.CourseRepo.Repos
                 return false;
             }
             return true;
+        }
+
+        public async Task<IEnumerable<Teacher>> GetTeachers(Course course)
+        {
+            var courseTeacher = await _context
+                .Set<CourseTeacher>()
+                .Include(x => x.Course)
+                .Include(x => x.Teacher)
+                .Where(x => x.Course.Id == course.Id)
+                .ToListAsync();
+
+            return courseTeacher.Select(cs => cs.Teacher);
+        }
+        public async Task<IEnumerable<Student>> GetStudents(Course course)
+        {
+            var courseStudent = await _context
+                .Set<CourseStudent>()
+                .Include(x => x.Course)
+                .Include(x => x.Student)
+                .Where(cs => cs.Course.Id == course.Id)
+                .ToListAsync();
+
+            return courseStudent.Select(cs => cs.Student);
         }
     }
 }
