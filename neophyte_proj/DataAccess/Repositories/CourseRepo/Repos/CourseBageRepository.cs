@@ -27,7 +27,7 @@ namespace DataAccess.Repositories.CourseRepo.Repos
         }
         public IEnumerable<CourseBage> GetByCourseId(int id)
         {
-            return _context.CourseBags.Where(x => x.Id == id);
+            return _context.CourseBags.Where(x => x.CourseId == id);
         }
         public void Create(CourseBage courseBage)
         {

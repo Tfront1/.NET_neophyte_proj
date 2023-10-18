@@ -1,5 +1,6 @@
 ﻿using DataAccess.Repositories.TeacherRepo.Interfaces;
 using neophyte_proj.DataAccess.Context;
+using neophyte_proj.DataAccess.Models.CourseModel;
 using neophyte_proj.DataAccess.Models.TeacherModel;
 using System;
 using System.Collections.Generic;
@@ -47,7 +48,11 @@ namespace DataAccess.Repositories.TeacherRepo.Repos
 
         public void Update(Teacher teacher)
         {
-            throw new NotImplementedException();
+            var teach = _context.Teachers.Find(teacher.Id);
+            if (teach != null)
+            {
+                teach.Copy(teacher);
+            }
         }
     }
 }

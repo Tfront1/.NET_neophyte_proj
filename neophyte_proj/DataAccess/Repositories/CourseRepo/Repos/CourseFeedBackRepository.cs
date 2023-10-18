@@ -26,7 +26,7 @@ namespace DataAccess.Repositories.CourseRepo.Repos
         }
         public IEnumerable<CourseFeedBack> GetByCourseId(int id)
         {
-            return _context.CourseFeedBacks.Where(x => x.Id == id);
+            return _context.CourseFeedBacks.Where(x => x.CourseId == id);
         }
         public void Create(CourseFeedBack courseFeedBack)
         {
