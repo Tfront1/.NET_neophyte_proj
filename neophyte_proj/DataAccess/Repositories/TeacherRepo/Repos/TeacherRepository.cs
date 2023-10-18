@@ -23,6 +23,7 @@ namespace DataAccess.Repositories.TeacherRepo.Repos
 
         public async Task Create(Teacher teacher)
         {
+            _ = teacher ?? throw new ArgumentNullException(nameof(teacher));
             await _context.Teachers.AddAsync(teacher); 
         }
 
@@ -59,6 +60,7 @@ namespace DataAccess.Repositories.TeacherRepo.Repos
 
         public async Task Update(Teacher teacher)
         {
+            _ = teacher ?? throw new ArgumentNullException(nameof(teacher));
             var teach = await _context.Teachers.FindAsync(teacher.Id);
             if (teach != null)
             {
@@ -68,6 +70,7 @@ namespace DataAccess.Repositories.TeacherRepo.Repos
 
         public async Task<IEnumerable<Course>> GetCourses(Teacher teacher)
         {
+            _ = teacher ?? throw new ArgumentNullException(nameof(teacher));
             var courseTeacher = await _context
                 .Set<CourseTeacher>()
                 .Include(x => x.Course)

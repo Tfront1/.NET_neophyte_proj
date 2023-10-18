@@ -1,5 +1,6 @@
 ﻿using DataAccess.Repositories.StudentRepo.Interfaces;
 using neophyte_proj.DataAccess.Context;
+using neophyte_proj.DataAccess.Models.CourseModel;
 using neophyte_proj.DataAccess.Models.StudentModel;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace DataAccess.Repositories.StudentRepo.Repos
 
         public async Task Create(StudentAccountInfo studentAccountInfo)
         {
+            _ = studentAccountInfo ?? throw new ArgumentNullException(nameof(studentAccountInfo));
             await _context.StudentAccountInfos.AddAsync(studentAccountInfo);
         }
 
@@ -60,6 +62,7 @@ namespace DataAccess.Repositories.StudentRepo.Repos
 
         public async Task Update(StudentAccountInfo studentAccountInfo)
         {
+            _ = studentAccountInfo ?? throw new ArgumentNullException(nameof(studentAccountInfo));
             var studAi = await _context.StudentAccountInfos.FindAsync(studentAccountInfo.Id);
             if(studAi != null){
                 await studAi.Copy(studentAccountInfo);

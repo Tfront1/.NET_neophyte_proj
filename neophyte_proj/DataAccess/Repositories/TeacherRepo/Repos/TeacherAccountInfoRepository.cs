@@ -1,5 +1,6 @@
 ﻿using DataAccess.Repositories.TeacherRepo.Interfaces;
 using neophyte_proj.DataAccess.Context;
+using neophyte_proj.DataAccess.Models.StudentModel;
 using neophyte_proj.DataAccess.Models.TeacherModel;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace DataAccess.Repositories.TeacherRepo.Repos
 
         public async Task Create(TeacherAccountInfo teacherAccountInfo)
         {
+            _ = teacherAccountInfo ?? throw new ArgumentNullException(nameof(teacherAccountInfo));
             await _context.TeacherAccountInfos.AddAsync(teacherAccountInfo);
         }
 
@@ -60,6 +62,7 @@ namespace DataAccess.Repositories.TeacherRepo.Repos
 
         public async Task Update(TeacherAccountInfo teacherAccountInfo)
         {
+            _ = teacherAccountInfo ?? throw new ArgumentNullException(nameof(teacherAccountInfo));
             var techAi = await _context.TeacherAccountInfos.FindAsync(teacherAccountInfo.Id);
             if (techAi != null)
             {

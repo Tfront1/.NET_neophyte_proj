@@ -31,10 +31,12 @@ namespace DataAccess.Repositories.CourseRepo.Repos
         }
         public async Task Create(CourseFeedBack courseFeedBack)
         {
+            _ = courseFeedBack ?? throw new ArgumentNullException(nameof(courseFeedBack));
             await _context.CourseFeedBacks.AddAsync(courseFeedBack);
         }
         public async Task Update(CourseFeedBack courseFeedBack)
         {
+            _ = courseFeedBack ?? throw new ArgumentNullException(nameof(courseFeedBack));
             var courFg = await _context.CourseFeedBacks.FindAsync(courseFeedBack.Id);
             if (courFg != null)
             {

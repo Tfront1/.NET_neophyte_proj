@@ -20,6 +20,7 @@ namespace DataAccess.Repositories.TeacherRepo.Repos
 
         public async Task Create(TeacherFeedBack teacherFeedBack)
         {
+            _ = teacherFeedBack ?? throw new ArgumentNullException(nameof(teacherFeedBack));
             await _context.TeacherFeedBacks.AddAsync(teacherFeedBack);
         }
 
@@ -61,6 +62,7 @@ namespace DataAccess.Repositories.TeacherRepo.Repos
 
         public async Task Update(TeacherFeedBack teacherFeedBack)
         {
+            _ = teacherFeedBack ?? throw new ArgumentNullException(nameof(teacherFeedBack));
             var techFb = await _context.TeacherFeedBacks.FindAsync(teacherFeedBack.Id);
             if (techFb != null) {
                 await techFb.Copy(teacherFeedBack);

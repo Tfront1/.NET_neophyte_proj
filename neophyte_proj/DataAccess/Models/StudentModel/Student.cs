@@ -22,10 +22,10 @@ namespace neophyte_proj.DataAccess.Models.StudentModel
         public ICollection<CourseStudent> CourseStudent { get; set; }
 
         //copy
-        public void Copy(Student student)
+        public async Task Copy(Student student)
         {
-            this.StudentGeneralInfo.Copy(student.StudentGeneralInfo);
-            this.StudentAccountInfo.Copy(student.StudentAccountInfo);
+            await this.StudentGeneralInfo.Copy(student.StudentGeneralInfo);
+            await this.StudentAccountInfo.Copy(student.StudentAccountInfo);
         }
     }
 }

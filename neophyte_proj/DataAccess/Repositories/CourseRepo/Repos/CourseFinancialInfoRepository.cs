@@ -20,6 +20,7 @@ namespace DataAccess.Repositories.CourseRepo.Repos
 
         public async Task Create(CourseFinancialInfo courseFinancialInfo)
         {
+            _ = courseFinancialInfo ?? throw new ArgumentNullException(nameof(courseFinancialInfo));
             await _context.CourseFinancialInfos.AddAsync(courseFinancialInfo);
         }
 
@@ -62,6 +63,7 @@ namespace DataAccess.Repositories.CourseRepo.Repos
 
         public async Task Update(CourseFinancialInfo courseFinancialInfo)
         {
+            _ = courseFinancialInfo ?? throw new ArgumentNullException(nameof(courseFinancialInfo));
             var courFi = await _context.CourseFinancialInfos.FindAsync(courseFinancialInfo.Id);
             if (courFi != null)
             {
