@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace neophyte_proj.DataAccess.Repositories.Interfaces
+namespace DataAccess.Repositories.CourseRepo.Interfaces
 {
     public interface ICourseRepository
     {

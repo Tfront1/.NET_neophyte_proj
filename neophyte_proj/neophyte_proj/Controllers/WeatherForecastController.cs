@@ -1,5 +1,5 @@
+using DataAccess.Repositories.CourseRepo.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using neophyte_proj.DataAccess.Repositories.Interfaces;
 using neophyte_proj.DataAccess.Repositories.Repos;
 
 namespace neophyte_proj.WebApi.Controllers

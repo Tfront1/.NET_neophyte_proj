@@ -1,9 +1,9 @@
 
+using DataAccess.Repositories.CourseRepo.Interfaces;
+using DataAccess.Repositories.CourseRepo.Repos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using neophyte_proj.DataAccess.Context;
-using neophyte_proj.DataAccess.Repositories.Interfaces;
-using neophyte_proj.DataAccess.Repositories.Repos;
 
 namespace neophyte_proj.WebApi
 {

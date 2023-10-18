@@ -9,5 +9,13 @@
         //1to1
         public int TeacherId { get; set; }
         public Teacher Teacher { get; set; }
+
+        //copy
+        public void Copy(TeacherAccountInfo teacherAccountInfo)
+        {
+            this.UserName= teacherAccountInfo.UserName;
+            this.Password= teacherAccountInfo.Password;
+            this.RegistrationDate= teacherAccountInfo.RegistrationDate;
+        }
     }
 }

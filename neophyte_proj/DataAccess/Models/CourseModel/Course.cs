@@ -28,22 +28,22 @@ namespace neophyte_proj.DataAccess.Models.CourseModel
         {
             this.CourseGeneralInfo.Copy(course.CourseGeneralInfo);
             this.CourseFinancialInfo.Copy(course.CourseFinancialInfo);
-            this.CourseFeedBacks = null;
-            foreach(CourseFeedBack cfb in course.CourseFeedBacks)
+            this.CourseFeedBacks.Clear();
+            foreach (CourseFeedBack cfb in course.CourseFeedBacks)
             {
                 this.CourseFeedBacks.Add(cfb);
             }
-            this.CourseBages = null;
+            this.CourseBages.Clear();
             foreach (CourseBage cfb in course.CourseBages)
             {
                 this.CourseBages.Add(cfb);
             }
-            this.CourseStudent = null;
+            this.CourseStudent.Clear();
             foreach (CourseStudent cfb in course.CourseStudent)
             {
                 this.CourseStudent.Add(cfb);
             }
-            this.CourseTeacher = null;
+            this.CourseTeacher.Clear();
             foreach (CourseTeacher cfb in course.CourseTeacher)
             {
                 this.CourseTeacher.Add(cfb);

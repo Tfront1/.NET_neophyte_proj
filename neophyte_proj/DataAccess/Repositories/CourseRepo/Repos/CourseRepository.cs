@@ -1,13 +1,13 @@
-﻿using neophyte_proj.DataAccess.Context;
+﻿using DataAccess.Repositories.CourseRepo.Interfaces;
+using neophyte_proj.DataAccess.Context;
 using neophyte_proj.DataAccess.Models.CourseModel;
-using neophyte_proj.DataAccess.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace neophyte_proj.DataAccess.Repositories.Repos
+namespace DataAccess.Repositories.CourseRepo.Repos
 {
     public class CourseRepository : ICourseRepository
     {

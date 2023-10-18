@@ -11,5 +11,14 @@
         //1ton
         public int TeacherId { get; set; }
         public Teacher Teacher { get; set; }
+
+        //copy
+        public void Copy(TeacherFeedBack teacherFeedBack)
+        {
+            this.Author = teacherFeedBack.Author;
+            this.Rating = teacherFeedBack.Rating;
+            this.Tittle= teacherFeedBack.Tittle;
+            this.Text = teacherFeedBack.Text;
+        }
     }
 }
