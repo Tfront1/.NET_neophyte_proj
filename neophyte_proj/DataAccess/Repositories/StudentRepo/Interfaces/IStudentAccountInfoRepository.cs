@@ -10,12 +10,12 @@ namespace DataAccess.Repositories.StudentRepo.Interfaces
 {
     public interface IStudentAccountInfoRepository
     {
-        IEnumerable<StudentAccountInfo> GetAll();
-        StudentAccountInfo GetById(int id);
-        StudentAccountInfo GetByStudentId(int id);
-        void Create(StudentAccountInfo studentAccountInfo);
-        void Update(StudentAccountInfo studentAccountInfo);
-        void Delete(int id);
-        void Save();
+        Task<IEnumerable<StudentAccountInfo>> GetAll();
+        Task<StudentAccountInfo> GetById(int id);
+        Task<StudentAccountInfo> GetByStudentId(int id);
+        Task Create(StudentAccountInfo studentAccountInfo);
+        Task Update(StudentAccountInfo studentAccountInfo);
+        Task Delete(int id);
+        Task<bool> Save();
     }
 }

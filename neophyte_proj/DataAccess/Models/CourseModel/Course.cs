@@ -24,31 +24,10 @@ namespace neophyte_proj.DataAccess.Models.CourseModel
         public ICollection<CourseTeacher> CourseTeacher { get; set; }
 
         //Meth
-        public void Copy(Course course)
+        public async Task Copy(Course course)
         {
-            this.CourseGeneralInfo.Copy(course.CourseGeneralInfo);
-            this.CourseFinancialInfo.Copy(course.CourseFinancialInfo);
-            this.CourseFeedBacks.Clear();
-            foreach (CourseFeedBack cfb in course.CourseFeedBacks)
-            {
-                this.CourseFeedBacks.Add(cfb);
-            }
-            this.CourseBages.Clear();
-            foreach (CourseBage cfb in course.CourseBages)
-            {
-                this.CourseBages.Add(cfb);
-            }
-            this.CourseStudent.Clear();
-            foreach (CourseStudent cfb in course.CourseStudent)
-            {
-                this.CourseStudent.Add(cfb);
-            }
-            this.CourseTeacher.Clear();
-            foreach (CourseTeacher cfb in course.CourseTeacher)
-            {
-                this.CourseTeacher.Add(cfb);
-            }
-
+            await this.CourseGeneralInfo.Copy(course.CourseGeneralInfo);
+            await this.CourseFinancialInfo.Copy(course.CourseFinancialInfo);
         }
 
     }

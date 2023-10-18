@@ -9,11 +9,11 @@ namespace DataAccess.Repositories.CourseRepo.Interfaces
 {
     public interface ICourseRepository
     {
-        IEnumerable<Course> GetAll();
-        Course GetById(int id);
-        void Create(Course course);
-        void Update(Course course);
-        void Delete(int id);
-        void Save();
+        Task<IEnumerable<Course>> GetAll();
+        Task<Course> GetById(int id);
+        Task Create(Course course);
+        Task Update(Course course);
+        Task Delete(int id);
+        Task<bool> Save();
     }
 }

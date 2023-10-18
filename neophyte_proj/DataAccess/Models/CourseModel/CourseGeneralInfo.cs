@@ -9,7 +9,7 @@
         public int Rate { get; set; }
 
         //copy
-        public void Copy(CourseGeneralInfo courseGeneralInfo)
+        public async Task Copy(CourseGeneralInfo courseGeneralInfo)
         {
             this.Name = courseGeneralInfo.Name;
             this.Description= courseGeneralInfo.Description;

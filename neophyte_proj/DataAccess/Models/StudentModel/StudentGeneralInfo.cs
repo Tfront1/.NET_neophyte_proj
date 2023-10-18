@@ -10,7 +10,7 @@ namespace neophyte_proj.DataAccess.Models.StudentModel
         public string AboutMe { get; set; }
 
         //copy
-        public void Copy(StudentGeneralInfo studentGeneralInfo)
+        public async Task Copy(StudentGeneralInfo studentGeneralInfo)
         {
             this.FirstName = studentGeneralInfo.FirstName;
             this.LastName = studentGeneralInfo.LastName;

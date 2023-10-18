@@ -10,12 +10,12 @@ namespace DataAccess.Repositories.TeacherRepo.Interfaces
 {
     public interface ITeacherFeedBackRepository
     {
-        IEnumerable<TeacherFeedBack> GetAll();
-        TeacherFeedBack GetById(int id);
-        IEnumerable<TeacherFeedBack> GetByTeacherId(int id);
-        void Create(TeacherFeedBack teacherFeedBack);
-        void Update(TeacherFeedBack teacherFeedBack);
-        void Delete(int id);
-        void Save();
+        Task<IEnumerable<TeacherFeedBack>> GetAll();
+        Task<TeacherFeedBack> GetById(int id);
+        Task<IEnumerable<TeacherFeedBack>> GetByTeacherId(int id);
+        Task Create(TeacherFeedBack teacherFeedBack);
+        Task Update(TeacherFeedBack teacherFeedBack);
+        Task Delete(int id);
+        Task<bool> Save();
     }
 }

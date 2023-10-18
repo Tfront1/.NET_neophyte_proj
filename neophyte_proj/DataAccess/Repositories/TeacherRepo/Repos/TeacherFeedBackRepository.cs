@@ -1,4 +1,5 @@
 ﻿using DataAccess.Repositories.TeacherRepo.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using neophyte_proj.DataAccess.Context;
 using neophyte_proj.DataAccess.Models.TeacherModel;
 using System;
@@ -17,44 +18,52 @@ namespace DataAccess.Repositories.TeacherRepo.Repos
             _context = context;
         }
 
-        public void Create(TeacherFeedBack teacherFeedBack)
+        public async Task Create(TeacherFeedBack teacherFeedBack)
         {
-            _context.TeacherFeedBacks.Add(teacherFeedBack);
+            await _context.TeacherFeedBacks.AddAsync(teacherFeedBack);
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            var techFb = _context.TeacherFeedBacks.Find(id);
+            var techFb = await _context.TeacherFeedBacks.FindAsync(id);
             if (techFb != null) {
                 _context.TeacherFeedBacks.Remove(techFb);
             }
         }
 
-        public IEnumerable<TeacherFeedBack> GetAll()
+        public async Task<IEnumerable<TeacherFeedBack>> GetAll()
         {
             return _context.TeacherFeedBacks;
         }
 
-        public TeacherFeedBack GetById(int id)
+        public async Task<TeacherFeedBack> GetById(int id)
         {
-            return _context.TeacherFeedBacks.Find(id);
+            return await _context.TeacherFeedBacks.FindAsync(id);
         }
 
-        public IEnumerable<TeacherFeedBack> GetByTeacherId(int id)
+        public async Task<IEnumerable<TeacherFeedBack>> GetByTeacherId(int id)
         {
-            return _context.TeacherFeedBacks.Where(x => x.TeacherId == id);
+            return await _context.TeacherFeedBacks.Where(x => x.TeacherId == id).ToListAsync();
         }
 
-        public void Save()
+        public async Task<bool> Save()
         {
-            _context.SaveChanges();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
         }
 
-        public void Update(TeacherFeedBack teacherFeedBack)
+        public async Task Update(TeacherFeedBack teacherFeedBack)
         {
-            var techFb = _context.TeacherFeedBacks.Find(teacherFeedBack.Id);
+            var techFb = await _context.TeacherFeedBacks.FindAsync(teacherFeedBack.Id);
             if (techFb != null) {
-                techFb.Copy(teacherFeedBack);
+                await techFb.Copy(teacherFeedBack);
             }
         }
     }

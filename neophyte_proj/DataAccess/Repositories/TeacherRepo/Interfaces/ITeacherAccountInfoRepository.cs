@@ -10,12 +10,12 @@ namespace DataAccess.Repositories.TeacherRepo.Interfaces
 {
     public interface ITeacherAccountInfoRepository
     {
-        IEnumerable<TeacherAccountInfo> GetAll();
-        TeacherAccountInfo GetById(int id);
-        TeacherAccountInfo GetByTeacherId(int id);
-        void Create(TeacherAccountInfo teacherAccountInfo);
-        void Update(TeacherAccountInfo teacherAccountInfo);
-        void Delete(int id);
-        void Save();
+        Task<IEnumerable<TeacherAccountInfo>> GetAll();
+        Task<TeacherAccountInfo> GetById(int id);
+        Task<TeacherAccountInfo> GetByTeacherId(int id);
+        Task Create(TeacherAccountInfo teacherAccountInfo);
+        Task Update(TeacherAccountInfo teacherAccountInfo);
+        Task Delete(int id);
+        Task<bool> Save();
     }
 }

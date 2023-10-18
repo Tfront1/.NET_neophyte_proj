@@ -9,12 +9,12 @@ namespace DataAccess.Repositories.CourseRepo.Interfaces
 {
     public interface ICourseFeedBackRepository
     {
-        IEnumerable<CourseFeedBack> GetAll();
-        CourseFeedBack GetById(int id);
-        IEnumerable<CourseFeedBack> GetByCourseId(int id);
-        void Create(CourseFeedBack courseFeedBack);
-        void Update(CourseFeedBack courseFeedBack);
-        void Delete(int id);
-        void Save();
+        Task<IEnumerable<CourseFeedBack>> GetAll();
+        Task<CourseFeedBack> GetById(int id);
+        Task<IEnumerable<CourseFeedBack>> GetByCourseId(int id);
+        Task Create(CourseFeedBack courseFeedBack);
+        Task Update(CourseFeedBack courseFeedBack);
+        Task Delete(int id);
+        Task<bool> Save();
     }
 }

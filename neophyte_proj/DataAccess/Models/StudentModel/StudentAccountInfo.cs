@@ -13,7 +13,7 @@ namespace neophyte_proj.DataAccess.Models.StudentModel
         public Student Student { get; set; }
 
         //copy
-        public void Copy(StudentAccountInfo studentAccountInfo)
+        public async Task Copy(StudentAccountInfo studentAccountInfo)
         {
             this.UserName= studentAccountInfo.UserName;
             this.Password= studentAccountInfo.Password;

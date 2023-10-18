@@ -16,37 +16,45 @@ namespace DataAccess.Repositories.CourseRepo.Repos
         {
             _context = context;
         }
-        public IEnumerable<Course> GetAll()
+        public async Task<IEnumerable<Course>> GetAll()
         {
             return _context.Courses;
         }
-        public Course GetById(int id)
+        public async Task<Course> GetById(int id)
         {
-            return _context.Courses.Find(id);
+            return await _context.Courses.FindAsync(id);
         }
-        public void Create(Course course)
+        public async Task Create(Course course)
         {
-            _context.Courses.Add(course);
+            await _context.Courses.AddAsync(course);
         }
-        public void Update(Course course)
+        public async Task Update(Course course)
         {
-            var cour = _context.Courses.Find(course.Id);
+            var cour = await _context.Courses.FindAsync(course.Id);
             if (cour != null)
             {
-                cour.Copy(course);
+                await cour.Copy(course);
             }
         }
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            var cour = _context.Courses.Find(id);
+            var cour = await _context.Courses.FindAsync(id);
             if (cour != null)
             {
                 _context.Courses.Remove(cour);
             }
         }
-        public void Save()
+        public async Task<bool> Save()
         {
-            _context.SaveChanges();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

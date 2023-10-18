@@ -14,7 +14,7 @@
         public Course Course { get; set; }
 
         //copy
-        public void Copy(CourseFeedBack courseFeedBack)
+        public async Task Copy(CourseFeedBack courseFeedBack)
         {
             this.Author= courseFeedBack.Author;
             this.Rating= courseFeedBack.Rating;

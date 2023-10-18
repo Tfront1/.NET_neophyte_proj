@@ -18,40 +18,48 @@ namespace DataAccess.Repositories.TeacherRepo.Repos
             _context = context;
         }
 
-        public void Create(Teacher teacher)
+        public async Task Create(Teacher teacher)
         {
-            _context.Teachers.Add(teacher); 
+            await _context.Teachers.AddAsync(teacher); 
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            var teach = _context.Teachers.Find(id);
+            var teach = await _context.Teachers.FindAsync(id);
             if (teach != null){
                 _context.Teachers.Remove(teach);
             }
         }
 
-        public IEnumerable<Teacher> GetAll()
+        public async Task<IEnumerable<Teacher>> GetAll()
         {
             return _context.Teachers;
         }
 
-        public Teacher GetById(int id)
+        public async Task<Teacher> GetById(int id)
         {
-            return _context.Teachers.Find(id);
+            return await _context.Teachers.FindAsync(id);
         }
 
-        public void Save()
+        public async Task<bool> Save()
         {
-            _context.SaveChanges();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
         }
 
-        public void Update(Teacher teacher)
+        public async Task Update(Teacher teacher)
         {
-            var teach = _context.Teachers.Find(teacher.Id);
+            var teach = await _context.Teachers.FindAsync(teacher.Id);
             if (teach != null)
             {
-                teach.Copy(teacher);
+                await teach.Copy(teacher);
             }
         }
     }

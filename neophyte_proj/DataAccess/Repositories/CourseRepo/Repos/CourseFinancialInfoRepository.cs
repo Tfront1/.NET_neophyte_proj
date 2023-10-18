@@ -1,4 +1,5 @@
 ﻿using DataAccess.Repositories.CourseRepo.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using neophyte_proj.DataAccess.Context;
 using neophyte_proj.DataAccess.Models.CourseModel;
 using System;
@@ -17,46 +18,54 @@ namespace DataAccess.Repositories.CourseRepo.Repos
             _context = context;
         }
 
-        public void Create(CourseFinancialInfo courseFinancialInfo)
+        public async Task Create(CourseFinancialInfo courseFinancialInfo)
         {
-            _context.CourseFinancialInfos.Add(courseFinancialInfo);
+            await _context.CourseFinancialInfos.AddAsync(courseFinancialInfo);
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            var courFi = _context.CourseFinancialInfos.Find(id);
+            var courFi = await _context.CourseFinancialInfos.FindAsync(id);
             if (courFi != null)
             {
                 _context.CourseFinancialInfos.Remove(courFi);
             }
         }
 
-        public IEnumerable<CourseFinancialInfo> GetAll()
+        public async Task<IEnumerable<CourseFinancialInfo>> GetAll()
         {
             return _context.CourseFinancialInfos;
         }
 
-        public CourseFinancialInfo GetByCourseId(int id)
+        public async Task<CourseFinancialInfo> GetByCourseId(int id)
         {
-            return _context.CourseFinancialInfos.FirstOrDefault(x => x.CourseId == id);
+            return await _context.CourseFinancialInfos.FirstOrDefaultAsync(x => x.CourseId == id);
         }
 
-        public CourseFinancialInfo GetById(int id)
+        public async Task<CourseFinancialInfo> GetById(int id)
         {
-            return _context.CourseFinancialInfos.Find(id);
+            return await _context.CourseFinancialInfos.FindAsync(id);
         }
 
-        public void Save()
+        public async Task<bool> Save()
         {
-            _context.SaveChanges();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
         }
 
-        public void Update(CourseFinancialInfo courseFinancialInfo)
+        public async Task Update(CourseFinancialInfo courseFinancialInfo)
         {
-            var courFi = _context.CourseFinancialInfos.Find(courseFinancialInfo.Id);
+            var courFi = await _context.CourseFinancialInfos.FindAsync(courseFinancialInfo.Id);
             if (courFi != null)
             {
-                courFi.Copy(courseFinancialInfo);
+                await courFi.Copy(courseFinancialInfo);
             }
         }
     }

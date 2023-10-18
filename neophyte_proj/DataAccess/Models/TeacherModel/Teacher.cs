@@ -22,19 +22,9 @@ namespace neophyte_proj.DataAccess.Models.TeacherModel
         public ICollection<CourseTeacher> CourseTeacher { get; set; }
 
         //copy
-        public void Copy(Teacher teacher) {
+        public async Task Copy(Teacher teacher) {
             this.TeacherGeneralInfo.Copy(teacher.TeacherGeneralInfo);
             this.TeacherAccountInfo.Copy(teacher.TeacherAccountInfo);
-            this.TeacherFeedBacks.Clear();
-            foreach (TeacherFeedBack tfb in teacher.TeacherFeedBacks)
-            {
-                this.TeacherFeedBacks.Add(tfb);
-            }
-            this.CourseTeacher.Clear();
-            foreach (CourseTeacher ctch in teacher.CourseTeacher)
-            {
-                this.CourseTeacher.Add(ctch);
-            }
         }
     }
 }

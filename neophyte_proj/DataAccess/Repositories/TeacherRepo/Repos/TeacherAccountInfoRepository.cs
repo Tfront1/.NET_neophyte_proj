@@ -17,45 +17,53 @@ namespace DataAccess.Repositories.TeacherRepo.Repos
             _context = context;
         }
 
-        public void Create(TeacherAccountInfo teacherAccountInfo)
+        public async Task Create(TeacherAccountInfo teacherAccountInfo)
         {
-            _context.TeacherAccountInfos.Add(teacherAccountInfo);
+            await _context.TeacherAccountInfos.AddAsync(teacherAccountInfo);
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            var techAi = _context.TeacherAccountInfos.Find(id);
+            var techAi = await _context.TeacherAccountInfos.FindAsync(id);
             if (techAi != null) {
                 _context.TeacherAccountInfos.Remove(techAi);
             }
         }
 
-        public IEnumerable<TeacherAccountInfo> GetAll()
+        public async Task<IEnumerable<TeacherAccountInfo>> GetAll()
         {
             return _context.TeacherAccountInfos;
         }
 
-        public TeacherAccountInfo GetById(int id)
+        public async Task<TeacherAccountInfo> GetById(int id)
         {
-            return _context.TeacherAccountInfos.Find(id);
+            return await _context.TeacherAccountInfos.FindAsync(id);
         }
 
-        public TeacherAccountInfo GetByTeacherId(int id)
+        public async Task<TeacherAccountInfo> GetByTeacherId(int id)
         {
-            return _context.TeacherAccountInfos.FirstOrDefault(x=>x.Id == id);
+            return _context.TeacherAccountInfos.FirstOrDefault(x=>x.TeacherId == id);
         }
 
-        public void Save()
+        public async Task<bool> Save()
         {
-            _context.SaveChanges();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
         }
 
-        public void Update(TeacherAccountInfo teacherAccountInfo)
+        public async Task Update(TeacherAccountInfo teacherAccountInfo)
         {
-            var techAi = _context.TeacherAccountInfos.Find(teacherAccountInfo.Id);
+            var techAi = await _context.TeacherAccountInfos.FindAsync(teacherAccountInfo.Id);
             if (techAi != null)
             {
-                techAi.Copy(teacherAccountInfo);
+                await techAi.Copy(teacherAccountInfo);
             }
         }
     }

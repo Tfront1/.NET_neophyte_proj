@@ -9,12 +9,12 @@ namespace DataAccess.Repositories.CourseRepo.Interfaces
 {
     public interface ICourseBageRepository
     {
-        IEnumerable<CourseBage> GetAll();
-        CourseBage GetById(int id);
-        IEnumerable<CourseBage> GetByCourseId(int id);
-        void Create(CourseBage courseBage);
-        void Update(CourseBage courseBage);
-        void Delete(int id);
-        void Save();
+        Task<IEnumerable<CourseBage>> GetAll();
+        Task<CourseBage> GetById(int id);
+        Task<IEnumerable<CourseBage>> GetByCourseId(int id);
+        Task Create(CourseBage courseBage);
+        Task Update(CourseBage courseBage);
+        Task Delete(int id);
+        Task<bool> Save();
     }
 }

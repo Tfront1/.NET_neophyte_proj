@@ -10,11 +10,11 @@ namespace DataAccess.Repositories.TeacherRepo.Interfaces
 {
     public interface ITeacherRepository
     {
-        IEnumerable<Teacher> GetAll();
-        Teacher GetById(int id);
-        void Create(Teacher teacher);
-        void Update(Teacher teacher);
-        void Delete(int id);
-        void Save();
+        Task<IEnumerable<Teacher>> GetAll();
+        Task<Teacher> GetById(int id);
+        Task Create(Teacher teacher);
+        Task Update(Teacher teacher);
+        Task Delete(int id);
+        Task<bool> Save();
     }
 }

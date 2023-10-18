@@ -9,7 +9,7 @@
         public int Rate { get; set; }
 
         //copy
-        public void Copy(TeacherGeneralInfo teacherGeneralInfo)
+        public async Task Copy(TeacherGeneralInfo teacherGeneralInfo)
         {
             this.FirstName = teacherGeneralInfo.FirstName;
             this.LastName = teacherGeneralInfo.LastName;

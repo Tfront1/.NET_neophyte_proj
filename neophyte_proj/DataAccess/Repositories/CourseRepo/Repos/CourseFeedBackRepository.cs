@@ -1,4 +1,5 @@
 ﻿using DataAccess.Repositories.CourseRepo.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using neophyte_proj.DataAccess.Context;
 using neophyte_proj.DataAccess.Models.CourseModel;
 using System;
@@ -16,41 +17,49 @@ namespace DataAccess.Repositories.CourseRepo.Repos
         {
             _context = context;
         }
-        public IEnumerable<CourseFeedBack> GetAll()
+        public async Task<IEnumerable<CourseFeedBack>> GetAll()
         {
             return _context.CourseFeedBacks;
         }
-        public CourseFeedBack GetById(int id)
+        public async Task<CourseFeedBack> GetById(int id)
         {
-            return _context.CourseFeedBacks.Find(id);
+            return await _context.CourseFeedBacks.FindAsync(id);
         }
-        public IEnumerable<CourseFeedBack> GetByCourseId(int id)
+        public async Task<IEnumerable<CourseFeedBack>> GetByCourseId(int id)
         {
-            return _context.CourseFeedBacks.Where(x => x.CourseId == id);
+            return await _context.CourseFeedBacks.Where(x => x.CourseId == id).ToListAsync();
         }
-        public void Create(CourseFeedBack courseFeedBack)
+        public async Task Create(CourseFeedBack courseFeedBack)
         {
-            _context.CourseFeedBacks.Add(courseFeedBack);
+            await _context.CourseFeedBacks.AddAsync(courseFeedBack);
         }
-        public void Update(CourseFeedBack courseFeedBack)
+        public async Task Update(CourseFeedBack courseFeedBack)
         {
-            var courFg = _context.CourseFeedBacks.Find(courseFeedBack.Id);
+            var courFg = await _context.CourseFeedBacks.FindAsync(courseFeedBack.Id);
             if (courFg != null)
             {
-                courFg.Copy(courseFeedBack);
+                await courFg.Copy(courseFeedBack);
             }
         }
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            var courFg = _context.CourseFeedBacks.Find(id);
+            var courFg = await _context.CourseFeedBacks.FindAsync(id);
             if (courFg != null)
             {
                 _context.CourseFeedBacks.Remove(courFg);
             }
         }
-        public void Save()
+        public async Task<bool> Save()
         {
-            _context.SaveChanges();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

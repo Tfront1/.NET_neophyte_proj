@@ -16,7 +16,7 @@ namespace neophyte_proj.DataAccess.Models.CourseModel
         public Student Student { get; set; }
 
         //copy
-        public void Copy(CourseBage courseBage) {
+        public async Task Copy(CourseBage courseBage) {
             this.Name = courseBage.Name;
             this.Description = courseBage.Description;
             this.Rating = courseBage.Rating;

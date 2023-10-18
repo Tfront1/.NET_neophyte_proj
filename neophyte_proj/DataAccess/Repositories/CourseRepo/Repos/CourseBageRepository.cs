@@ -17,41 +17,49 @@ namespace DataAccess.Repositories.CourseRepo.Repos
         {
             _context = context;
         }
-        public IEnumerable<CourseBage> GetAll()
+        public async Task<IEnumerable<CourseBage>> GetAll()
         {
             return _context.CourseBags;
         }
-        public CourseBage GetById(int id)
+        public async Task<CourseBage> GetById(int id)
         {
-            return _context.CourseBags.Find(id);
+            return await _context.CourseBags.FindAsync(id);
         }
-        public IEnumerable<CourseBage> GetByCourseId(int id)
+        public async Task<IEnumerable<CourseBage>> GetByCourseId(int id)
         {
-            return _context.CourseBags.Where(x => x.CourseId == id);
+            return await _context.CourseBags.Where(x => x.CourseId == id).ToListAsync();
         }
-        public void Create(CourseBage courseBage)
+        public async Task Create(CourseBage courseBage)
         {
-            _context.CourseBags.Add(courseBage);
+            await _context.CourseBags.AddAsync(courseBage);
         }
-        public void Update(CourseBage courseBage)
+        public async Task Update(CourseBage courseBage)
         {
-            var courBg = _context.CourseBags.Find(courseBage.Id);
+            var courBg = await _context.CourseBags.FindAsync(courseBage.Id);
             if (courBg != null)
             {
-                courBg.Copy(courseBage);
+                await courBg.Copy(courseBage);
             }
         }
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            var courBg = _context.CourseBags.Find(id);
+            var courBg = await _context.CourseBags.FindAsync(id);
             if (courBg != null)
             {
                 _context.CourseBags.Remove(courBg);
             }
         }
-        public void Save()
+        public async Task<bool> Save()
         {
-            _context.SaveChanges();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

@@ -17,39 +17,47 @@ namespace DataAccess.Repositories.StudentRepo.Repos
             _context = context;
         }
 
-        public void Create(Student student)
+        public async Task Create(Student student)
         {
-            _context.Students.Add(student);
+            await _context.Students.AddAsync(student);
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            var stud = _context.Students.Find(id);
+            var stud = await _context.Students.FindAsync(id);
             if (stud != null) {
                 _context.Students.Remove(stud);
             }
         }
 
-        public IEnumerable<Student> GetAll()
+        public async Task<IEnumerable<Student>> GetAll()
         {
             return _context.Students;
         }
 
-        public Student GetById(int id)
+        public async Task<Student> GetById(int id)
         {
-            return _context.Students.Find(id);
+            return await _context.Students.FindAsync(id);
         }
 
-        public void Save()
+        public async Task<bool> Save()
         {
-            _context.SaveChanges();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
         }
 
-        public void Update(Student student)
+        public async Task Update(Student student)
         {
-            var stud = _context.Students.Find(student.Id);
+            var stud = await _context.Students.FindAsync(student.Id);
             if (stud != null){
-                stud.Copy(student);
+                await stud.Copy(student);
             }
         }
     }

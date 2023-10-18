@@ -17,44 +17,52 @@ namespace DataAccess.Repositories.StudentRepo.Repos
             _context = context;
         }
 
-        public void Create(StudentAccountInfo studentAccountInfo)
+        public async Task Create(StudentAccountInfo studentAccountInfo)
         {
-            _context.StudentAccountInfos.Add(studentAccountInfo);
+            await _context.StudentAccountInfos.AddAsync(studentAccountInfo);
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            var studAi = _context.StudentAccountInfos.Find(id);
+            var studAi = await _context.StudentAccountInfos.FindAsync(id);
             if (studAi != null) {
                 _context.StudentAccountInfos.Remove(studAi);
             }
         }
 
-        public IEnumerable<StudentAccountInfo> GetAll()
+        public async Task<IEnumerable<StudentAccountInfo>> GetAll()
         {
             return _context.StudentAccountInfos;
         }
 
-        public StudentAccountInfo GetById(int id)
+        public async Task<StudentAccountInfo> GetById(int id)
         {
-            return _context.StudentAccountInfos.Find(id);
+            return await _context.StudentAccountInfos.FindAsync(id);
         }
 
-        public StudentAccountInfo GetByStudentId(int id)
+        public async Task<StudentAccountInfo> GetByStudentId(int id)
         {
             return _context.StudentAccountInfos.FirstOrDefault(x=>x.StudentId == id);
         }
 
-        public void Save()
+        public async Task<bool> Save()
         {
-            _context.SaveChanges();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
         }
 
-        public void Update(StudentAccountInfo studentAccountInfo)
+        public async Task Update(StudentAccountInfo studentAccountInfo)
         {
-            var studAi = _context.StudentAccountInfos.Find(studentAccountInfo.Id);
+            var studAi = await _context.StudentAccountInfos.FindAsync(studentAccountInfo.Id);
             if(studAi != null){
-                studAi.Copy(studentAccountInfo);
+                await studAi.Copy(studentAccountInfo);
             }
         }
     }
