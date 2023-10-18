@@ -1,4 +1,4 @@
-﻿namespace neophyte_proj.WebApi.Models.CourseModel
+﻿namespace neophyte_proj.DataAccess.Models.CourseModel
 {
     public class CourseFinancialInfo
     {

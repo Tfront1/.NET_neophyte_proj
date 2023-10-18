@@ -1,8 +1,8 @@
-﻿using neophyte_proj.WebApi.Models.IntermediateModels;
-using neophyte_proj.WebApi.Models.StudentModel;
-using neophyte_proj.WebApi.Models.TeacherModel;
+﻿using neophyte_proj.DataAccess.Models.IntermediateModels;
+using neophyte_proj.DataAccess.Models.StudentModel;
+using neophyte_proj.DataAccess.Models.TeacherModel;
 
-namespace neophyte_proj.WebApi.Models.CourseModel
+namespace neophyte_proj.DataAccess.Models.CourseModel
 {
     public class Course
     {

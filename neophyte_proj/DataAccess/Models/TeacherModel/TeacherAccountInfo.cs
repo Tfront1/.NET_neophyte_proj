@@ -1,15 +1,13 @@
-﻿using System.Data;
-
-namespace neophyte_proj.WebApi.Models.StudentModel
+﻿namespace neophyte_proj.DataAccess.Models.TeacherModel
 {
-    public class StudentAccountInfo
+    public class TeacherAccountInfo
     {
         public int Id { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public DateTime RegistrationDate { get; set; }
         //1to1
-        public int StudentId { get; set; }
-        public Student Student { get; set; }
+        public int TeacherId { get; set; }
+        public Teacher Teacher { get; set; }
     }
 }

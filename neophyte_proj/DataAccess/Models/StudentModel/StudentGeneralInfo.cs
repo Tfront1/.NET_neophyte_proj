@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace neophyte_proj.WebApi.Models.StudentModel
+namespace neophyte_proj.DataAccess.Models.StudentModel
 {
     public class StudentGeneralInfo
     {

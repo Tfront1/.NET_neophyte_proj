@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using neophyte_proj.WebApi.Models.CourseModel;
-using neophyte_proj.WebApi.Models.IntermediateModels;
-using neophyte_proj.WebApi.Models.StudentModel;
-using neophyte_proj.WebApi.Models.TeacherModel;
+using Microsoft.Extensions.Configuration;
+using neophyte_proj.DataAccess.Models.CourseModel;
+using neophyte_proj.DataAccess.Models.IntermediateModels;
+using neophyte_proj.DataAccess.Models.StudentModel;
+using neophyte_proj.DataAccess.Models.TeacherModel;
 
-namespace neophyte_proj.WebApi.Context
+namespace neophyte_proj.DataAccess.Context
 {
     public class NeophyteApplicationContext: DbContext
     {

@@ -2,27 +2,24 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using neophyte_proj.WebApi.Context;
+using neophyte_proj.DataAccess.Context;
 
 #nullable disable
 
-namespace neophyte_proj.WebApi.Migrations
+namespace neophyte_proj.DataAccess.Migrations
 {
     [DbContext(typeof(NeophyteApplicationContext))]
-    [Migration("20231017194151_init2")]
-    partial class init2
+    partial class NeophyteApplicationContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("neophyte_proj.Models.CourseModel.Course", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.CourseModel.Course", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -36,7 +33,7 @@ namespace neophyte_proj.WebApi.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.CourseModel.CourseBage", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.CourseModel.CourseBage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -68,7 +65,7 @@ namespace neophyte_proj.WebApi.Migrations
                     b.ToTable("CourseBags");
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.CourseModel.CourseFeedBack", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.CourseModel.CourseFeedBack", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -102,7 +99,7 @@ namespace neophyte_proj.WebApi.Migrations
                     b.ToTable("CourseFeedBacks");
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.CourseModel.CourseFinancialInfo", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.CourseModel.CourseFinancialInfo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -122,7 +119,7 @@ namespace neophyte_proj.WebApi.Migrations
                     b.ToTable("CourseFinancialInfos");
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.IntermediateModels.CourseStudent", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.IntermediateModels.CourseStudent", b =>
                 {
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
@@ -137,7 +134,7 @@ namespace neophyte_proj.WebApi.Migrations
                     b.ToTable("CourseStudent");
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.IntermediateModels.CourseTeacher", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.IntermediateModels.CourseTeacher", b =>
                 {
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
@@ -152,7 +149,7 @@ namespace neophyte_proj.WebApi.Migrations
                     b.ToTable("CourseTeacher");
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.StudentModel.Student", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.StudentModel.Student", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -166,7 +163,7 @@ namespace neophyte_proj.WebApi.Migrations
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.StudentModel.StudentAccountInfo", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.StudentModel.StudentAccountInfo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -194,7 +191,7 @@ namespace neophyte_proj.WebApi.Migrations
                     b.ToTable("StudentAccountInfos");
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.TeacherModel.Teacher", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.TeacherModel.Teacher", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -208,7 +205,7 @@ namespace neophyte_proj.WebApi.Migrations
                     b.ToTable("Teachers");
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.TeacherModel.TeacherAccountInfo", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.TeacherModel.TeacherAccountInfo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -236,7 +233,7 @@ namespace neophyte_proj.WebApi.Migrations
                     b.ToTable("TeacherAccountInfos");
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.TeacherModel.TeacherFeedBack", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.TeacherModel.TeacherFeedBack", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -267,9 +264,9 @@ namespace neophyte_proj.WebApi.Migrations
                     b.ToTable("TeacherFeedBacks");
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.CourseModel.Course", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.CourseModel.Course", b =>
                 {
-                    b.OwnsOne("neophyte_proj.Models.CourseModel.CourseGeneralInfo", "CourseGeneralInfo", b1 =>
+                    b.OwnsOne("neophyte_proj.DataAccess.Models.CourseModel.CourseGeneralInfo", "CourseGeneralInfo", b1 =>
                         {
                             b1.Property<int>("CourseId")
                                 .HasColumnType("int");
@@ -303,15 +300,15 @@ namespace neophyte_proj.WebApi.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.CourseModel.CourseBage", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.CourseModel.CourseBage", b =>
                 {
-                    b.HasOne("neophyte_proj.Models.CourseModel.Course", "Course")
+                    b.HasOne("neophyte_proj.DataAccess.Models.CourseModel.Course", "Course")
                         .WithMany("CourseBages")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("neophyte_proj.Models.StudentModel.Student", "Student")
+                    b.HasOne("neophyte_proj.DataAccess.Models.StudentModel.Student", "Student")
                         .WithMany("CourseBages")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -322,9 +319,9 @@ namespace neophyte_proj.WebApi.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.CourseModel.CourseFeedBack", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.CourseModel.CourseFeedBack", b =>
                 {
-                    b.HasOne("neophyte_proj.Models.CourseModel.Course", "Course")
+                    b.HasOne("neophyte_proj.DataAccess.Models.CourseModel.Course", "Course")
                         .WithMany("CourseFeedBacks")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -333,26 +330,26 @@ namespace neophyte_proj.WebApi.Migrations
                     b.Navigation("Course");
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.CourseModel.CourseFinancialInfo", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.CourseModel.CourseFinancialInfo", b =>
                 {
-                    b.HasOne("neophyte_proj.Models.CourseModel.Course", "Course")
+                    b.HasOne("neophyte_proj.DataAccess.Models.CourseModel.Course", "Course")
                         .WithOne("CourseFinancialInfo")
-                        .HasForeignKey("neophyte_proj.Models.CourseModel.CourseFinancialInfo", "CourseId")
+                        .HasForeignKey("neophyte_proj.DataAccess.Models.CourseModel.CourseFinancialInfo", "CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Course");
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.IntermediateModels.CourseStudent", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.IntermediateModels.CourseStudent", b =>
                 {
-                    b.HasOne("neophyte_proj.Models.CourseModel.Course", "Course")
+                    b.HasOne("neophyte_proj.DataAccess.Models.CourseModel.Course", "Course")
                         .WithMany("CourseStudent")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("neophyte_proj.Models.StudentModel.Student", "Student")
+                    b.HasOne("neophyte_proj.DataAccess.Models.StudentModel.Student", "Student")
                         .WithMany("CourseStudent")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -363,15 +360,15 @@ namespace neophyte_proj.WebApi.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.IntermediateModels.CourseTeacher", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.IntermediateModels.CourseTeacher", b =>
                 {
-                    b.HasOne("neophyte_proj.Models.CourseModel.Course", "Course")
+                    b.HasOne("neophyte_proj.DataAccess.Models.CourseModel.Course", "Course")
                         .WithMany("CourseTeacher")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("neophyte_proj.Models.TeacherModel.Teacher", "Teacher")
+                    b.HasOne("neophyte_proj.DataAccess.Models.TeacherModel.Teacher", "Teacher")
                         .WithMany("CourseTeacher")
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -382,9 +379,9 @@ namespace neophyte_proj.WebApi.Migrations
                     b.Navigation("Teacher");
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.StudentModel.Student", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.StudentModel.Student", b =>
                 {
-                    b.OwnsOne("neophyte_proj.Models.StudentModel.StudentGeneralInfo", "StudentGeneralInfo", b1 =>
+                    b.OwnsOne("neophyte_proj.DataAccess.Models.StudentModel.StudentGeneralInfo", "StudentGeneralInfo", b1 =>
                         {
                             b1.Property<int>("StudentId")
                                 .HasColumnType("int");
@@ -417,20 +414,20 @@ namespace neophyte_proj.WebApi.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.StudentModel.StudentAccountInfo", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.StudentModel.StudentAccountInfo", b =>
                 {
-                    b.HasOne("neophyte_proj.Models.StudentModel.Student", "Student")
+                    b.HasOne("neophyte_proj.DataAccess.Models.StudentModel.Student", "Student")
                         .WithOne("StudentAccountInfo")
-                        .HasForeignKey("neophyte_proj.Models.StudentModel.StudentAccountInfo", "StudentId")
+                        .HasForeignKey("neophyte_proj.DataAccess.Models.StudentModel.StudentAccountInfo", "StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.TeacherModel.Teacher", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.TeacherModel.Teacher", b =>
                 {
-                    b.OwnsOne("neophyte_proj.Models.TeacherModel.TeacherGeneralInfo", "TeacherGeneralInfo", b1 =>
+                    b.OwnsOne("neophyte_proj.DataAccess.Models.TeacherModel.TeacherGeneralInfo", "TeacherGeneralInfo", b1 =>
                         {
                             b1.Property<int>("TeacherId")
                                 .HasColumnType("int");
@@ -466,20 +463,20 @@ namespace neophyte_proj.WebApi.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.TeacherModel.TeacherAccountInfo", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.TeacherModel.TeacherAccountInfo", b =>
                 {
-                    b.HasOne("neophyte_proj.Models.TeacherModel.Teacher", "Teacher")
+                    b.HasOne("neophyte_proj.DataAccess.Models.TeacherModel.Teacher", "Teacher")
                         .WithOne("TeacherAccountInfo")
-                        .HasForeignKey("neophyte_proj.Models.TeacherModel.TeacherAccountInfo", "TeacherId")
+                        .HasForeignKey("neophyte_proj.DataAccess.Models.TeacherModel.TeacherAccountInfo", "TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Teacher");
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.TeacherModel.TeacherFeedBack", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.TeacherModel.TeacherFeedBack", b =>
                 {
-                    b.HasOne("neophyte_proj.Models.TeacherModel.Teacher", "Teacher")
+                    b.HasOne("neophyte_proj.DataAccess.Models.TeacherModel.Teacher", "Teacher")
                         .WithMany("TeacherFeedBacks")
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -488,7 +485,7 @@ namespace neophyte_proj.WebApi.Migrations
                     b.Navigation("Teacher");
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.CourseModel.Course", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.CourseModel.Course", b =>
                 {
                     b.Navigation("CourseBages");
 
@@ -502,7 +499,7 @@ namespace neophyte_proj.WebApi.Migrations
                     b.Navigation("CourseTeacher");
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.StudentModel.Student", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.StudentModel.Student", b =>
                 {
                     b.Navigation("CourseBages");
 
@@ -512,7 +509,7 @@ namespace neophyte_proj.WebApi.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("neophyte_proj.Models.TeacherModel.Teacher", b =>
+            modelBuilder.Entity("neophyte_proj.DataAccess.Models.TeacherModel.Teacher", b =>
                 {
                     b.Navigation("CourseTeacher");
 

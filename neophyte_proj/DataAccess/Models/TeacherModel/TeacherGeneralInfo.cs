@@ -1,4 +1,4 @@
-﻿namespace neophyte_proj.WebApi.Models.TeacherModel
+﻿namespace neophyte_proj.DataAccess.Models.TeacherModel
 {
     public class TeacherGeneralInfo
     {

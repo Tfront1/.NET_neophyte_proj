@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace neophyte_proj.WebApi.Migrations
+namespace neophyte_proj.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class init : Migration
