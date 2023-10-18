@@ -47,7 +47,10 @@ namespace DataAccess.Repositories.StudentRepo.Repos
 
         public void Update(Student student)
         {
-            throw new NotImplementedException();
+            var stud = _context.Students.Find(student.Id);
+            if (stud != null){
+                stud.Copy(student);
+            }
         }
     }
 }
