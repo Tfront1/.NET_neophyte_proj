@@ -9,8 +9,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using neophyte_proj.DataAccess.Context;
 using neophyte_proj.WebApi.Services;
+using Serilog;
 using System.Reflection;
 using WebApi.Services;
+
 
 namespace neophyte_proj.WebApi
 {
@@ -33,6 +35,11 @@ namespace neophyte_proj.WebApi
                     c.IncludeXmlComments(xmlPath);
                 });
 
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(builder.Configuration)
+                .CreateLogger();
+            builder.Host.UseSerilog();
+
             var configuration = new ConfigurationBuilder()
                 .AddUserSecrets<NeophyteApplicationContext>().Build();
 
@@ -54,6 +61,8 @@ namespace neophyte_proj.WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseSerilogRequestLogging();
 
             app.UseHttpsRedirection();
 
