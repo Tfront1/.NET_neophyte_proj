@@ -1,12 +1,23 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace neophyte_proj.DataAccess.Models.StudentModel
 {
     public class StudentGeneralInfo
     {
+        [Required]
+        [MinLength(2)]
+        [MaxLength(20)]
         public string FirstName { get; set; }
+        [Required]
+        [MinLength(2)]
+        [MaxLength(20)]
         public string LastName { get; set; }
+
+        [MaxLength(20)]
         public string MiddleName { get; set; }
+
+        [MaxLength(1000)]
         public string AboutMe { get; set; }
 
         //copy
