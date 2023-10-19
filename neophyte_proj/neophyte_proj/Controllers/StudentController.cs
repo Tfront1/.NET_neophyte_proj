@@ -29,9 +29,15 @@ namespace neophyte_proj.WebApi.Controllers
             _ = studentDto ?? throw new ArgumentNullException(nameof(studentDto));
             if (await _studentService.Create(studentDto).ConfigureAwait(false))
             {
-                return new JsonResult(Ok(studentDto));
+                return new JsonResult(Created(nameof(StudentDto),studentDto))
+                {
+                    StatusCode = 201
+                };
             }
-            return new JsonResult(BadRequest());
+            return new JsonResult(BadRequest())
+            {
+                StatusCode = 400
+            };
 
         }
 
@@ -46,9 +52,15 @@ namespace neophyte_proj.WebApi.Controllers
             var studentDto = await _studentService.GetById(id).ConfigureAwait(false);
             if (studentDto != null)
             {
-                return new JsonResult(Ok(studentDto));
+                return new JsonResult(Ok(studentDto))
+                {
+                    StatusCode = 200
+                };
             }
-            return new JsonResult(NotFound());
+            return new JsonResult(NotFound())
+            {
+                StatusCode = 404
+            };
         }
 
         /// <summary>
@@ -61,9 +73,15 @@ namespace neophyte_proj.WebApi.Controllers
         {
             if (await _studentService.Delete(id).ConfigureAwait(false))
             {
-                return new JsonResult(Ok());
+                return new JsonResult(Ok())
+                {
+                    StatusCode = 200
+                };
             }
-            return new JsonResult(NotFound());
+            return new JsonResult(NotFound())
+            {
+                StatusCode = 404
+            };
         }
 
         /// <summary>
@@ -77,9 +95,15 @@ namespace neophyte_proj.WebApi.Controllers
             _ = studentDto ?? throw new ArgumentNullException(nameof(studentDto));
             if (await _studentService.Update(studentDto).ConfigureAwait(false))
             {
-                return new JsonResult(Ok());
+                return new JsonResult(Ok())
+                {
+                    StatusCode = 200
+                };
             }
-            return new JsonResult(NotFound());
+            return new JsonResult(NotFound())
+            {
+                StatusCode = 404
+            };
         }
 
         /// <summary>
@@ -93,9 +117,15 @@ namespace neophyte_proj.WebApi.Controllers
             var result = _studentService.GetAll();
             if (result != null)
             {
-                return new JsonResult(Ok(result));
+                return new JsonResult(Ok(result))
+                {
+                    StatusCode = 200
+                };
             }
-            return new JsonResult(NotFound());
+            return new JsonResult(NotFound())
+            {
+                StatusCode = 404
+            };
         }
 
         /// <summary>
@@ -109,9 +139,15 @@ namespace neophyte_proj.WebApi.Controllers
             var result = _studentService.GetCourses(id);
             if (result != null)
             {
-                return new JsonResult(Ok(result));
+                return new JsonResult(Ok(result))
+                {
+                    StatusCode = 200
+                };
             }
-            return new JsonResult(NotFound());
+            return new JsonResult(NotFound())
+            {
+                StatusCode = 404
+            };
         }
 
         /// <summary>
@@ -124,9 +160,15 @@ namespace neophyte_proj.WebApi.Controllers
         {
             if (await _studentService.AddCourse(courseStudentDto))
             {
-                return new JsonResult(Ok());
+                return new JsonResult(Ok())
+                {
+                    StatusCode = 200
+                };
             }
-            return new JsonResult(NotFound());
+            return new JsonResult(NotFound())
+            {
+                StatusCode = 404
+            };
         }
     }
 }
