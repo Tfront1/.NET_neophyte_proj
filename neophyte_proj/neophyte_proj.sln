@@ -5,7 +5,9 @@ VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "neophyte_proj\WebApi.csproj", "{C919FF98-196B-44D6-A553-1FC615BD0829}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{7DF51B71-5792-4420-AE7B-6394EE698477}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{7DF51B71-5792-4420-AE7B-6394EE698477}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "neophyte_proj.Test", "neophyte_proj.Test\neophyte_proj.Test.csproj", "{F731A407-9F20-468F-BAB9-A93207967505}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{7DF51B71-5792-4420-AE7B-6394EE698477}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DF51B71-5792-4420-AE7B-6394EE698477}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DF51B71-5792-4420-AE7B-6394EE698477}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F731A407-9F20-468F-BAB9-A93207967505}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F731A407-9F20-468F-BAB9-A93207967505}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F731A407-9F20-468F-BAB9-A93207967505}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F731A407-9F20-468F-BAB9-A93207967505}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

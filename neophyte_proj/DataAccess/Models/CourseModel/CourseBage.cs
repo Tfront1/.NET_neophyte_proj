@@ -1,12 +1,23 @@
-﻿using neophyte_proj.DataAccess.Models.StudentModel;
+﻿using Microsoft.VisualBasic;
+using neophyte_proj.DataAccess.Models.StudentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace neophyte_proj.DataAccess.Models.CourseModel
 {
     public class CourseBage
     {
         public int Id { get; set; }
+
+        [Required]
+        [MinLength(2)]
+        [MaxLength(20)]
         public string Name { get; set; }
+
+        [MaxLength(1000)]
         public string Description { get; set; }
+
+        [Required]
+        [Range(0, 5, ErrorMessage = "Rating must be between 0 and 5.")]
         public int Rating { get; set; }
 
         //nto1
