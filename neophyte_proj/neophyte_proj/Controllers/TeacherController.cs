@@ -17,6 +17,11 @@ namespace neophyte_proj.WebApi.Controllers
             _teacherService = teacherService;
         }
 
+        /// <summary>
+        /// Method for creating new Teacher. 
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
         public async Task<IActionResult> Create(TeacherDto teacherDto)
         {
@@ -29,6 +34,11 @@ namespace neophyte_proj.WebApi.Controllers
 
         }
 
+        /// <summary>
+        /// Method for getting teacher by id. 
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet]
         public async Task<IActionResult> GetById(int id)
         {
@@ -40,6 +50,11 @@ namespace neophyte_proj.WebApi.Controllers
             return new JsonResult(NotFound());
         }
 
+        /// <summary>
+        /// Method for deleting teacher by id. 
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
@@ -50,6 +65,11 @@ namespace neophyte_proj.WebApi.Controllers
             return new JsonResult(NotFound());
         }
 
+        /// <summary>
+        /// Method for updationg teacher. 
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPut]
         public async Task<IActionResult> Update(TeacherDto teacherDto)
         {
@@ -61,27 +81,43 @@ namespace neophyte_proj.WebApi.Controllers
             return new JsonResult(NotFound());
         }
 
+        /// <summary>
+        /// Method for getting all teachers. 
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("/GetAllTeachers")]
         public async Task<IActionResult> GetAll()
         {
             var result = _teacherService.GetAll();
             if (result != null)
             {
-                return new JsonResult(result);
+                return new JsonResult(Ok(result));
             }
             return new JsonResult(NotFound());
         }
 
+        /// <summary>
+        /// Method for getting all courses of teacher by teacher id. 
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("/GetTeacherCourses")]
         public async Task<IActionResult> GetCourses(int id)
         {
             var result = await _teacherService.GetCourses(id);
             if (result != null)
             {
-                return new JsonResult(result);
+                return new JsonResult(Ok(result));
             }
             return new JsonResult(NotFound());
         }
+
+        /// <summary>
+        /// Method for adding new cours to teacher by teacher id and course id. 
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPost("/AddTeacherCourse")]
         public async Task<IActionResult> AddCourse(CourseTeacherDto courseTeacherDto)
         {
