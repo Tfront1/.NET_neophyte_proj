@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using neophyte_proj.DataAccess.Models.CourseModel;
+using System.Data;
 
 namespace neophyte_proj.DataAccess.Models.StudentModel
 {
@@ -15,9 +16,11 @@ namespace neophyte_proj.DataAccess.Models.StudentModel
         //copy
         public async Task Copy(StudentAccountInfo studentAccountInfo)
         {
-            this.UserName= studentAccountInfo.UserName;
-            this.Password= studentAccountInfo.Password;
-            this.RegistrationDate= studentAccountInfo.RegistrationDate;
+            if (studentAccountInfo != null) {
+                this.UserName = studentAccountInfo.UserName;
+                this.Password = studentAccountInfo.Password;
+                this.RegistrationDate = studentAccountInfo.RegistrationDate;
+            }    
         }
     }
 }

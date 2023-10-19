@@ -75,26 +75,24 @@ namespace DataAccess.Repositories.CourseRepo.Repos
             }
         }
 
-        public async Task<IEnumerable<Teacher>> GetTeachers(Course course)
+        public async Task<IEnumerable<Teacher>> GetTeachers(int id)
         {
-            _ = course ?? throw new ArgumentNullException(nameof(course));
             var courseTeacher = await _context
                 .Set<CourseTeacher>()
                 .Include(x => x.Course)
                 .Include(x => x.Teacher)
-                .Where(x => x.Course.Id == course.Id)
+                .Where(x => x.Course.Id == id)
                 .ToListAsync();
 
             return courseTeacher.Select(cs => cs.Teacher);
         }
-        public async Task<IEnumerable<Student>> GetStudents(Course course)
+        public async Task<IEnumerable<Student>> GetStudents(int id)
         {
-            _ = course ?? throw new ArgumentNullException(nameof(course));
             var courseStudent = await _context
                 .Set<CourseStudent>()
                 .Include(x => x.Course)
                 .Include(x => x.Student)
-                .Where(cs => cs.Course.Id == course.Id)
+                .Where(cs => cs.Course.Id == id)
                 .ToListAsync();
 
             return courseStudent.Select(cs => cs.Student);

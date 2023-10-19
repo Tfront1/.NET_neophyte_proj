@@ -1,4 +1,6 @@
-﻿namespace neophyte_proj.DataAccess.Models.TeacherModel
+﻿using neophyte_proj.DataAccess.Models.StudentModel;
+
+namespace neophyte_proj.DataAccess.Models.TeacherModel
 {
     public class TeacherAccountInfo
     {
@@ -13,9 +15,11 @@
         //copy
         public async Task Copy(TeacherAccountInfo teacherAccountInfo)
         {
-            this.UserName= teacherAccountInfo.UserName;
-            this.Password= teacherAccountInfo.Password;
-            this.RegistrationDate= teacherAccountInfo.RegistrationDate;
+            if (teacherAccountInfo != null) {
+                this.UserName = teacherAccountInfo.UserName;
+                this.Password = teacherAccountInfo.Password;
+                this.RegistrationDate = teacherAccountInfo.RegistrationDate;
+            }
         }
     }
 }

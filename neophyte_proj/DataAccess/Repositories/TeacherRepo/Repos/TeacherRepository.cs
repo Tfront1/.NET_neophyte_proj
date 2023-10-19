@@ -79,14 +79,13 @@ namespace DataAccess.Repositories.TeacherRepo.Repos
             }
         }
 
-        public async Task<IEnumerable<Course>> GetCourses(Teacher teacher)
+        public async Task<IEnumerable<Course>> GetCourses(int id)
         {
-            _ = teacher ?? throw new ArgumentNullException(nameof(teacher));
             var courseTeacher = await _context
                 .Set<CourseTeacher>()
                 .Include(x => x.Course)
                 .Include(x => x.Teacher)
-                .Where(x => x.TeacherId == teacher.Id)
+                .Where(x => x.TeacherId == id)
                 .ToListAsync();
 
             return courseTeacher.Select(cs => cs.Course);

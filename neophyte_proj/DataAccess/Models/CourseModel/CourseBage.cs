@@ -17,9 +17,11 @@ namespace neophyte_proj.DataAccess.Models.CourseModel
 
         //copy
         public async Task Copy(CourseBage courseBage) {
-            this.Name = courseBage.Name;
-            this.Description = courseBage.Description;
-            this.Rating = courseBage.Rating;
+            if (courseBage != null) {
+                this.Name = courseBage.Name;
+                this.Description = courseBage.Description;
+                this.Rating = courseBage.Rating;
+            }
         }
     }
 }

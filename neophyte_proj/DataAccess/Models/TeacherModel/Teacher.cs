@@ -24,7 +24,9 @@ namespace neophyte_proj.DataAccess.Models.TeacherModel
         //copy
         public async Task Copy(Teacher teacher) {
             await this.TeacherGeneralInfo.Copy(teacher.TeacherGeneralInfo);
-            await this.TeacherAccountInfo.Copy(teacher.TeacherAccountInfo);
+            if (teacher.TeacherAccountInfo != null) {
+                await this.TeacherAccountInfo.Copy(teacher.TeacherAccountInfo);
+            }
         }
     }
 }

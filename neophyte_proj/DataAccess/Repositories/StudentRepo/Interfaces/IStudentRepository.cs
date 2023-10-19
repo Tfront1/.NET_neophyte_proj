@@ -17,6 +17,6 @@ namespace DataAccess.Repositories.StudentRepo.Interfaces
         Task Update(Student student);
         Task Delete(int id);
         Task<bool> Save();
-        Task<IEnumerable<Course>> GetCourses(Student student);
+        Task<IEnumerable<Course>> GetCourses(int id);
     }
 }

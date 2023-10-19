@@ -25,7 +25,9 @@ namespace neophyte_proj.DataAccess.Models.StudentModel
         public async Task Copy(Student student)
         {
             await this.StudentGeneralInfo.Copy(student.StudentGeneralInfo);
-            await this.StudentAccountInfo.Copy(student.StudentAccountInfo);
+            if (student.StudentAccountInfo != null) {
+                await this.StudentAccountInfo.Copy(student.StudentAccountInfo);
+            }
         }
     }
 }

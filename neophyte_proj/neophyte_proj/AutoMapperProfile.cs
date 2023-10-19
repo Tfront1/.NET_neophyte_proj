@@ -9,7 +9,9 @@ namespace neophyte_proj.WebApi
         public AutoMapperProfile()
         {
             CreateMap<CourseDto, Course>();
+            CreateMap<Course, CourseDto>();
             CreateMap<CourseDto, CourseGeneralInfo>();
+            CreateMap<CourseGeneralInfo, CourseDto>();
         }
     }
 }

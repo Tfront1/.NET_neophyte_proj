@@ -12,10 +12,12 @@ namespace neophyte_proj.DataAccess.Models.StudentModel
         //copy
         public async Task Copy(StudentGeneralInfo studentGeneralInfo)
         {
-            this.FirstName = studentGeneralInfo.FirstName;
-            this.LastName = studentGeneralInfo.LastName;
-            this.MiddleName = studentGeneralInfo.MiddleName;
-            this.AboutMe = studentGeneralInfo.AboutMe;
+            if (studentGeneralInfo != null){
+                this.FirstName = studentGeneralInfo.FirstName;
+                this.LastName = studentGeneralInfo.LastName;
+                this.MiddleName = studentGeneralInfo.MiddleName;
+                this.AboutMe = studentGeneralInfo.AboutMe;
+            }
         }
     }
 }

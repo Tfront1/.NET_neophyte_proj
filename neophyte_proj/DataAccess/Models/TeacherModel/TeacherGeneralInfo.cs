@@ -11,11 +11,13 @@
         //copy
         public async Task Copy(TeacherGeneralInfo teacherGeneralInfo)
         {
-            this.FirstName = teacherGeneralInfo.FirstName;
-            this.LastName = teacherGeneralInfo.LastName;
-            this.MiddleName = teacherGeneralInfo.MiddleName;
-            this.AboutMe = teacherGeneralInfo.AboutMe;
-            this.Rate = teacherGeneralInfo.Rate;
+            if (teacherGeneralInfo != null) {
+                this.FirstName = teacherGeneralInfo.FirstName;
+                this.LastName = teacherGeneralInfo.LastName;
+                this.MiddleName = teacherGeneralInfo.MiddleName;
+                this.AboutMe = teacherGeneralInfo.AboutMe;
+                this.Rate = teacherGeneralInfo.Rate;
+            }
         }
     }
 }
