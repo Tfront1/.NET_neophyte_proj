@@ -93,14 +93,33 @@ namespace DataAccess.Repositories.TeacherRepo.Repos
 
         public async Task<IEnumerable<Course>> GetCourses(int id)
         {
-            var courseTeacher = await _context
+            var courseTeacher = _context
                 .Set<CourseTeacher>()
                 .Include(x => x.Course)
                 .Include(x => x.Teacher)
                 .Where(x => x.TeacherId == id)
-                .ToListAsync();
+                .ToList();
 
+            if (courseTeacher.Count() == 0) {
+                return null;
+            }
             return courseTeacher.Select(cs => cs.Course);
+        }
+        public async Task<bool> AddCourse(CourseTeacher courseTeacher)
+        {
+            var teacher = await _context.Teachers.FindAsync(courseTeacher.TeacherId);
+            var course = await _context.Courses.FindAsync(courseTeacher.CourseId);
+
+            if (course == null || teacher == null)
+            {
+                return false;
+            }
+            courseTeacher.Course = course;
+            courseTeacher.Teacher = teacher;
+
+            _context.Set<CourseTeacher>().Add(courseTeacher);
+
+            return true;
         }
     }
 }

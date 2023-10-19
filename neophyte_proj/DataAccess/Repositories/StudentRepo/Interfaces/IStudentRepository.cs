@@ -1,4 +1,5 @@
 ﻿using neophyte_proj.DataAccess.Models.CourseModel;
+using neophyte_proj.DataAccess.Models.IntermediateModels;
 using neophyte_proj.DataAccess.Models.StudentModel;
 using neophyte_proj.DataAccess.Models.TeacherModel;
 using System;
@@ -18,5 +19,6 @@ namespace DataAccess.Repositories.StudentRepo.Interfaces
         Task<bool> Delete(int id);
         Task<bool> Save();
         Task<IEnumerable<Course>> GetCourses(int id);
+        Task<bool> AddCourse(CourseStudent courseStudent);
     }
 }

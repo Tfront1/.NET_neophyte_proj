@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using neophyte_proj.WebApi.Models.IntermediateModel;
 using neophyte_proj.WebApi.Models.StudentModel;
 using neophyte_proj.WebApi.Models.TeacherModel;
 using WebApi.Services;
 
-namespace WebApi.Controllers
+namespace neophyte_proj.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -74,10 +75,19 @@ namespace WebApi.Controllers
         [HttpGet("/GetTeacherCourses")]
         public async Task<IActionResult> GetCourses(int id)
         {
-            var result = _teacherService.GetCourses(id);
+            var result = await _teacherService.GetCourses(id);
             if (result != null)
             {
                 return new JsonResult(result);
+            }
+            return new JsonResult(NotFound());
+        }
+        [HttpPost("/AddTeacherCourse")]
+        public async Task<IActionResult> AddCourse(CourseTeacherDto courseTeacherDto)
+        {
+            if (await _teacherService.AddCourse(courseTeacherDto))
+            {
+                return new JsonResult(Ok());
             }
             return new JsonResult(NotFound());
         }

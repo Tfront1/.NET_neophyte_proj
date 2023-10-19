@@ -12,7 +12,7 @@ namespace neophyte_proj.DataAccess.Models.TeacherModel
         public TeacherGeneralInfo TeacherGeneralInfo { get; set; }
 
         //1to1
-        public int TeacherAccountInfoId { get; set; }
+        public int? TeacherAccountInfoId { get; set; }
         public TeacherAccountInfo TeacherAccountInfo { get; set; }
 
         //1ton

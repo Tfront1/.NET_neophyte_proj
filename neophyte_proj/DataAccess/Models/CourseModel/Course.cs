@@ -12,7 +12,7 @@ namespace neophyte_proj.DataAccess.Models.CourseModel
         public CourseGeneralInfo CourseGeneralInfo { get; set; }
 
         //1to1
-        public int CourseFinancialInfoId { get; set; }
+        public int? CourseFinancialInfoId { get; set; }
         public CourseFinancialInfo CourseFinancialInfo { get; set; }
 
         //1ton

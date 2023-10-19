@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using neophyte_proj.WebApi.Models.CourseModel;
+using neophyte_proj.WebApi.Models.IntermediateModel;
 using neophyte_proj.WebApi.Models.StudentModel;
 using neophyte_proj.WebApi.Services;
 using WebApi.Services;
 
-namespace WebApi.Controllers
+namespace neophyte_proj.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -79,6 +80,16 @@ namespace WebApi.Controllers
             if (result != null)
             {
                 return new JsonResult(result);
+            }
+            return new JsonResult(NotFound());
+        }
+
+        [HttpPost("/AddStudentCourse")]
+        public async Task<IActionResult> AddCourse(CourseStudentDto courseStudentDto)
+        {
+            if (await _studentService.AddCourse(courseStudentDto))
+            {
+                return new JsonResult(Ok());
             }
             return new JsonResult(NotFound());
         }

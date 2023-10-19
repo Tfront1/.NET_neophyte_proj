@@ -90,24 +90,29 @@ namespace DataAccess.Repositories.CourseRepo.Repos
 
         public async Task<IEnumerable<Teacher>> GetTeachers(int id)
         {
-            var courseTeacher = await _context
+            var courseTeacher = _context
                 .Set<CourseTeacher>()
                 .Include(x => x.Course)
                 .Include(x => x.Teacher)
                 .Where(x => x.Course.Id == id)
-                .ToListAsync();
-
+                .ToList();
+            if(courseTeacher.Count == 0){
+                return null;
+            }
             return courseTeacher.Select(cs => cs.Teacher);
         }
         public async Task<IEnumerable<Student>> GetStudents(int id)
         {
-            var courseStudent = await _context
+            var courseStudent = _context
                 .Set<CourseStudent>()
                 .Include(x => x.Course)
                 .Include(x => x.Student)
                 .Where(cs => cs.Course.Id == id)
-                .ToListAsync();
-
+                .ToList();
+            if (courseStudent.Count == 0)
+            {
+                return null;
+            }
             return courseStudent.Select(cs => cs.Student);
         }
     }

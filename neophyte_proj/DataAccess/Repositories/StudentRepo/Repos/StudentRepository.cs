@@ -4,6 +4,7 @@ using neophyte_proj.DataAccess.Context;
 using neophyte_proj.DataAccess.Models.CourseModel;
 using neophyte_proj.DataAccess.Models.IntermediateModels;
 using neophyte_proj.DataAccess.Models.StudentModel;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -94,14 +95,32 @@ namespace DataAccess.Repositories.StudentRepo.Repos
 
         public async Task<IEnumerable<Course>> GetCourses(int id)
         {
-            var courseStudent = await _context
+            var courseStudent = _context
                 .Set<CourseStudent>()
                 .Include(x => x.Course)
                 .Include(x => x.Student)
-                .Where(cs => cs.Student.Id == id)
-                .ToListAsync();
-
+                .Where(cs => cs.Student.Id == id).
+                ToList();
+            if (courseStudent.Count() == 0) {
+                return null;
+            }
             return courseStudent.Select(cs => cs.Course);
+        }
+        public async Task<bool> AddCourse(CourseStudent courseStudent)
+        {
+            var student = await _context.Students.FindAsync(courseStudent.StudentId);
+            var course = await _context.Courses.FindAsync(courseStudent.CourseId);
+
+            if (course == null || student== null)
+            {
+                return false;
+            }
+            courseStudent.Course = course;
+            courseStudent.Student = student;
+
+            _context.Set<CourseStudent>().Add(courseStudent);
+
+            return true;
         }
     }
 }

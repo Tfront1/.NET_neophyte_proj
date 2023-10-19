@@ -3,9 +3,11 @@ using DataAccess.Repositories.StudentRepo.Interfaces;
 using DataAccess.Repositories.StudentRepo.Repos;
 using DataAccess.Repositories.TeacherRepo.Interfaces;
 using neophyte_proj.DataAccess.Models.CourseModel;
+using neophyte_proj.DataAccess.Models.IntermediateModels;
 using neophyte_proj.DataAccess.Models.StudentModel;
 using neophyte_proj.DataAccess.Models.TeacherModel;
 using neophyte_proj.WebApi.Models.CourseModel;
+using neophyte_proj.WebApi.Models.IntermediateModel;
 using neophyte_proj.WebApi.Models.StudentModel;
 using neophyte_proj.WebApi.Models.TeacherModel;
 
@@ -83,6 +85,15 @@ namespace WebApi.Services
                 courseDtos.Last().Copy(c);
             }
             return courseDtos;
+        }
+        public async Task<bool> AddCourse(CourseTeacherDto courseTeacherDto)
+        {
+            var courseTeacher = _mapper.Map<CourseTeacher>(courseTeacherDto);
+            if (!await _teacherRepository.AddCourse(courseTeacher))
+            {
+                return false;
+            }
+            return await _teacherRepository.Save();
         }
 
         public async Task<bool> Update(TeacherDto teacherDto)

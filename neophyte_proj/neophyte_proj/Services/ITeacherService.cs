@@ -1,4 +1,5 @@
 ﻿using neophyte_proj.WebApi.Models.CourseModel;
+using neophyte_proj.WebApi.Models.IntermediateModel;
 using neophyte_proj.WebApi.Models.StudentModel;
 using neophyte_proj.WebApi.Models.TeacherModel;
 
@@ -12,5 +13,6 @@ namespace WebApi.Services
         Task<bool> Update(TeacherDto teacherDto);
         Task<bool> Delete(int id);
         Task<IEnumerable<CourseDto>> GetCourses(int id);
+        Task<bool> AddCourse(CourseTeacherDto courseTeacherDto);
     }
 }
