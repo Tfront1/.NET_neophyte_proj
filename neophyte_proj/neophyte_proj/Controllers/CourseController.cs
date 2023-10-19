@@ -109,7 +109,7 @@ namespace neophyte_proj.WebApi.Controllers
         [HttpGet("/GetAllCourses")]
         public async Task<IActionResult> GetAll() {
             var result = _courseService.GetAll();
-            if (result == null) {
+            if (result != null) {
                 return new JsonResult(Ok(result))
                 {
                     StatusCode = 200
