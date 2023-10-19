@@ -11,11 +11,13 @@
         //copy
         public async Task Copy(CourseGeneralInfo courseGeneralInfo)
         {
-            this.Name = courseGeneralInfo.Name;
-            this.Description= courseGeneralInfo.Description;
-            this.LessonsCount= courseGeneralInfo.LessonsCount;
-            this.PlacesNumber = courseGeneralInfo.PlacesNumber;
-            this.Rate= courseGeneralInfo.Rate;
+            if (courseGeneralInfo != null) {
+                this.Name = courseGeneralInfo.Name;
+                this.Description = courseGeneralInfo.Description;
+                this.LessonsCount = courseGeneralInfo.LessonsCount;
+                this.PlacesNumber = courseGeneralInfo.PlacesNumber;
+                this.Rate = courseGeneralInfo.Rate;
+            }
         }
     }
 }

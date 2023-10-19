@@ -15,10 +15,12 @@
         //copy
         public async Task Copy(TeacherFeedBack teacherFeedBack)
         {
-            this.Author = teacherFeedBack.Author;
-            this.Rating = teacherFeedBack.Rating;
-            this.Tittle= teacherFeedBack.Tittle;
-            this.Text = teacherFeedBack.Text;
+            if (teacherFeedBack != null) {
+                this.Author = teacherFeedBack.Author;
+                this.Rating = teacherFeedBack.Rating;
+                this.Tittle = teacherFeedBack.Tittle;
+                this.Text = teacherFeedBack.Text;
+            }
         }
     }
 }

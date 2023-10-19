@@ -18,18 +18,29 @@ namespace DataAccess.Repositories.StudentRepo.Repos
             _context = context;
         }
 
-        public async Task Create(StudentAccountInfo studentAccountInfo)
+        public async Task<bool> Create(StudentAccountInfo studentAccountInfo)
         {
             _ = studentAccountInfo ?? throw new ArgumentNullException(nameof(studentAccountInfo));
-            await _context.StudentAccountInfos.AddAsync(studentAccountInfo);
+            try
+            {
+                await _context.StudentAccountInfos.AddAsync(studentAccountInfo);
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }
+            
         }
 
-        public async Task Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             var studAi = await _context.StudentAccountInfos.FindAsync(id);
             if (studAi != null) {
                 _context.StudentAccountInfos.Remove(studAi);
+                return true;
             }
+            return false;
         }
 
         public async Task<IEnumerable<StudentAccountInfo>> GetAll()
@@ -51,22 +62,35 @@ namespace DataAccess.Repositories.StudentRepo.Repos
         {
             try
             {
+                if (_context.Database.CurrentTransaction == null)
+                {
+                    await _context.Database.BeginTransactionAsync();
+                }
+
                 await _context.SaveChangesAsync();
+                await _context.Database.CommitTransactionAsync();
+
+                return true;
             }
             catch (Exception ex)
             {
+                if (_context.Database.CurrentTransaction != null)
+                {
+                    await _context.Database.RollbackTransactionAsync();
+                }
                 return false;
             }
-            return true;
         }
 
-        public async Task Update(StudentAccountInfo studentAccountInfo)
+        public async Task<bool> Update(StudentAccountInfo studentAccountInfo)
         {
             _ = studentAccountInfo ?? throw new ArgumentNullException(nameof(studentAccountInfo));
             var studAi = await _context.StudentAccountInfos.FindAsync(studentAccountInfo.Id);
             if(studAi != null){
                 await studAi.Copy(studentAccountInfo);
+                return true;
             }
+            return false;
         }
     }
 }

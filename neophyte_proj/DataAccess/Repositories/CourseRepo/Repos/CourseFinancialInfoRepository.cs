@@ -18,19 +18,30 @@ namespace DataAccess.Repositories.CourseRepo.Repos
             _context = context;
         }
 
-        public async Task Create(CourseFinancialInfo courseFinancialInfo)
+        public async Task<bool> Create(CourseFinancialInfo courseFinancialInfo)
         {
             _ = courseFinancialInfo ?? throw new ArgumentNullException(nameof(courseFinancialInfo));
-            await _context.CourseFinancialInfos.AddAsync(courseFinancialInfo);
+            try
+            {
+                await _context.CourseFinancialInfos.AddAsync(courseFinancialInfo);
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }
+            
         }
 
-        public async Task Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             var courFi = await _context.CourseFinancialInfos.FindAsync(id);
             if (courFi != null)
             {
                 _context.CourseFinancialInfos.Remove(courFi);
+                return true;
             }
+            return false;
         }
 
         public async Task<IEnumerable<CourseFinancialInfo>> GetAll()
@@ -52,23 +63,36 @@ namespace DataAccess.Repositories.CourseRepo.Repos
         {
             try
             {
+                if (_context.Database.CurrentTransaction == null)
+                {
+                    await _context.Database.BeginTransactionAsync();
+                }
+
                 await _context.SaveChangesAsync();
+                await _context.Database.CommitTransactionAsync();
+
+                return true;
             }
             catch (Exception ex)
             {
+                if (_context.Database.CurrentTransaction != null)
+                {
+                    await _context.Database.RollbackTransactionAsync();
+                }
                 return false;
             }
-            return true;
         }
 
-        public async Task Update(CourseFinancialInfo courseFinancialInfo)
+        public async Task<bool> Update(CourseFinancialInfo courseFinancialInfo)
         {
             _ = courseFinancialInfo ?? throw new ArgumentNullException(nameof(courseFinancialInfo));
             var courFi = await _context.CourseFinancialInfos.FindAsync(courseFinancialInfo.Id);
             if (courFi != null)
             {
                 await courFi.Copy(courseFinancialInfo);
+                return true;
             }
+            return false;
         }
     }
 }

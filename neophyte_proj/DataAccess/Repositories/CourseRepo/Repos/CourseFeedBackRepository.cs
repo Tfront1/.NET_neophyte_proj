@@ -29,39 +29,63 @@ namespace DataAccess.Repositories.CourseRepo.Repos
         {
             return await _context.CourseFeedBacks.Where(x => x.CourseId == id).ToListAsync();
         }
-        public async Task Create(CourseFeedBack courseFeedBack)
+        public async Task<bool> Create(CourseFeedBack courseFeedBack)
         {
             _ = courseFeedBack ?? throw new ArgumentNullException(nameof(courseFeedBack));
-            await _context.CourseFeedBacks.AddAsync(courseFeedBack);
+            try
+            {
+                await _context.CourseFeedBacks.AddAsync(courseFeedBack);
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }
+            
         }
-        public async Task Update(CourseFeedBack courseFeedBack)
+        public async Task<bool> Update(CourseFeedBack courseFeedBack)
         {
             _ = courseFeedBack ?? throw new ArgumentNullException(nameof(courseFeedBack));
             var courFg = await _context.CourseFeedBacks.FindAsync(courseFeedBack.Id);
             if (courFg != null)
             {
                 await courFg.Copy(courseFeedBack);
+                return true;
             }
+            return false;
         }
-        public async Task Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             var courFg = await _context.CourseFeedBacks.FindAsync(id);
             if (courFg != null)
             {
                 _context.CourseFeedBacks.Remove(courFg);
+                return true;
             }
+            return false;
         }
         public async Task<bool> Save()
         {
             try
             {
+                if (_context.Database.CurrentTransaction == null)
+                {
+                    await _context.Database.BeginTransactionAsync();
+                }
+
                 await _context.SaveChangesAsync();
+                await _context.Database.CommitTransactionAsync();
+
+                return true;
             }
             catch (Exception ex)
             {
+                if (_context.Database.CurrentTransaction != null)
+                {
+                    await _context.Database.RollbackTransactionAsync();
+                }
                 return false;
             }
-            return true;
         }
     }
 }

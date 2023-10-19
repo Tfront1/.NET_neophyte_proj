@@ -29,39 +29,63 @@ namespace DataAccess.Repositories.CourseRepo.Repos
         {
             return await _context.CourseBags.Where(x => x.CourseId == id).ToListAsync();
         }
-        public async Task Create(CourseBage courseBage)
+        public async Task<bool> Create(CourseBage courseBage)
         {
             _ = courseBage ?? throw new ArgumentNullException(nameof(courseBage));
-            await _context.CourseBags.AddAsync(courseBage);
+            try
+            {
+                await _context.CourseBags.AddAsync(courseBage);
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }
+            
         }
-        public async Task Update(CourseBage courseBage)
+        public async Task<bool> Update(CourseBage courseBage)
         {
             _ = courseBage ?? throw new ArgumentNullException(nameof(courseBage));
             var courBg = await _context.CourseBags.FindAsync(courseBage.Id);
             if (courBg != null)
             {
                 await courBg.Copy(courseBage);
+                return true;
             }
+            return false;
         }
-        public async Task Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             var courBg = await _context.CourseBags.FindAsync(id);
             if (courBg != null)
             {
                 _context.CourseBags.Remove(courBg);
+                return true;
             }
+            return false;
         }
         public async Task<bool> Save()
         {
             try
             {
+                if (_context.Database.CurrentTransaction == null)
+                {
+                    await _context.Database.BeginTransactionAsync();
+                }
+
                 await _context.SaveChangesAsync();
+                await _context.Database.CommitTransactionAsync();
+
+                return true;
             }
             catch (Exception ex)
             {
+                if (_context.Database.CurrentTransaction != null)
+                {
+                    await _context.Database.RollbackTransactionAsync();
+                }
                 return false;
             }
-            return true;
         }
     }
 }

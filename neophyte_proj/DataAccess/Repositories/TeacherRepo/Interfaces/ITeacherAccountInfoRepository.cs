@@ -13,9 +13,9 @@ namespace DataAccess.Repositories.TeacherRepo.Interfaces
         Task<IEnumerable<TeacherAccountInfo>> GetAll();
         Task<TeacherAccountInfo> GetById(int id);
         Task<TeacherAccountInfo> GetByTeacherId(int id);
-        Task Create(TeacherAccountInfo teacherAccountInfo);
-        Task Update(TeacherAccountInfo teacherAccountInfo);
-        Task Delete(int id);
+        Task<bool> Create(TeacherAccountInfo teacherAccountInfo);
+        Task<bool> Update(TeacherAccountInfo teacherAccountInfo);
+        Task<bool> Delete(int id);
         Task<bool> Save();
     }
 }

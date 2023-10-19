@@ -16,11 +16,14 @@
         //copy
         public async Task Copy(CourseFeedBack courseFeedBack)
         {
-            this.Author= courseFeedBack.Author;
-            this.Rating= courseFeedBack.Rating;
-            this.Tittle= courseFeedBack.Tittle;
-            this.Text = courseFeedBack.Text;
-            this.IsAuthorStudent = courseFeedBack.IsAuthorStudent;
+            if (courseFeedBack != null)
+            {
+                this.Author = courseFeedBack.Author;
+                this.Rating = courseFeedBack.Rating;
+                this.Tittle = courseFeedBack.Tittle;
+                this.Text = courseFeedBack.Text;
+                this.IsAuthorStudent = courseFeedBack.IsAuthorStudent;
+            }    
         }
     }
 }

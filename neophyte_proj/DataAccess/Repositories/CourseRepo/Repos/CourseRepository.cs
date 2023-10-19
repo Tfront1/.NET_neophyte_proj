@@ -28,63 +28,91 @@ namespace DataAccess.Repositories.CourseRepo.Repos
         {
             return await _context.Courses.FindAsync(id);
         }
-        public async Task Create(Course course)
+        public async Task<bool> Create(Course course)
         {
             _ = course ?? throw new ArgumentNullException(nameof(course));
-            await _context.Courses.AddAsync(course);
+            try
+            {
+                await _context.Courses.AddAsync(course);
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }
+            
         }
-        public async Task Update(Course course)
+        public async Task<bool> Update(Course course)
         {
             _ = course ?? throw new ArgumentNullException(nameof(course));
             var cour = await _context.Courses.FindAsync(course.Id);
             if (cour != null)
             {
                 await cour.Copy(course);
+                return true;
             }
+            return false;
         }
-        public async Task Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             var cour = await _context.Courses.FindAsync(id);
             if (cour != null)
             {
                 _context.Courses.Remove(cour);
+                return true;
             }
+            return false;
         }
         public async Task<bool> Save()
         {
+
             try
             {
+                if (_context.Database.CurrentTransaction == null)
+                {
+                    await _context.Database.BeginTransactionAsync();
+                }
+
                 await _context.SaveChangesAsync();
+                await _context.Database.CommitTransactionAsync();
+
+                return true;
             }
             catch (Exception ex)
             {
+                if (_context.Database.CurrentTransaction != null)
+                {
+                    await _context.Database.RollbackTransactionAsync();
+                }
                 return false;
             }
-            return true;
         }
 
-        public async Task<IEnumerable<Teacher>> GetTeachers(Course course)
+        public async Task<IEnumerable<Teacher>> GetTeachers(int id)
         {
-            _ = course ?? throw new ArgumentNullException(nameof(course));
-            var courseTeacher = await _context
+            var courseTeacher = _context
                 .Set<CourseTeacher>()
                 .Include(x => x.Course)
                 .Include(x => x.Teacher)
-                .Where(x => x.Course.Id == course.Id)
-                .ToListAsync();
-
+                .Where(x => x.Course.Id == id)
+                .ToList();
+            if(courseTeacher.Count == 0){
+                return null;
+            }
             return courseTeacher.Select(cs => cs.Teacher);
         }
-        public async Task<IEnumerable<Student>> GetStudents(Course course)
+        public async Task<IEnumerable<Student>> GetStudents(int id)
         {
-            _ = course ?? throw new ArgumentNullException(nameof(course));
-            var courseStudent = await _context
+            var courseStudent = _context
                 .Set<CourseStudent>()
                 .Include(x => x.Course)
                 .Include(x => x.Student)
-                .Where(cs => cs.Course.Id == course.Id)
-                .ToListAsync();
-
+                .Where(cs => cs.Course.Id == id)
+                .ToList();
+            if (courseStudent.Count == 0)
+            {
+                return null;
+            }
             return courseStudent.Select(cs => cs.Student);
         }
     }

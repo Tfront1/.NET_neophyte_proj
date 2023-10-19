@@ -13,9 +13,9 @@ namespace DataAccess.Repositories.TeacherRepo.Interfaces
         Task<IEnumerable<TeacherFeedBack>> GetAll();
         Task<TeacherFeedBack> GetById(int id);
         Task<IEnumerable<TeacherFeedBack>> GetByTeacherId(int id);
-        Task Create(TeacherFeedBack teacherFeedBack);
-        Task Update(TeacherFeedBack teacherFeedBack);
-        Task Delete(int id);
+        Task<bool> Create(TeacherFeedBack teacherFeedBack);
+        Task<bool> Update(TeacherFeedBack teacherFeedBack);
+        Task<bool> Delete(int id);
         Task<bool> Save();
     }
 }

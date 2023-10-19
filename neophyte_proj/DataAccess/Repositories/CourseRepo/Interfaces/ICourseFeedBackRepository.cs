@@ -12,9 +12,9 @@ namespace DataAccess.Repositories.CourseRepo.Interfaces
         Task<IEnumerable<CourseFeedBack>> GetAll();
         Task<CourseFeedBack> GetById(int id);
         Task<IEnumerable<CourseFeedBack>> GetByCourseId(int id);
-        Task Create(CourseFeedBack courseFeedBack);
-        Task Update(CourseFeedBack courseFeedBack);
-        Task Delete(int id);
+        Task<bool> Create(CourseFeedBack courseFeedBack);
+        Task<bool> Update(CourseFeedBack courseFeedBack);
+        Task<bool> Delete(int id);
         Task<bool> Save();
     }
 }

@@ -11,7 +11,9 @@
         //copy
         public async Task Copy(CourseFinancialInfo courseFinancialInfo)
         {
-            this.Price = courseFinancialInfo.Price;
+            if (courseFinancialInfo != null) {
+                this.Price = courseFinancialInfo.Price;
+            }   
         }
     }
 }

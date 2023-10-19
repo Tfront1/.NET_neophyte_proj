@@ -12,9 +12,9 @@ namespace DataAccess.Repositories.CourseRepo.Interfaces
         Task<IEnumerable<CourseBage>> GetAll();
         Task<CourseBage> GetById(int id);
         Task<IEnumerable<CourseBage>> GetByCourseId(int id);
-        Task Create(CourseBage courseBage);
-        Task Update(CourseBage courseBage);
-        Task Delete(int id);
+        Task<bool> Create(CourseBage courseBage);
+        Task<bool> Update(CourseBage courseBage);
+        Task<bool> Delete(int id);
         Task<bool> Save();
     }
 }

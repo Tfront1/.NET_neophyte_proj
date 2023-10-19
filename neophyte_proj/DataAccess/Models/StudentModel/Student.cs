@@ -12,7 +12,7 @@ namespace neophyte_proj.DataAccess.Models.StudentModel
         public StudentGeneralInfo StudentGeneralInfo { get; set; }
 
         //1to1
-        public int StudentAccountInfoId { get; set; }
+        public int? StudentAccountInfoId { get; set; }
         public StudentAccountInfo StudentAccountInfo { get; set; }
 
         //1ton
@@ -25,7 +25,9 @@ namespace neophyte_proj.DataAccess.Models.StudentModel
         public async Task Copy(Student student)
         {
             await this.StudentGeneralInfo.Copy(student.StudentGeneralInfo);
-            await this.StudentAccountInfo.Copy(student.StudentAccountInfo);
+            if (student.StudentAccountInfo != null) {
+                await this.StudentAccountInfo.Copy(student.StudentAccountInfo);
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ namespace neophyte_proj.DataAccess.Models.CourseModel
         public CourseGeneralInfo CourseGeneralInfo { get; set; }
 
         //1to1
-        public int CourseFinancialInfoId { get; set; }
+        public int? CourseFinancialInfoId { get; set; }
         public CourseFinancialInfo CourseFinancialInfo { get; set; }
 
         //1ton
@@ -27,7 +27,9 @@ namespace neophyte_proj.DataAccess.Models.CourseModel
         public async Task Copy(Course course)
         {
             await this.CourseGeneralInfo.Copy(course.CourseGeneralInfo);
-            await this.CourseFinancialInfo.Copy(course.CourseFinancialInfo);
+            if (course.CourseFinancialInfo != null) {
+                await this.CourseFinancialInfo.Copy(course.CourseFinancialInfo);
+            }  
         }
 
     }

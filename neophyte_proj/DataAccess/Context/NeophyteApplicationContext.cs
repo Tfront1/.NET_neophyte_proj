@@ -18,6 +18,9 @@ namespace neophyte_proj.DataAccess.Context
         public DbSet<TeacherFeedBack> TeacherFeedBacks { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<StudentAccountInfo> StudentAccountInfos { get; set; }
+        public NeophyteApplicationContext(DbContextOptions<NeophyteApplicationContext> options) : base(options)
+        {
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) 
         {
             var configuration = new ConfigurationBuilder()
