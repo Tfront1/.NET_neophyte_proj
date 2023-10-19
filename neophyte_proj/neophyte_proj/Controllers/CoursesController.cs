@@ -45,7 +45,7 @@ namespace neophyte_proj.WebApi.Controllers
             if (await _courseService.Delete(id).ConfigureAwait(false)) {
                 return new JsonResult(Ok());
             }
-            return new JsonResult("Can't delete");
+            return new JsonResult(NotFound());
         }
 
         [HttpPut]
@@ -56,7 +56,7 @@ namespace neophyte_proj.WebApi.Controllers
             {
                 return new JsonResult(Ok());
             }
-            return new JsonResult("Can't update");
+            return new JsonResult(NotFound());
         }
 
         [HttpGet("/GetAll")]

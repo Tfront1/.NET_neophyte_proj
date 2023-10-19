@@ -21,18 +21,28 @@ namespace DataAccess.Repositories.TeacherRepo.Repos
             _context = context;
         }
 
-        public async Task Create(Teacher teacher)
+        public async Task<bool> Create(Teacher teacher)
         {
             _ = teacher ?? throw new ArgumentNullException(nameof(teacher));
-            await _context.Teachers.AddAsync(teacher); 
+            try
+            {
+                await _context.Teachers.AddAsync(teacher);
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }    
         }
 
-        public async Task Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             var teach = await _context.Teachers.FindAsync(id);
             if (teach != null){
                 _context.Teachers.Remove(teach);
+                return true;
             }
+            return false;
         }
 
         public async Task<IEnumerable<Teacher>> GetAll()
@@ -69,14 +79,16 @@ namespace DataAccess.Repositories.TeacherRepo.Repos
             }
         }
 
-        public async Task Update(Teacher teacher)
+        public async Task<bool> Update(Teacher teacher)
         {
             _ = teacher ?? throw new ArgumentNullException(nameof(teacher));
             var teach = await _context.Teachers.FindAsync(teacher.Id);
             if (teach != null)
             {
                 await teach.Copy(teacher);
+                return true;
             }
+            return false;
         }
 
         public async Task<IEnumerable<Course>> GetCourses(int id)

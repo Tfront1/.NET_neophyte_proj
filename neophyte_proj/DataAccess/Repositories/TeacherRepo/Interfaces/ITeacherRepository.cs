@@ -12,9 +12,9 @@ namespace DataAccess.Repositories.TeacherRepo.Interfaces
     {
         Task<IEnumerable<Teacher>> GetAll();
         Task<Teacher> GetById(int id);
-        Task Create(Teacher teacher);
-        Task Update(Teacher teacher);
-        Task Delete(int id);
+        Task<bool> Create(Teacher teacher);
+        Task<bool> Update(Teacher teacher);
+        Task<bool> Delete(int id);
         Task<bool> Save();
         Task<IEnumerable<Course>> GetCourses(int id);
     }

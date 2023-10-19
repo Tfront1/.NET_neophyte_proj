@@ -29,23 +29,24 @@ namespace neophyte_proj.WebApi.Services
             course.Id = default;
             course.CourseGeneralInfo = genInf;
 
-            await _courseRepository.Create(course).ConfigureAwait(false);
-            if (await _courseRepository.Save()) {
-                return true;
+            if (!await _courseRepository.Create(course).ConfigureAwait(false)) {
+                return false;
             }
-            return false;
+            return await _courseRepository.Save();
         }
         public async Task<CourseDto> GetById(int id) {
             var course = await _courseRepository.GetById(id).ConfigureAwait(false);
+            if (course == null) {
+                return null;
+            }
             var courseDto = _mapper.Map<CourseDto>(course.CourseGeneralInfo);
             courseDto.Copy(course);
-            if (course != null) {
-                return courseDto;
-            }
-            return null;
+            return courseDto;
         }
         public async Task<bool> Delete(int id) {
-            await _courseRepository.Delete(id).ConfigureAwait(false);
+            if (!await _courseRepository.Delete(id).ConfigureAwait(false)) {
+                return false;
+            }
             return await _courseRepository.Save();
         }
         public async Task<bool> Update(CourseDto dto) {
@@ -55,12 +56,11 @@ namespace neophyte_proj.WebApi.Services
             var genInf = _mapper.Map<CourseGeneralInfo>(dto);
             course.CourseGeneralInfo = genInf;
 
-            await _courseRepository.Update(course).ConfigureAwait(false);
-            if (await _courseRepository.Save())
+            if (!await _courseRepository.Update(course).ConfigureAwait(false))
             {
-                return true;
+                return false;
             }
-            return false;
+            return await _courseRepository.Save();
         }
         public async Task<IEnumerable<Course>> GetAll() {
             return await _courseRepository.GetAll();

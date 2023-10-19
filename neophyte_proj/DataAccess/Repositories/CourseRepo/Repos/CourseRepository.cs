@@ -28,27 +28,40 @@ namespace DataAccess.Repositories.CourseRepo.Repos
         {
             return await _context.Courses.FindAsync(id);
         }
-        public async Task Create(Course course)
+        public async Task<bool> Create(Course course)
         {
             _ = course ?? throw new ArgumentNullException(nameof(course));
-            await _context.Courses.AddAsync(course);
+            try
+            {
+                await _context.Courses.AddAsync(course);
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }
+            
         }
-        public async Task Update(Course course)
+        public async Task<bool> Update(Course course)
         {
             _ = course ?? throw new ArgumentNullException(nameof(course));
             var cour = await _context.Courses.FindAsync(course.Id);
             if (cour != null)
             {
                 await cour.Copy(course);
+                return true;
             }
+            return false;
         }
-        public async Task Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             var cour = await _context.Courses.FindAsync(id);
             if (cour != null)
             {
                 _context.Courses.Remove(cour);
+                return true;
             }
+            return false;
         }
         public async Task<bool> Save()
         {

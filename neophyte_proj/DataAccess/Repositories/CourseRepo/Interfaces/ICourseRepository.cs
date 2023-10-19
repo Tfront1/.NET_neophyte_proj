@@ -13,9 +13,9 @@ namespace DataAccess.Repositories.CourseRepo.Interfaces
     {
         Task<IEnumerable<Course>> GetAll();
         Task<Course> GetById(int id);
-        Task Create(Course course);
-        Task Update(Course course);
-        Task Delete(int id);
+        Task<bool> Create(Course course);
+        Task<bool> Update(Course course);
+        Task<bool> Delete(int id);
         Task<bool> Save();
         Task<IEnumerable<Teacher>> GetTeachers(int id);
         Task<IEnumerable<Student>> GetStudents(int id);

@@ -18,18 +18,29 @@ namespace DataAccess.Repositories.TeacherRepo.Repos
             _context = context;
         }
 
-        public async Task Create(TeacherAccountInfo teacherAccountInfo)
+        public async Task<bool> Create(TeacherAccountInfo teacherAccountInfo)
         {
             _ = teacherAccountInfo ?? throw new ArgumentNullException(nameof(teacherAccountInfo));
-            await _context.TeacherAccountInfos.AddAsync(teacherAccountInfo);
+            try
+            {
+                await _context.TeacherAccountInfos.AddAsync(teacherAccountInfo);
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }
+            
         }
 
-        public async Task Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             var techAi = await _context.TeacherAccountInfos.FindAsync(id);
             if (techAi != null) {
                 _context.TeacherAccountInfos.Remove(techAi);
+                return true;
             }
+            return false;
         }
 
         public async Task<IEnumerable<TeacherAccountInfo>> GetAll()
@@ -71,14 +82,16 @@ namespace DataAccess.Repositories.TeacherRepo.Repos
             }
         }
 
-        public async Task Update(TeacherAccountInfo teacherAccountInfo)
+        public async Task<bool> Update(TeacherAccountInfo teacherAccountInfo)
         {
             _ = teacherAccountInfo ?? throw new ArgumentNullException(nameof(teacherAccountInfo));
             var techAi = await _context.TeacherAccountInfos.FindAsync(teacherAccountInfo.Id);
             if (techAi != null)
             {
                 await techAi.Copy(teacherAccountInfo);
+                return true;
             }
+            return false;
         }
     }
 }
