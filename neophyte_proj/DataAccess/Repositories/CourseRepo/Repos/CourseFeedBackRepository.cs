@@ -55,13 +55,24 @@ namespace DataAccess.Repositories.CourseRepo.Repos
         {
             try
             {
+                if (_context.Database.CurrentTransaction == null)
+                {
+                    await _context.Database.BeginTransactionAsync();
+                }
+
                 await _context.SaveChangesAsync();
+                await _context.Database.CommitTransactionAsync();
+
+                return true;
             }
             catch (Exception ex)
             {
+                if (_context.Database.CurrentTransaction != null)
+                {
+                    await _context.Database.RollbackTransactionAsync();
+                }
                 return false;
             }
-            return true;
         }
     }
 }

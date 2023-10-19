@@ -55,22 +55,21 @@ namespace DataAccess.Repositories.CourseRepo.Repos
 
             try
             {
-                if (_context.Database.CurrentTransaction == null) // Перевірка на наявність транзакції
+                if (_context.Database.CurrentTransaction == null)
                 {
-                    await _context.Database.BeginTransactionAsync(); // Початок транзакції, якщо її немає
+                    await _context.Database.BeginTransactionAsync();
                 }
 
                 await _context.SaveChangesAsync();
-                await _context.Database.CommitTransactionAsync(); // Завершення транзакції
+                await _context.Database.CommitTransactionAsync();
 
                 return true;
             }
             catch (Exception ex)
             {
-                // Обробка помилки при збереженні
                 if (_context.Database.CurrentTransaction != null)
                 {
-                    await _context.Database.RollbackTransactionAsync(); // Відкат транзакції у разі помилки
+                    await _context.Database.RollbackTransactionAsync();
                 }
                 return false;
             }
