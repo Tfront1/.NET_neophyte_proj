@@ -11,6 +11,6 @@ namespace WebApi.Services
         Task<bool> Create(TeacherDto teacherDto);
         Task<bool> Update(TeacherDto teacherDto);
         Task<bool> Delete(int id);
-        Task<IEnumerable<TeacherDto>> GetCourses(int id);
+        Task<IEnumerable<CourseDto>> GetCourses(int id);
     }
 }

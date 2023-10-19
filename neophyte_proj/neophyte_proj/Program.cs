@@ -77,6 +77,7 @@ namespace neophyte_proj.WebApi
 
             services.AddTransient<ICourseService, CourseService>();
             services.AddTransient<IStudentService, StudentService>();
+            services.AddTransient<ITeacherService, TeacherService>();
         }
     }
 }

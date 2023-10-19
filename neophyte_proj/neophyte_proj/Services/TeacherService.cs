@@ -69,7 +69,7 @@ namespace WebApi.Services
             return teacherDto;
         }
 
-        public Task<IEnumerable<TeacherDto>> GetCourses(int id)
+        public async Task<IEnumerable<CourseDto>> GetCourses(int id)
         {
             var courses = await _teacherRepository.GetCourses(id);
             if (courses == null)
