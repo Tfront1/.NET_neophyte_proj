@@ -10,14 +10,12 @@ namespace neophyte_proj.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CoursesController : ControllerBase
+    public class CourseController : ControllerBase
     {
         private readonly ICourseService _courseService;
-        private readonly IMapper _mapper;
-        public CoursesController(ICourseService courseService, IMapper mapper)
+        public CourseController(ICourseService courseService)
         {
             _courseService = courseService;
-            _mapper = mapper;
         }
 
         [HttpPost]
@@ -59,7 +57,7 @@ namespace neophyte_proj.WebApi.Controllers
             return new JsonResult(NotFound());
         }
 
-        [HttpGet("/GetAll")]
+        [HttpGet("/GetAllCourses")]
         public async Task<IActionResult> GetAll() {
             var result = _courseService.GetAll();
             if (result != null) {

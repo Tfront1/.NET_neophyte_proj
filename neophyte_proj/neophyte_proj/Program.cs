@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using neophyte_proj.DataAccess.Context;
 using neophyte_proj.WebApi.Services;
+using WebApi.Services;
 
 namespace neophyte_proj.WebApi
 {
@@ -75,6 +76,7 @@ namespace neophyte_proj.WebApi
 
 
             services.AddTransient<ICourseService, CourseService>();
+            services.AddTransient<IStudentService, StudentService>();
         }
     }
 }

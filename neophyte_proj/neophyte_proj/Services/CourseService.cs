@@ -7,6 +7,7 @@ using neophyte_proj.DataAccess.Models.CourseModel;
 using neophyte_proj.DataAccess.Models.StudentModel;
 using neophyte_proj.DataAccess.Models.TeacherModel;
 using neophyte_proj.WebApi.Models.CourseModel;
+using neophyte_proj.WebApi.Models.StudentModel;
 using neophyte_proj.WebApi.Models.TeacherModel;
 
 namespace neophyte_proj.WebApi.Services
@@ -62,15 +63,42 @@ namespace neophyte_proj.WebApi.Services
             }
             return await _courseRepository.Save();
         }
-        public async Task<IEnumerable<Course>> GetAll() {
-            return await _courseRepository.GetAll();
+        public async Task<IEnumerable<CourseDto>> GetAll() {
+            var courses = await _courseRepository.GetAll();
+            List<CourseDto> dto = new List<CourseDto>();
+            foreach (Course c in courses) {
+                dto.Add(_mapper.Map<CourseDto>(c.CourseGeneralInfo));
+                dto.Last().Copy(c);
+            }
+            return dto;
         }
-        public async Task<IEnumerable<Teacher>> GetTeachers(int id) {
-            return await _courseRepository.GetTeachers(id);
+        public async Task<IEnumerable<TeacherDto>> GetTeachers(int id) {
+            var teachers = await _courseRepository.GetTeachers(id);
+            if (teachers == null)
+            {
+                return null;
+            }
+            List<TeacherDto> teacherDtos = new List<TeacherDto>();
+            foreach (Teacher t in teachers) {
+                teacherDtos.Add(_mapper.Map<TeacherDto>(t.TeacherGeneralInfo));
+                teacherDtos.Last().Copy(t);
+            }
+            return teacherDtos;
         }
-        public async Task<IEnumerable<Student>> GetStudents(int id)
+        public async Task<IEnumerable<StudentDto>> GetStudents(int id)
         {
-            return await _courseRepository.GetStudents(id);
+            var students = await _courseRepository.GetStudents(id);
+            if (students == null)
+            {
+                return null;
+            }
+            List<StudentDto> studentDtos = new List<StudentDto>();
+            foreach (Student s in students)
+            {
+                studentDtos.Add(_mapper.Map<StudentDto>(s.StudentGeneralInfo));
+                studentDtos.Last().Copy(s);
+            }
+            return studentDtos;
         }
     }
 }

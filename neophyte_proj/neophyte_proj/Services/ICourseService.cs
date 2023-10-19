@@ -2,6 +2,8 @@
 using neophyte_proj.DataAccess.Models.StudentModel;
 using neophyte_proj.DataAccess.Models.TeacherModel;
 using neophyte_proj.WebApi.Models.CourseModel;
+using neophyte_proj.WebApi.Models.StudentModel;
+using neophyte_proj.WebApi.Models.TeacherModel;
 
 namespace neophyte_proj.WebApi.Services
 {
@@ -10,9 +12,9 @@ namespace neophyte_proj.WebApi.Services
         Task<bool> Create(CourseDto dto);
         Task<CourseDto> GetById(int id);
         Task<bool> Delete(int id);
-        Task<IEnumerable<Course>> GetAll();
+        Task<IEnumerable<CourseDto>> GetAll();
         Task<bool> Update(CourseDto dto);
-        Task<IEnumerable<Teacher>> GetTeachers(int id);
-        Task<IEnumerable<Student>> GetStudents(int id);
+        Task<IEnumerable<TeacherDto>> GetTeachers(int id);
+        Task<IEnumerable<StudentDto>> GetStudents(int id);
     }
 }
