@@ -5,7 +5,6 @@ namespace neophyte_proj.WebApi.Models.CourseModel
     public class CourseDto
     {
         public int Id { get; set; }
-        public int CourseFinancialInfoId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int LessonsCount { get; set; }
@@ -14,7 +13,6 @@ namespace neophyte_proj.WebApi.Models.CourseModel
 
         public void Copy(Course course) {
             this.Id = course.Id;
-            this.CourseFinancialInfoId = course.CourseFinancialInfoId;
         }
     }
 }
