@@ -28,9 +28,15 @@ namespace neophyte_proj.WebApi.Controllers
         {
             _ = courseDto ?? throw new ArgumentNullException(nameof(courseDto));
             if (await _courseService.Create(courseDto).ConfigureAwait(false)) {
-                return new JsonResult(Created(nameof(CourseDto),courseDto));
+                return new JsonResult(Created(nameof(CourseDto), courseDto))
+                {
+                    StatusCode = 201
+                };
             }
-            return new JsonResult(BadRequest());
+            return new JsonResult(BadRequest())
+            {
+                StatusCode = 400
+            };
 
         }
 
@@ -43,9 +49,15 @@ namespace neophyte_proj.WebApi.Controllers
         public async Task<IActionResult> GetById(int id) {
             var courseDto = await _courseService.GetById(id).ConfigureAwait(false);
             if (courseDto != null) {
-                return new JsonResult(Ok(courseDto));
+                return new JsonResult(Ok(courseDto))
+                {
+                    StatusCode = 200
+                };
             }
-            return new JsonResult(NotFound());
+            return new JsonResult(NotFound())
+            {
+                StatusCode = 404
+            };
         }
 
         /// <summary>
@@ -56,9 +68,15 @@ namespace neophyte_proj.WebApi.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete(int id) {
             if (await _courseService.Delete(id).ConfigureAwait(false)) {
-                return new JsonResult(Ok());
+                return new JsonResult(Ok())
+                {
+                    StatusCode = 200
+                };
             }
-            return new JsonResult(NotFound());
+            return new JsonResult(NotFound())
+            {
+                StatusCode = 404
+            };
         }
 
         /// <summary>
@@ -72,9 +90,15 @@ namespace neophyte_proj.WebApi.Controllers
             _ = courseDto ?? throw new ArgumentNullException(nameof(courseDto));
             if (await _courseService.Update(courseDto).ConfigureAwait(false))
             {
-                return new JsonResult(Ok());
+                return new JsonResult(Ok())
+                {
+                    StatusCode = 200
+                };
             }
-            return new JsonResult(NotFound());
+            return new JsonResult(NotFound())
+            {
+                StatusCode = 404
+            };
         }
 
         /// <summary>
@@ -85,10 +109,16 @@ namespace neophyte_proj.WebApi.Controllers
         [HttpGet("/GetAllCourses")]
         public async Task<IActionResult> GetAll() {
             var result = _courseService.GetAll();
-            if (result != null) {
-                return new JsonResult(Ok(result));
+            if (result == null) {
+                return new JsonResult(Ok(result))
+                {
+                    StatusCode = 200
+                };
             }
-            return new JsonResult(NotFound());
+            return new JsonResult(NotFound())
+            {
+                StatusCode = 404
+            };
         }
 
         /// <summary>
@@ -102,9 +132,15 @@ namespace neophyte_proj.WebApi.Controllers
             var result = _courseService.GetTeachers(id);
             if (result != null)
             {
-                return new JsonResult(Ok(result));
+                return new JsonResult(Ok(result))
+                {
+                    StatusCode = 200
+                };
             }
-            return new JsonResult(NotFound());
+            return new JsonResult(NotFound())
+            {
+                StatusCode = 404
+            };
         }
 
         /// <summary>
@@ -118,9 +154,15 @@ namespace neophyte_proj.WebApi.Controllers
             var result = _courseService.GetStudents(id);
             if (result != null)
             {
-                return new JsonResult(Ok(result));
+                return new JsonResult(Ok(result))
+                {
+                    StatusCode = 200
+                };
             }
-            return new JsonResult(NotFound());
+            return new JsonResult(NotFound())
+            {
+                StatusCode = 404
+            };
         }
     }
 }

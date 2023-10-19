@@ -20,30 +20,180 @@ namespace neophyte_proj.Test.Controller
 {
     public class CourseControllerTest
     {
-        private readonly ICourseRepository _courseRepository;
-        private readonly IMapper _mapper;
-        private readonly NeophyteApplicationContext _context;
-        public CourseControllerTest()
+
+
+        [Test]
+        public async Task GetById_ExistingCourse_200Ok()
         {
-            _context = A.Fake<NeophyteApplicationContext>();
-            _courseRepository = new CourseRepository(_context);
-            _mapper = A.Fake<IMapper>();
-            
+            // Arrange
+            int courseId = 1;
+            var courseDto = new CourseDto{};
+
+            var courseRepository = A.Fake<ICourseRepository>();
+            var mapper = A.Fake<IMapper>();
+
+            A.CallTo(() => courseRepository.GetById(A<int>._)).Returns(Task.FromResult(new Course()));
+            A.CallTo(() => mapper.Map<CourseDto>(A<Course>._)).Returns(courseDto);
+
+            var courseService = new CourseService(mapper, courseRepository);
+            var controller = new CourseController(courseService);
+
+            // Act
+            var result = await controller.GetById(courseId) as JsonResult;
+
+            // Assert
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(200);
+        }
+        [Test]
+        public async Task GetById_NonExistentCourse_404NotFound()
+        {
+            // Arrange
+            int courseId = 1;
+
+            var courseRepository = A.Fake<ICourseRepository>();
+            var mapper = A.Fake<IMapper>();
+
+            A.CallTo(() => courseRepository.GetById(A<int>._)).Returns(Task.FromResult<Course>(null));
+
+            var courseService = new CourseService(mapper, courseRepository);
+            var controller = new CourseController(courseService);
+
+            // Act
+            var result = await controller.GetById(courseId) as JsonResult;
+
+            // Assert
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(404);
+        }
+        [Test]
+        public async Task Create_ValidCourse_201Created()
+        {
+            // Arrange
+            var courseDto = new CourseDto{};
+
+            var courseService = A.Fake<ICourseService>();
+            A.CallTo(() => courseService.Create(A<CourseDto>._)).Returns(Task.FromResult(true));
+
+            var controller = new CourseController(courseService);
+
+            // Act
+            var result = await controller.Create(courseDto) as JsonResult;
+
+            // Assert
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(201);
+        }
+        [Test]
+        public async Task Create_InvalidCourse_400BadRequest()
+        {
+            // Arrange
+            var courseDto = new CourseDto { };
+
+            var courseService = A.Fake<ICourseService>();
+            A.CallTo(() => courseService.Create(A<CourseDto>._)).Returns(Task.FromResult(false));
+
+            var controller = new CourseController(courseService);
+
+            // Act
+            var result = await controller.Create(courseDto) as JsonResult;
+
+            // Assert
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(400);
+        }
+        [Test]
+        public async Task Update_ValidCourse_200OK()
+        {
+            // Arrange
+            var courseDto = new CourseDto{};
+
+            var courseService = A.Fake<ICourseService>();
+            A.CallTo(() => courseService.Update(A<CourseDto>._)).Returns(Task.FromResult(true));
+
+            var controller = new CourseController(courseService);
+
+            // Act
+            var result = await controller.Update(courseDto) as JsonResult;
+
+            // Assert
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(200);
+        }
+        [Test]
+        public async Task Update_InvalidCourse_404NotFound()
+        {
+            // Arrange
+            var courseDto = new CourseDto{};
+
+            var courseService = A.Fake<ICourseService>();
+            A.CallTo(() => courseService.Update(A<CourseDto>._)).Returns(Task.FromResult(false)); // Return false to indicate that the course was not found
+
+            var controller = new CourseController(courseService);
+
+            // Act
+            var result = await controller.Update(courseDto) as JsonResult;
+
+            // Assert
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(404);
         }
 
         [Test]
-        public void CourseController_GetCourseById_Ok() {
-            //Arrange
-            var courseCourseGeneralInfo = A.Fake<CourseGeneralInfo>();
-            var courseDto = A.Fake<CourseDto>();
-            A.CallTo(() => _mapper.Map<CourseDto>(courseCourseGeneralInfo)).Returns(courseDto);
-            var courseService = new CourseService(_mapper, _courseRepository);
+        public async Task Delete_ExistingCourse_200OK()
+        {
+            // Arrange
+            int courseId = 1;
+
+            var courseService = A.Fake<ICourseService>();
+            A.CallTo(() => courseService.Delete(courseId)).Returns(Task.FromResult(true));
+
             var controller = new CourseController(courseService);
 
-            //Act
-            var result = controller.GetById(1);
-            //Assert
-            result.Should().BeOfType(typeof(OkObjectResult));
+            // Act
+            var result = await controller.Delete(courseId) as JsonResult;
+
+            // Assert
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(200);
+        }
+
+        [Test]
+        public async Task Delete_NonExistingCourse_404NotFound()
+        {
+            // Arrange
+            int courseId = 1;
+
+            var courseService = A.Fake<ICourseService>();
+            A.CallTo(() => courseService.Delete(courseId)).Returns(Task.FromResult(false)); // Return false to indicate that the course was not found
+
+            var controller = new CourseController(courseService);
+
+            // Act
+            var result = await controller.Delete(courseId) as JsonResult;
+
+            // Assert
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(404);
+        }
+
+        [Test]
+        public async Task GetAll_NoCourses_404NotFound()
+        {
+            // Arrange
+            var courseService = A.Fake<ICourseService>();
+            List<CourseDto> courseList = null;
+
+            A.CallTo(() => courseService.GetAll()).Returns(courseList);
+
+            var controller = new CourseController(courseService);
+
+            // Act
+            var result = await controller.GetAll() as JsonResult;
+
+            // Assert
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(404);
         }
     }
 }
