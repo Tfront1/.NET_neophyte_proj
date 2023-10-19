@@ -18,6 +18,11 @@ namespace neophyte_proj.WebApi.Controllers
             _studentService = studentService;
         }
 
+        /// <summary>
+        /// Method for creating new Student. 
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
         public async Task<IActionResult> Create(StudentDto studentDto)
         {
@@ -26,10 +31,15 @@ namespace neophyte_proj.WebApi.Controllers
             {
                 return new JsonResult(Ok(studentDto));
             }
-            return new JsonResult("Invalid data");
+            return new JsonResult(BadRequest());
 
         }
 
+        /// <summary>
+        /// Method for getting student by id. 
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet]
         public async Task<IActionResult> GetById(int id)
         {
@@ -41,6 +51,11 @@ namespace neophyte_proj.WebApi.Controllers
             return new JsonResult(NotFound());
         }
 
+        /// <summary>
+        /// Method for deleting student by id. 
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
@@ -51,6 +66,11 @@ namespace neophyte_proj.WebApi.Controllers
             return new JsonResult(NotFound());
         }
 
+        /// <summary>
+        /// Method for updationg student. 
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPut]
         public async Task<IActionResult> Update(StudentDto studentDto)
         {
@@ -62,28 +82,43 @@ namespace neophyte_proj.WebApi.Controllers
             return new JsonResult(NotFound());
         }
 
+        /// <summary>
+        /// Method for getting all students. 
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("/GetAllStudents")]
         public async Task<IActionResult> GetAll()
         {
             var result = _studentService.GetAll();
             if (result != null)
             {
-                return new JsonResult(result);
+                return new JsonResult(Ok(result));
             }
             return new JsonResult(NotFound());
         }
 
+        /// <summary>
+        /// Method for getting all courses of student by student id. 
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("/GetStudentCourses")]
         public async Task<IActionResult> GetCourses(int id)
         {
             var result = _studentService.GetCourses(id);
             if (result != null)
             {
-                return new JsonResult(result);
+                return new JsonResult(Ok(result));
             }
             return new JsonResult(NotFound());
         }
 
+        /// <summary>
+        /// Method for adding new cours to student by student id and course id. 
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPost("/AddStudentCourse")]
         public async Task<IActionResult> AddCourse(CourseStudentDto courseStudentDto)
         {

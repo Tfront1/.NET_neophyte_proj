@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using neophyte_proj.DataAccess.Context;
 using neophyte_proj.WebApi.Services;
+using System.Reflection;
 using WebApi.Services;
 
 namespace neophyte_proj.WebApi
@@ -22,9 +23,15 @@ namespace neophyte_proj.WebApi
             // Add services to the container.
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(
+                c => 
+                {
+                    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                    c.IncludeXmlComments(xmlPath);
+                });
 
             var configuration = new ConfigurationBuilder()
                 .AddUserSecrets<NeophyteApplicationContext>().Build();
