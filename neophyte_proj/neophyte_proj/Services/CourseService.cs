@@ -40,7 +40,7 @@ namespace neophyte_proj.WebApi.Services
             return await _courseRepository.Save();
         }
         public async Task<CourseDto> GetById(int id) {
-            Log.Information("Getting course by id started{id}", id);
+            Log.Information("Getting course by id started {id}", id);
             var course = await _courseRepository.GetById(id).ConfigureAwait(false);
             if (course == null) {
                 Log.Error("No such course with id {id}", id);
@@ -52,7 +52,7 @@ namespace neophyte_proj.WebApi.Services
             return courseDto;
         }
         public async Task<bool> Delete(int id) {
-            Log.Information("Deleting course by id started{id}", id);
+            Log.Information("Deleting course by id started {id}", id);
             if (!await _courseRepository.Delete(id).ConfigureAwait(false)) {
                 Log.Error("No such course with id {id}", id);
                 return false;
@@ -84,6 +84,7 @@ namespace neophyte_proj.WebApi.Services
                 dto.Add(_mapper.Map<CourseDto>(c.CourseGeneralInfo));
                 dto.Last().Copy(c);
             }
+            Log.Information("All courses ->{@dto}",dto);
             return dto;
         }
         public async Task<IEnumerable<TeacherDto>> GetTeachers(int id) {
@@ -99,7 +100,7 @@ namespace neophyte_proj.WebApi.Services
                 teacherDtos.Add(_mapper.Map<TeacherDto>(t.TeacherGeneralInfo));
                 teacherDtos.Last().Copy(t);
             }
-            Log.Information("Teachers finded on course {id}", id);
+            Log.Information("Teachers finded ->{@teacherDtos}", teacherDtos);
             return teacherDtos;
         }
         public async Task<IEnumerable<StudentDto>> GetStudents(int id)
@@ -117,7 +118,7 @@ namespace neophyte_proj.WebApi.Services
                 studentDtos.Add(_mapper.Map<StudentDto>(s.StudentGeneralInfo));
                 studentDtos.Last().Copy(s);
             }
-            Log.Information("Students finded on course {id}", id);
+            Log.Information("Students finded ->{@studentDtos}", studentDtos);
             return studentDtos;
         }
     }

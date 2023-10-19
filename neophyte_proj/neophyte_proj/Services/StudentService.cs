@@ -8,6 +8,8 @@ using neophyte_proj.DataAccess.Models.StudentModel;
 using neophyte_proj.WebApi.Models.CourseModel;
 using neophyte_proj.WebApi.Models.IntermediateModel;
 using neophyte_proj.WebApi.Models.StudentModel;
+using neophyte_proj.WebApi.Models.TeacherModel;
+using Serilog;
 
 namespace WebApi.Services
 {
@@ -22,6 +24,7 @@ namespace WebApi.Services
         }
         public async Task<bool> Create(StudentDto studentDto)
         {
+            Log.Information("Creating student started {studentDto}", studentDto);
             _ = studentDto ?? throw new ArgumentNullException(nameof(studentDto));
 
             var student = _mapper.Map<Student>(studentDto);
@@ -29,8 +32,10 @@ namespace WebApi.Services
             student.Id = default;
             student.StudentGeneralInfo = genInf;
 
+            Log.Information("Student model {student}", student);
             if (!await _studentRepository.Create(student).ConfigureAwait(false))
             {
+                Log.Error("Bad reauest data,creating stoped {student}", student);
                 return false;
             }
             return await _studentRepository.Save();
@@ -38,15 +43,19 @@ namespace WebApi.Services
 
         public async Task<bool> Delete(int id)
         {
+            Log.Information("Deleting student by id started {id}", id);
             if (!await _studentRepository.Delete(id).ConfigureAwait(false))
             {
+                Log.Error("No such student with id {id}", id);
                 return false;
             }
+            Log.Information("Student deleted");
             return await _studentRepository.Save();
         }
 
         public async Task<IEnumerable<StudentDto>> GetAll()
         {
+            Log.Information("Getting all students started");
             var students = await _studentRepository.GetAll();
             List<StudentDto> dto = new List<StudentDto>();
             foreach (Student s in students)
@@ -54,26 +63,32 @@ namespace WebApi.Services
                 dto.Add(_mapper.Map<StudentDto>(s.StudentGeneralInfo));
                 dto.Last().Copy(s);
             }
+            Log.Information("All students ->{@dto}", dto);
             return dto;
         }
 
         public async Task<StudentDto> GetById(int id)
         {
+            Log.Information("Getting student by id started {id}", id);
             var student = await _studentRepository.GetById(id).ConfigureAwait(false);
             if (student == null)
             {
+                Log.Error("No such student with id {id}", id);
                 return null;
             }
             var studentDto = _mapper.Map<StudentDto>(student.StudentGeneralInfo);
             studentDto.Copy(student);
+            Log.Information("Student finded {studentDto}", studentDto);
             return studentDto;
         }
 
         public async Task<IEnumerable<CourseDto>> GetCourses(int id)
         {
+            Log.Information("Getting courses by student id started {id}", id);
             var courses = await _studentRepository.GetCourses(id);
             if (courses == null)
             {
+                Log.Error("No such student, or no courses on it {id}", id);
                 return null;
             }
             List<CourseDto> courseDtos = new List<CourseDto>();
@@ -82,20 +97,25 @@ namespace WebApi.Services
                 courseDtos.Add(_mapper.Map<CourseDto>(c.CourseGeneralInfo));
                 courseDtos.Last().Copy(c);
             }
+            Log.Information("Courses finded ->{@courseDtos}", courseDtos);
             return courseDtos;
         }
         public async Task<bool> AddCourse(CourseStudentDto courseStudentDto)
         {
+            Log.Information("Adding course to student started {courseStudentDto}", courseStudentDto);
             var courseStudent = _mapper.Map<CourseStudent>(courseStudentDto);
             if (!await _studentRepository.AddCourse(courseStudent))
             {
+                Log.Error("Course didn't add");
                 return false;
             }
+            Log.Information("Course add");
             return await _studentRepository.Save();
         }
 
         public async Task<bool> Update(StudentDto studentDto)
         {
+            Log.Information("Updating student started {studentDto}", studentDto);
             _ = studentDto ?? throw new ArgumentNullException(nameof(studentDto));
 
             var student = _mapper.Map<Student>(studentDto);
@@ -104,8 +124,10 @@ namespace WebApi.Services
 
             if (!await _studentRepository.Update(student).ConfigureAwait(false))
             {
+                Log.Error("No such student {studentDto}", studentDto);
                 return false;
             }
+            Log.Information("Course updated {studentDto}", studentDto);
             return await _studentRepository.Save();
         }
     }
