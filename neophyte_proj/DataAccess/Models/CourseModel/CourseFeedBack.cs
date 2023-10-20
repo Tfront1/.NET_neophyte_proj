@@ -16,7 +16,6 @@ namespace neophyte_proj.DataAccess.Models.CourseModel
 
         [MaxLength(1000)]
         public string Text { get; set; }
-        public bool IsAuthorStudent { get; set; }
 
         //nto1
         public int CourseId { get; set; }
@@ -29,11 +28,9 @@ namespace neophyte_proj.DataAccess.Models.CourseModel
         {
             if (courseFeedBack != null)
             {
-                this.Author = courseFeedBack.Author;
                 this.Rating = courseFeedBack.Rating;
                 this.Tittle = courseFeedBack.Tittle;
                 this.Text = courseFeedBack.Text;
-                this.IsAuthorStudent = courseFeedBack.IsAuthorStudent;
             }    
         }
     }
