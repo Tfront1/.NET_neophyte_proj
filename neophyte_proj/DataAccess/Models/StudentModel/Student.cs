@@ -16,8 +16,10 @@ namespace neophyte_proj.DataAccess.Models.StudentModel
         public int? StudentAccountInfoId { get; set; }
         public StudentAccountInfo StudentAccountInfo { get; set; }
 
-        //nton
+        //1ton
         public ICollection<BageStudent> BageStudent { get; set; }
+        public ICollection<CourseFeedBack> CourseFeedBack { get; set; }
+        public ICollection<TeacherFeedBack> TeacherFeedBack { get; set; }
 
         //nton
         public ICollection<CourseStudent> CourseStudent { get; set; }
