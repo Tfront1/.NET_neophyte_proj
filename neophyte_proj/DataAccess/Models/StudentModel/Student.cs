@@ -18,6 +18,7 @@ namespace neophyte_proj.DataAccess.Models.StudentModel
 
         //nton
         public ICollection<BageStudent> BageStudent { get; set; }
+        public ICollection<CourseFeedBack> CourseFeedBack { get; set; }
 
         //nton
         public ICollection<CourseStudent> CourseStudent { get; set; }

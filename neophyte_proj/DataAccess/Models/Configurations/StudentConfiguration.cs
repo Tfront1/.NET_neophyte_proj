@@ -37,6 +37,12 @@ namespace DataAccess.Models.Configurations
                     .WithOne(t => t.Student)
                     .HasForeignKey(t => t.StudentId)
                     .HasPrincipalKey(t => t.Id);
+
+            builder
+                .HasMany(t => t.CourseFeedBack)
+                    .WithOne(t => t.Student)
+                    .HasForeignKey(t => t.StudentId)
+                    .HasPrincipalKey(t => t.Id);
         }
     }
 }
