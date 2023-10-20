@@ -27,7 +27,7 @@ namespace DataAccess.Models.Configurations
                     .HasForeignKey<StudentAccountInfo>(t => t.StudentId);
 
             builder
-                .HasMany(t => t.CourseBages)
+                .HasMany(t => t.BageStudent)
                     .WithOne(t => t.Student)
                     .HasForeignKey(t => t.StudentId)
                     .HasPrincipalKey(t => t.Id);
