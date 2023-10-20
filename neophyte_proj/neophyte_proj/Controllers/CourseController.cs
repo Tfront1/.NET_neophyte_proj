@@ -106,7 +106,7 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpGet("GetAllCourses")]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll() {
             var result = _courseService.GetAll();
             if (result != null) {
