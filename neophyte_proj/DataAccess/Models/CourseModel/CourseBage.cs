@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualBasic;
+﻿using DataAccess.Models.IntermediateModels;
+using Microsoft.VisualBasic;
+using neophyte_proj.DataAccess.Models.IntermediateModels;
 using neophyte_proj.DataAccess.Models.StudentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -23,8 +25,9 @@ namespace neophyte_proj.DataAccess.Models.CourseModel
         //nto1
         public int CourseId { get; set; }
         public Course Course { get; set; }
-        public int StudentId { get; set; }
-        public Student Student { get; set; }
+
+        //nton
+        public ICollection<BageStudent> BageStudent { get; set; }
 
         //copy
         public async Task Copy(CourseBage courseBage) {

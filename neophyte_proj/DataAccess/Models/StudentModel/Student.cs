@@ -1,4 +1,5 @@
-﻿using neophyte_proj.DataAccess.Models.CourseModel;
+﻿using DataAccess.Models.IntermediateModels;
+using neophyte_proj.DataAccess.Models.CourseModel;
 using neophyte_proj.DataAccess.Models.IntermediateModels;
 using neophyte_proj.DataAccess.Models.TeacherModel;
 
@@ -15,8 +16,8 @@ namespace neophyte_proj.DataAccess.Models.StudentModel
         public int? StudentAccountInfoId { get; set; }
         public StudentAccountInfo StudentAccountInfo { get; set; }
 
-        //1ton
-        public ICollection<CourseBage> CourseBages { get; set; }
+        //nton
+        public ICollection<BageStudent> BageStudent { get; set; }
 
         //nton
         public ICollection<CourseStudent> CourseStudent { get; set; }

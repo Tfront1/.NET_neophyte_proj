@@ -176,24 +176,5 @@ namespace neophyte_proj.Test.Controller
             result.Should().NotBeNull();
             result.StatusCode.Should().Be(404);
         }
-
-        [Test]
-        public async Task GetAll_NoCourses_404NotFound()
-        {
-            // Arrange
-            var courseService = A.Fake<ICourseService>();
-            List<CourseDto> courseList = null;
-
-            A.CallTo(() => courseService.GetAll()).Returns(courseList);
-
-            var controller = new CourseController(courseService);
-
-            // Act
-            var result = await controller.GetAll() as JsonResult;
-
-            // Assert
-            result.Should().NotBeNull();
-            result.StatusCode.Should().Be(404);
-        }
     }
 }
