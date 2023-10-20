@@ -71,7 +71,15 @@ namespace neophyte_proj.WebApi
 
             app.MapControllers();
 
-            app.Run();
+            try
+            {
+                Log.Information("Application started.");
+                app.Run();
+            }
+            catch(Exception ex) {
+                Log.Fatal(ex, "Application failed to start.");
+            }
+            
         }
     }
     public static class ServicesCl {
