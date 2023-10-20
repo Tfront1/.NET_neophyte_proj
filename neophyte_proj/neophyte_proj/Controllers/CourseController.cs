@@ -106,7 +106,7 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpGet("/GetAllCourses")]
+        [HttpGet("GetAllCourses")]
         public async Task<IActionResult> GetAll() {
             var result = _courseService.GetAll();
             if (result != null) {
@@ -126,7 +126,7 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpGet("/GetTeachers")]
+        [HttpGet("GetTeachers")]
         public async Task<IActionResult> GetTeachers(int id)
         {
             var result = _courseService.GetTeachers(id);
@@ -148,7 +148,7 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpGet("/GetStudents")]
+        [HttpGet("GetStudents")]
         public async Task<IActionResult> GetStudents(int id)
         {
             var result = _courseService.GetStudents(id);
