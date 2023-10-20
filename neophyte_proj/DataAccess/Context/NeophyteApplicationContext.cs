@@ -36,6 +36,7 @@ namespace neophyte_proj.DataAccess.Context
         {
             modelBuilder.ApplyConfiguration(new CourseStudentConfiguration());
             modelBuilder.ApplyConfiguration(new CourseTeacherConfiguration());
+            modelBuilder.ApplyConfiguration(new BageStudentConfiguration());
             modelBuilder.ApplyConfiguration(new CourseConfiguration());
             modelBuilder.ApplyConfiguration(new StudentConfiguration());
             modelBuilder.ApplyConfiguration(new TeacherConfiguration());
