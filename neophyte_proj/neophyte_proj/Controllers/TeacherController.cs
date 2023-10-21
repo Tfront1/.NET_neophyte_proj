@@ -84,7 +84,7 @@ namespace neophyte_proj.WebApi.Controllers
         }
 
         /// <summary>
-        /// Method for updationg teacher. 
+        /// Method for updating teacher. 
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

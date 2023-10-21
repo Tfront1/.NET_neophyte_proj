@@ -80,7 +80,7 @@ namespace neophyte_proj.WebApi.Controllers
         }
 
         /// <summary>
-        /// Method for updationg course. 
+        /// Method for updating course. 
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
