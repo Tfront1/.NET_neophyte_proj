@@ -5,6 +5,7 @@ using DataAccess.Repositories.StudentRepo.Interfaces;
 using DataAccess.Repositories.StudentRepo.Repos;
 using DataAccess.Repositories.TeacherRepo.Interfaces;
 using DataAccess.Repositories.TeacherRepo.Repos;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using neophyte_proj.DataAccess.Context;
@@ -12,7 +13,10 @@ using neophyte_proj.WebApi.Services;
 using Serilog;
 using System.Reflection;
 using WebApi.Services;
-
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using System.Text;
 
 namespace neophyte_proj.WebApi
 {
@@ -25,6 +29,21 @@ namespace neophyte_proj.WebApi
             // Add services to the container.
 
             builder.Services.AddControllers();
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                        ValidAudience = builder.Configuration["Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWTStrings:jwtstr"]))
+                    };
+                });
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(
@@ -65,6 +84,8 @@ namespace neophyte_proj.WebApi
             app.UseSerilogRequestLogging();
 
             app.UseHttpsRedirection();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
