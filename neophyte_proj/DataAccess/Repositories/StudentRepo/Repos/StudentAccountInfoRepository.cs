@@ -92,5 +92,9 @@ namespace DataAccess.Repositories.StudentRepo.Repos
             }
             return false;
         }
+
+        public async Task<IEnumerable<StudentAccountInfo>> GetByUsername(string username) {
+            return _context.StudentAccountInfos.Where(x=>x.UserName == username).ToList();
+        }
     }
 }
