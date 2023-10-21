@@ -1,4 +1,5 @@
-﻿using DataAccess.Repositories.StudentRepo.Interfaces;
+﻿using DataAccess.Models.IntermediateModels;
+using DataAccess.Repositories.StudentRepo.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using neophyte_proj.DataAccess.Context;
 using neophyte_proj.DataAccess.Models.CourseModel;
@@ -119,6 +120,35 @@ namespace DataAccess.Repositories.StudentRepo.Repos
             courseStudent.Student = student;
 
             _context.Set<CourseStudent>().Add(courseStudent);
+
+            return true;
+        }
+        public async Task<IEnumerable<CourseBage>> GetBages(int id){
+            var courseBage = _context
+                .Set<BageStudent>()
+                .Include(x => x.CourseBage)
+                .Include(x => x.Student)
+                .Where(cs => cs.Student.Id == id).
+                ToList();
+            if (courseBage.Count() == 0)
+            {
+                return null;
+            }
+            return courseBage.Select(cs => cs.CourseBage);
+        }
+
+        public async Task<bool> AddBage(BageStudent bageStudent) {
+            var student = await _context.Students.FindAsync(bageStudent.StudentId);
+            var courseBage = await _context.CourseBags.FindAsync(bageStudent.BageId);
+
+            if (courseBage == null || student == null)
+            {
+                return false;
+            }
+            bageStudent.CourseBage = courseBage;
+            bageStudent.Student = student;
+
+            _context.Set<BageStudent>().Add(bageStudent);
 
             return true;
         }

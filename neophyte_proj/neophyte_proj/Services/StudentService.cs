@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DataAccess.Models.IntermediateModels;
 using DataAccess.Repositories.CourseRepo.Interfaces;
 using DataAccess.Repositories.CourseRepo.Repos;
 using DataAccess.Repositories.StudentRepo.Interfaces;
@@ -10,6 +11,7 @@ using neophyte_proj.WebApi.Models.IntermediateModel;
 using neophyte_proj.WebApi.Models.StudentModel;
 using neophyte_proj.WebApi.Models.TeacherModel;
 using Serilog;
+using WebApi.Models.IntermediateModel;
 
 namespace WebApi.Services
 {
@@ -128,6 +130,35 @@ namespace WebApi.Services
                 return false;
             }
             Log.Information("Course updated {studentDto}", studentDto);
+            return await _studentRepository.Save();
+        }
+
+        public async Task<IEnumerable<CourseBageDto>> GetBages(int id) {
+            Log.Information("Getting bages by student id started {id}", id);
+            var bages = await _studentRepository.GetBages(id);
+            if (bages == null)
+            {
+                Log.Error("No such student, or no bages on it {id}", id);
+                return null;
+            }
+            List<CourseBageDto> courseBageDtos = new List<CourseBageDto>();
+            foreach (CourseBage c in bages)
+            {
+                courseBageDtos.Add(_mapper.Map<CourseBageDto>(c));
+            }
+            Log.Information("Bages finded ->{@courseBageDtos}", courseBageDtos);
+            return courseBageDtos;
+        }
+
+        public async Task<bool> AddBage(BageStudentDto bageStudentDto) {
+            Log.Information("Adding bage to student started {bageStudentDto}", bageStudentDto);
+            var bageStudent = _mapper.Map<BageStudent>(bageStudentDto);
+            if (!await _studentRepository.AddBage(bageStudent))
+            {
+                Log.Error("Bage didn't add");
+                return false;
+            }
+            Log.Information("Bage add");
             return await _studentRepository.Save();
         }
     }

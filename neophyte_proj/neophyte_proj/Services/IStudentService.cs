@@ -3,6 +3,7 @@ using neophyte_proj.DataAccess.Models.StudentModel;
 using neophyte_proj.WebApi.Models.CourseModel;
 using neophyte_proj.WebApi.Models.IntermediateModel;
 using neophyte_proj.WebApi.Models.StudentModel;
+using WebApi.Models.IntermediateModel;
 
 namespace WebApi.Services
 {
@@ -15,5 +16,7 @@ namespace WebApi.Services
         Task<bool> Delete(int id);
         Task<IEnumerable<CourseDto>> GetCourses(int id);
         Task<bool> AddCourse(CourseStudentDto courseStudentDto);
+        Task<IEnumerable<CourseBageDto>> GetBages(int id);
+        Task<bool> AddBage(BageStudentDto bageStudentDto);
     }
 }

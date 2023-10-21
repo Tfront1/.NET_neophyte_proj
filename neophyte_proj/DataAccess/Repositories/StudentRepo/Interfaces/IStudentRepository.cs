@@ -1,4 +1,5 @@
-﻿using neophyte_proj.DataAccess.Models.CourseModel;
+﻿using DataAccess.Models.IntermediateModels;
+using neophyte_proj.DataAccess.Models.CourseModel;
 using neophyte_proj.DataAccess.Models.IntermediateModels;
 using neophyte_proj.DataAccess.Models.StudentModel;
 using neophyte_proj.DataAccess.Models.TeacherModel;
@@ -20,5 +21,7 @@ namespace DataAccess.Repositories.StudentRepo.Interfaces
         Task<bool> Save();
         Task<IEnumerable<Course>> GetCourses(int id);
         Task<bool> AddCourse(CourseStudent courseStudent);
+        Task<IEnumerable<CourseBage>> GetBages(int id);
+        Task<bool> AddBage(BageStudent bageStudent);
     }
 }
