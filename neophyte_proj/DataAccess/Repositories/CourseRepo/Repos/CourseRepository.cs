@@ -127,5 +127,17 @@ namespace DataAccess.Repositories.CourseRepo.Repos
             }
             return courseBages;
         }
+
+        public async Task<IEnumerable<CourseFeedBack>> GetFeedbacks(int id) {
+            var courseFeedback = _context
+                .CourseFeedBacks
+                .Where(x => x.CourseId == id)
+                .ToList();
+            if (courseFeedback.Count == 0)
+            {
+                return null;
+            }
+            return courseFeedback;
+        }
     }
 }

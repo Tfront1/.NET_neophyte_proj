@@ -20,6 +20,7 @@ namespace DataAccess.Repositories.CourseRepo.Interfaces
         Task<IEnumerable<Teacher>> GetTeachers(int id);
         Task<IEnumerable<Student>> GetStudents(int id);
         Task<IEnumerable<CourseBage>> GetBages(int id);
+        Task<IEnumerable<CourseFeedBack>> GetFeedbacks(int id);  
 
     }
 }

@@ -131,5 +131,22 @@ namespace WebApi.Services
             Log.Information("Course updated {teacherDto}", teacherDto);
             return await _teacherRepository.Save();
         }
+        public async Task<IEnumerable<TeacherFeedBackDto>> GetFeedbacks(int id)
+        {
+            Log.Information("Getting feedbacks by teacher id started {id}", id);
+            var feedbacks = await _teacherRepository.GetFeedbacks(id);
+            if (feedbacks == null)
+            {
+                Log.Error("No such teacher, or no feedbacks on it {id}", id);
+                return null;
+            }
+            List<TeacherFeedBackDto> teacherFeedBackDtos = new List<TeacherFeedBackDto>();
+            foreach (TeacherFeedBack s in feedbacks)
+            {
+                teacherFeedBackDtos.Add(_mapper.Map<TeacherFeedBackDto>(s));
+            }
+            Log.Information("Feedbacks finded ->{@teacherFeedBackDtos}", teacherFeedBackDtos);
+            return teacherFeedBackDtos;
+        }
     }
 }
