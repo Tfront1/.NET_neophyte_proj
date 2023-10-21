@@ -12,5 +12,7 @@ namespace neophyte_proj.WebApi.Models.CourseModel
         public string Tittle { get; set; }
         [MaxLength(1000)]
         public string Text { get; set; }
+        public int CourseId { get; set; }
+        public int StudentId { get; set; }
     }
 }

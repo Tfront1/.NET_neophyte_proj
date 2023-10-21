@@ -24,7 +24,8 @@ namespace neophyte_proj.WebApi
             CreateMap<CourseFinancialInfoDto, CourseFinancialInfo>();
             CreateMap<CourseBageDto, CourseBage>();
             CreateMap<CourseBage, CourseBageDto>();
-
+            CreateMap<CourseFeedBackDto, CourseFeedBack>();
+            CreateMap<CourseFeedBack, CourseFeedBackDto>();
 
             CreateMap<StudentDto, Student>();
             CreateMap<Student, StudentDto>();

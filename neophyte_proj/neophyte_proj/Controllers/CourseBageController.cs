@@ -131,7 +131,7 @@ namespace WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpGet("GetAll")]
+        [HttpGet("GetByCourseId")]
         public async Task<IActionResult> GetByCourseId(int id) {
             var courseBageDto = await _courseBageService.GetByCourseId(id).ConfigureAwait(false);
             if (courseBageDto != null)

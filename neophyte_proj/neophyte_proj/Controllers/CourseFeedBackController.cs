@@ -129,7 +129,7 @@ namespace WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpGet("GetAll")]
+        [HttpGet("GetByCourseId")]
         public async Task<IActionResult> GetByCourseId(int id)
         {
             var courseFeedBackDto = await _courseFeedBackService.GetByCourseId(id).ConfigureAwait(false);
