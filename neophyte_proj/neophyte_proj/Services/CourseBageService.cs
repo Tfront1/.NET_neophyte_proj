@@ -42,7 +42,7 @@ namespace WebApi.Services
                 Log.Error("No such course bage with id {id}", id);
                 return false;
             }
-            Log.Information("Course deleted");
+            Log.Information("Course bage deleted");
             return await _courseBageRepository.Save();
         }
 
