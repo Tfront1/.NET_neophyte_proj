@@ -121,5 +121,22 @@ namespace neophyte_proj.WebApi.Services
             Log.Information("Students finded ->{@studentDtos}", studentDtos);
             return studentDtos;
         }
+
+        public async Task<IEnumerable<CourseBageDto>> GetBages(int id) {
+            Log.Information("Getting bages by course id started {id}", id);
+            var bages = await _courseRepository.GetBages(id);
+            if (bages == null)
+            {
+                Log.Error("No such course, or no bages on it {id}", id);
+                return null;
+            }
+            List<CourseBageDto> courseBageDtos = new List<CourseBageDto>();
+            foreach (CourseBage s in bages)
+            {
+                courseBageDtos.Add(_mapper.Map<CourseBageDto>(s));
+            }
+            Log.Information("Bages finded ->{@courseBageDtos}", courseBageDtos);
+            return courseBageDtos;
+        }
     }
 }

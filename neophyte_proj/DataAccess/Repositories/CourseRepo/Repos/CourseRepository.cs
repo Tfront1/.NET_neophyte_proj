@@ -115,5 +115,17 @@ namespace DataAccess.Repositories.CourseRepo.Repos
             }
             return courseStudent.Select(cs => cs.Student);
         }
+
+        public async Task<IEnumerable<CourseBage>> GetBages(int id) {
+            var courseBages = _context
+                .CourseBags
+                .Where(x=>x.CourseId == id)
+                .ToList();
+            if (courseBages.Count == 0)
+            {
+                return null;
+            }
+            return courseBages;
+        }
     }
 }

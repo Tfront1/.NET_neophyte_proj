@@ -164,5 +164,27 @@ namespace neophyte_proj.WebApi.Controllers
                 StatusCode = 404
             };
         }
+
+        /// <summary>
+        /// Method for getting all bages of course by course id. 
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("GetBages")]
+        public async Task<IActionResult> GetBages(int id)
+        {
+            var result = await _courseService.GetBages(id);
+            if (result != null)
+            {
+                return new JsonResult(Ok(result))
+                {
+                    StatusCode = 200
+                };
+            }
+            return new JsonResult(NotFound())
+            {
+                StatusCode = 404
+            };
+        }
     }
 }
