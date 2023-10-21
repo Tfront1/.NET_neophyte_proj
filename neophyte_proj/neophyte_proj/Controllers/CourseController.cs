@@ -129,7 +129,7 @@ namespace neophyte_proj.WebApi.Controllers
         [HttpGet("GetTeachers")]
         public async Task<IActionResult> GetTeachers(int id)
         {
-            var result = _courseService.GetTeachers(id);
+            var result = await _courseService.GetTeachers(id);
             if (result != null)
             {
                 return new JsonResult(Ok(result))
@@ -151,7 +151,7 @@ namespace neophyte_proj.WebApi.Controllers
         [HttpGet("GetStudents")]
         public async Task<IActionResult> GetStudents(int id)
         {
-            var result = _courseService.GetStudents(id);
+            var result = await _courseService.GetStudents(id);
             if (result != null)
             {
                 return new JsonResult(Ok(result))

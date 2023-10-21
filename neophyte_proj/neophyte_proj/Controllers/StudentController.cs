@@ -136,7 +136,7 @@ namespace neophyte_proj.WebApi.Controllers
         [HttpGet("GetCourses")]
         public async Task<IActionResult> GetCourses(int id)
         {
-            var result = _studentService.GetCourses(id);
+            var result = await _studentService.GetCourses(id);
             if (result != null)
             {
                 return new JsonResult(Ok(result))
