@@ -84,7 +84,7 @@ namespace neophyte_proj.WebApi.Controllers
         }
 
         /// <summary>
-        /// Method for updationg teacher. 
+        /// Method for updating teacher. 
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -110,7 +110,7 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpGet("/GetAllTeachers")]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
             var result = _teacherService.GetAll();
@@ -132,7 +132,7 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpGet("/GetTeacherCourses")]
+        [HttpGet("GetCourses")]
         public async Task<IActionResult> GetCourses(int id)
         {
             var result = await _teacherService.GetCourses(id);
@@ -154,7 +154,7 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpPost("/AddTeacherCourse")]
+        [HttpPost("AddCourse")]
         public async Task<IActionResult> AddCourse(CourseTeacherDto courseTeacherDto)
         {
             if (await _teacherService.AddCourse(courseTeacherDto))

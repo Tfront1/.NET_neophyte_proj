@@ -18,16 +18,24 @@ namespace neophyte_proj.WebApi
             CreateMap<Course, CourseDto>();
             CreateMap<CourseDto, CourseGeneralInfo>();
             CreateMap<CourseGeneralInfo, CourseDto>();
+            CreateMap<CourseFinancialInfo, CourseFinancialInfoDto>();
+            CreateMap<CourseFinancialInfoDto, CourseFinancialInfo>();
 
             CreateMap<StudentDto, Student>();
             CreateMap<Student, StudentDto>();
             CreateMap<StudentDto, StudentGeneralInfo>();
             CreateMap<StudentGeneralInfo, StudentDto>();
+            CreateMap<StudentAccountInfoDto, StudentAccountInfo>();
+            CreateMap<StudentAccountInfo, StudentAccountInfoDto>();
+
 
             CreateMap<TeacherDto, Teacher>();
             CreateMap<Teacher, TeacherDto>();
             CreateMap<TeacherDto, TeacherGeneralInfo>();
             CreateMap<TeacherGeneralInfo, TeacherDto>();
+            CreateMap<TeacherAccountInfoDto, TeacherAccountInfo>();
+            CreateMap<TeacherAccountInfo, TeacherAccountInfoDto>();
+
 
             CreateMap<CourseStudent, CourseStudentDto>();
             CreateMap<CourseStudentDto, CourseStudent>();

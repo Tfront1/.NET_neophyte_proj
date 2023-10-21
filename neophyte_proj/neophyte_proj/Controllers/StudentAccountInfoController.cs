@@ -1,35 +1,33 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using neophyte_proj.WebApi.Models.CourseModel;
-using neophyte_proj.WebApi.Models.IntermediateModel;
+using neophyte_proj.DataAccess.Models.StudentModel;
 using neophyte_proj.WebApi.Models.StudentModel;
-using neophyte_proj.WebApi.Services;
+using neophyte_proj.WebApi.Models.TeacherModel;
 using WebApi.Services;
 
-namespace neophyte_proj.WebApi.Controllers
+namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentController : ControllerBase
+    public class StudentAccountInfoController : ControllerBase
     {
-        private readonly IStudentService _studentService;
-        public StudentController(IStudentService studentService)
+        private readonly IStudentAccountInfoService _studentAccountInfoService;
+        public StudentAccountInfoController(IStudentAccountInfoService studentAccountInfoService)
         {
-            _studentService = studentService;
+            _studentAccountInfoService = studentAccountInfoService;
         }
-
         /// <summary>
-        /// Method for creating new Student. 
+        /// Method for creating new student account info. 
         /// </summary>
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
-        public async Task<IActionResult> Create(StudentDto studentDto)
+        public async Task<IActionResult> Create(StudentAccountInfoDto studentAccountInfoDto)
         {
-            _ = studentDto ?? throw new ArgumentNullException(nameof(studentDto));
-            if (await _studentService.Create(studentDto).ConfigureAwait(false))
+            _ = studentAccountInfoDto ?? throw new ArgumentNullException(nameof(studentAccountInfoDto));
+            if (await _studentAccountInfoService.Create(studentAccountInfoDto).ConfigureAwait(false))
             {
-                return new JsonResult(Created(nameof(StudentDto),studentDto))
+                return new JsonResult(Created(nameof(TeacherAccountInfoDto), studentAccountInfoDto))
                 {
                     StatusCode = 201
                 };
@@ -42,17 +40,38 @@ namespace neophyte_proj.WebApi.Controllers
         }
 
         /// <summary>
-        /// Method for getting student by id. 
+        /// Method for getting student account info by id. 
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet]
         public async Task<IActionResult> GetById(int id)
         {
-            var studentDto = await _studentService.GetById(id).ConfigureAwait(false);
-            if (studentDto != null)
+            var studentAccountInfoDto = await _studentAccountInfoService.GetById(id).ConfigureAwait(false);
+            if (studentAccountInfoDto != null)
             {
-                return new JsonResult(Ok(studentDto))
+                return new JsonResult(Ok(studentAccountInfoDto))
+                {
+                    StatusCode = 200
+                };
+            }
+            return new JsonResult(NotFound())
+            {
+                StatusCode = 404
+            };
+        }
+        /// <summary>
+        /// Method for getting student account info by teacher id. 
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("GetByStudentId")]
+        public async Task<IActionResult> GetByStudentId(int id)
+        {
+            var studentAccountInfoDto = await _studentAccountInfoService.GetByStudentId(id).ConfigureAwait(false);
+            if (studentAccountInfoDto != null)
+            {
+                return new JsonResult(Ok(studentAccountInfoDto))
                 {
                     StatusCode = 200
                 };
@@ -64,14 +83,14 @@ namespace neophyte_proj.WebApi.Controllers
         }
 
         /// <summary>
-        /// Method for deleting student by id. 
+        /// Method for deleting student account info by id. 
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            if (await _studentService.Delete(id).ConfigureAwait(false))
+            if (await _studentAccountInfoService.Delete(id).ConfigureAwait(false))
             {
                 return new JsonResult(Ok())
                 {
@@ -85,15 +104,15 @@ namespace neophyte_proj.WebApi.Controllers
         }
 
         /// <summary>
-        /// Method for updationg student. 
+        /// Method for updationg sudent account info. 
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPut]
-        public async Task<IActionResult> Update(StudentDto studentDto)
+        public async Task<IActionResult> Update(StudentAccountInfoDto studentAccountInfoDto)
         {
-            _ = studentDto ?? throw new ArgumentNullException(nameof(studentDto));
-            if (await _studentService.Update(studentDto).ConfigureAwait(false))
+            _ = studentAccountInfoDto ?? throw new ArgumentNullException(nameof(studentAccountInfoDto));
+            if (await _studentAccountInfoService.Update(studentAccountInfoDto).ConfigureAwait(false))
             {
                 return new JsonResult(Ok())
                 {
@@ -107,60 +126,17 @@ namespace neophyte_proj.WebApi.Controllers
         }
 
         /// <summary>
-        /// Method for getting all students. 
+        /// Method for getting all students account info. 
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var result = _studentService.GetAll();
+            var result = _studentAccountInfoService.GetAll();
             if (result != null)
             {
                 return new JsonResult(Ok(result))
-                {
-                    StatusCode = 200
-                };
-            }
-            return new JsonResult(NotFound())
-            {
-                StatusCode = 404
-            };
-        }
-
-        /// <summary>
-        /// Method for getting all courses of student by student id. 
-        /// </summary>
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpGet("GetCourses")]
-        public async Task<IActionResult> GetCourses(int id)
-        {
-            var result = _studentService.GetCourses(id);
-            if (result != null)
-            {
-                return new JsonResult(Ok(result))
-                {
-                    StatusCode = 200
-                };
-            }
-            return new JsonResult(NotFound())
-            {
-                StatusCode = 404
-            };
-        }
-
-        /// <summary>
-        /// Method for adding new cours to student by student id and course id. 
-        /// </summary>
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpPost("AddCourse")]
-        public async Task<IActionResult> AddCourse(CourseStudentDto courseStudentDto)
-        {
-            if (await _studentService.AddCourse(courseStudentDto))
-            {
-                return new JsonResult(Ok())
                 {
                     StatusCode = 200
                 };
