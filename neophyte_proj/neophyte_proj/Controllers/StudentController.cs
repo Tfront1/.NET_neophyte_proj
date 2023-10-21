@@ -4,6 +4,7 @@ using neophyte_proj.WebApi.Models.CourseModel;
 using neophyte_proj.WebApi.Models.IntermediateModel;
 using neophyte_proj.WebApi.Models.StudentModel;
 using neophyte_proj.WebApi.Services;
+using WebApi.Models.IntermediateModel;
 using WebApi.Services;
 
 namespace neophyte_proj.WebApi.Controllers
@@ -114,7 +115,7 @@ namespace neophyte_proj.WebApi.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var result = _studentService.GetAll();
+            var result = await _studentService.GetAll();
             if (result != null)
             {
                 return new JsonResult(Ok(result))
@@ -136,7 +137,7 @@ namespace neophyte_proj.WebApi.Controllers
         [HttpGet("GetCourses")]
         public async Task<IActionResult> GetCourses(int id)
         {
-            var result = _studentService.GetCourses(id);
+            var result = await _studentService.GetCourses(id);
             if (result != null)
             {
                 return new JsonResult(Ok(result))
@@ -159,6 +160,49 @@ namespace neophyte_proj.WebApi.Controllers
         public async Task<IActionResult> AddCourse(CourseStudentDto courseStudentDto)
         {
             if (await _studentService.AddCourse(courseStudentDto))
+            {
+                return new JsonResult(Ok())
+                {
+                    StatusCode = 200
+                };
+            }
+            return new JsonResult(NotFound())
+            {
+                StatusCode = 404
+            };
+        }
+
+        /// <summary>
+        /// Method for getting all bages of student by student id. 
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("GetBages")]
+        public async Task<IActionResult> GetBages(int id)
+        {
+            var result = await _studentService.GetBages(id);
+            if (result != null)
+            {
+                return new JsonResult(Ok(result))
+                {
+                    StatusCode = 200
+                };
+            }
+            return new JsonResult(NotFound())
+            {
+                StatusCode = 404
+            };
+        }
+
+        /// <summary>
+        /// Method for adding new bage to student by student id and bage id. 
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpPost("AddBage")]
+        public async Task<IActionResult> AddBage(BageStudentDto bageStudentDto)
+        {
+            if (await _studentService.AddBage(bageStudentDto))
             {
                 return new JsonResult(Ok())
                 {

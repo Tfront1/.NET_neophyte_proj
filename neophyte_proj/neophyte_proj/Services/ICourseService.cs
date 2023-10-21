@@ -16,5 +16,7 @@ namespace neophyte_proj.WebApi.Services
         Task<bool> Update(CourseDto dto);
         Task<IEnumerable<TeacherDto>> GetTeachers(int id);
         Task<IEnumerable<StudentDto>> GetStudents(int id);
+        Task<IEnumerable<CourseBageDto>> GetBages(int id);
+
     }
 }

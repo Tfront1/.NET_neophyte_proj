@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DataAccess.Models.IntermediateModels;
 using neophyte_proj.DataAccess.Models.CourseModel;
 using neophyte_proj.DataAccess.Models.IntermediateModels;
 using neophyte_proj.DataAccess.Models.StudentModel;
@@ -7,6 +8,7 @@ using neophyte_proj.WebApi.Models.CourseModel;
 using neophyte_proj.WebApi.Models.IntermediateModel;
 using neophyte_proj.WebApi.Models.StudentModel;
 using neophyte_proj.WebApi.Models.TeacherModel;
+using WebApi.Models.IntermediateModel;
 
 namespace neophyte_proj.WebApi
 {
@@ -20,6 +22,9 @@ namespace neophyte_proj.WebApi
             CreateMap<CourseGeneralInfo, CourseDto>();
             CreateMap<CourseFinancialInfo, CourseFinancialInfoDto>();
             CreateMap<CourseFinancialInfoDto, CourseFinancialInfo>();
+            CreateMap<CourseBageDto, CourseBage>();
+            CreateMap<CourseBage, CourseBageDto>();
+
 
             CreateMap<StudentDto, Student>();
             CreateMap<Student, StudentDto>();
@@ -41,6 +46,8 @@ namespace neophyte_proj.WebApi
             CreateMap<CourseStudentDto, CourseStudent>();
             CreateMap<CourseTeacher, CourseTeacherDto>();
             CreateMap<CourseTeacherDto, CourseTeacher>();
+            CreateMap<BageStudent, BageStudentDto>();
+            CreateMap<BageStudentDto, BageStudent>();
         }
     }
 }

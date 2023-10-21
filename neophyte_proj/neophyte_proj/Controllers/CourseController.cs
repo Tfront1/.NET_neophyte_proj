@@ -108,7 +108,7 @@ namespace neophyte_proj.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll() {
-            var result = _courseService.GetAll();
+            var result = await _courseService.GetAll();
             if (result != null) {
                 return new JsonResult(Ok(result))
                 {
@@ -129,7 +129,7 @@ namespace neophyte_proj.WebApi.Controllers
         [HttpGet("GetTeachers")]
         public async Task<IActionResult> GetTeachers(int id)
         {
-            var result = _courseService.GetTeachers(id);
+            var result = await _courseService.GetTeachers(id);
             if (result != null)
             {
                 return new JsonResult(Ok(result))
@@ -151,7 +151,29 @@ namespace neophyte_proj.WebApi.Controllers
         [HttpGet("GetStudents")]
         public async Task<IActionResult> GetStudents(int id)
         {
-            var result = _courseService.GetStudents(id);
+            var result = await _courseService.GetStudents(id);
+            if (result != null)
+            {
+                return new JsonResult(Ok(result))
+                {
+                    StatusCode = 200
+                };
+            }
+            return new JsonResult(NotFound())
+            {
+                StatusCode = 404
+            };
+        }
+
+        /// <summary>
+        /// Method for getting all bages of course by course id. 
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("GetBages")]
+        public async Task<IActionResult> GetBages(int id)
+        {
+            var result = await _courseService.GetBages(id);
             if (result != null)
             {
                 return new JsonResult(Ok(result))

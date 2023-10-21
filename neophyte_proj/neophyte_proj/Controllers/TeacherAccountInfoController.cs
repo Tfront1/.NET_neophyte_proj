@@ -132,7 +132,7 @@ namespace WebApi.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var result = _teacherAccountInfoService.GetAll();
+            var result = await _teacherAccountInfoService.GetAll();
             if (result != null)
             {
                 return new JsonResult(Ok(result))

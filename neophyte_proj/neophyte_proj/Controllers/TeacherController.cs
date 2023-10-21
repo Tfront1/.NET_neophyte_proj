@@ -113,7 +113,7 @@ namespace neophyte_proj.WebApi.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var result = _teacherService.GetAll();
+            var result = await _teacherService.GetAll();
             if (result != null)
             {
                 return new JsonResult(Ok(result))
