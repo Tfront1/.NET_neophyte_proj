@@ -41,6 +41,8 @@ namespace neophyte_proj.WebApi
             CreateMap<TeacherGeneralInfo, TeacherDto>();
             CreateMap<TeacherAccountInfoDto, TeacherAccountInfo>();
             CreateMap<TeacherAccountInfo, TeacherAccountInfoDto>();
+            CreateMap<TeacherFeedBackDto, TeacherFeedBack>();
+            CreateMap<TeacherFeedBack, TeacherFeedBackDto>();
 
 
             CreateMap<CourseStudent, CourseStudentDto>();

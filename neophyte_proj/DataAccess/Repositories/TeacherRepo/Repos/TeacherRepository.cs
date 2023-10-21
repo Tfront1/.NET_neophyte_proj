@@ -121,5 +121,17 @@ namespace DataAccess.Repositories.TeacherRepo.Repos
 
             return true;
         }
+        public async Task<IEnumerable<TeacherFeedBack>> GetFeedbacks(int id)
+        {
+            var teacherFeedBack = _context
+                .TeacherFeedBacks
+                .Where(x => x.TeacherId == id)
+                .ToList();
+            if (teacherFeedBack.Count == 0)
+            {
+                return null;
+            }
+            return teacherFeedBack;
+        }
     }
 }

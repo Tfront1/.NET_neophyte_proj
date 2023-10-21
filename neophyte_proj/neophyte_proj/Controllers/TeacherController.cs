@@ -169,5 +169,27 @@ namespace neophyte_proj.WebApi.Controllers
                 StatusCode = 404
             };
         }
+
+        /// <summary>
+        /// Method for getting all feedbacks of teacher by teacher id. 
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("GetFeedbacks")]
+        public async Task<IActionResult> GetFeedbacks(int id)
+        {
+            var result = await _teacherService.GetFeedbacks(id);
+            if (result != null)
+            {
+                return new JsonResult(Ok(result))
+                {
+                    StatusCode = 200
+                };
+            }
+            return new JsonResult(NotFound())
+            {
+                StatusCode = 404
+            };
+        }
     }
 }

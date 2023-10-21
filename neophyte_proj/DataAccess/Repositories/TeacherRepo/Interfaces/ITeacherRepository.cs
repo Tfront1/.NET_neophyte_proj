@@ -19,5 +19,6 @@ namespace DataAccess.Repositories.TeacherRepo.Interfaces
         Task<bool> Save();
         Task<IEnumerable<Course>> GetCourses(int id);
         Task<bool> AddCourse(CourseTeacher courseTeacher);
+        Task<IEnumerable<TeacherFeedBack>> GetFeedbacks(int id);
     }
 }
