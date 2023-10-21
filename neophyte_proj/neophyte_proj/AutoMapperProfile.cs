@@ -25,6 +25,8 @@ namespace neophyte_proj.WebApi
             CreateMap<Student, StudentDto>();
             CreateMap<StudentDto, StudentGeneralInfo>();
             CreateMap<StudentGeneralInfo, StudentDto>();
+            CreateMap<StudentAccountInfoDto, StudentAccountInfo>();
+            CreateMap<StudentAccountInfo, StudentAccountInfoDto>();
 
 
             CreateMap<TeacherDto, Teacher>();

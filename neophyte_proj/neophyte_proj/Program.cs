@@ -104,6 +104,7 @@ namespace neophyte_proj.WebApi
             services.AddTransient<ITeacherService, TeacherService>();
             services.AddTransient<ICourseFinancialInfoService, CourseFinancialInfoService>();
             services.AddTransient<ITeacherAccountInfoService, TeacherAccountInfoService>();
+            services.AddTransient<IStudentAccountInfoService, StudentAccountInfoService>();
         }
     }
 }
