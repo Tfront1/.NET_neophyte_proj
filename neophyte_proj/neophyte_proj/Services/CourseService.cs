@@ -138,5 +138,22 @@ namespace neophyte_proj.WebApi.Services
             Log.Information("Bages finded ->{@courseBageDtos}", courseBageDtos);
             return courseBageDtos;
         }
+
+        public async Task<IEnumerable<CourseFeedBackDto>> GetFeedbacks(int id) {
+            Log.Information("Getting feedbacks by course id started {id}", id);
+            var feedbacks = await _courseRepository.GetFeedbacks(id);
+            if (feedbacks == null)
+            {
+                Log.Error("No such course, or no feedbacks on it {id}", id);
+                return null;
+            }
+            List<CourseFeedBackDto> courseFeedBackDtos = new List<CourseFeedBackDto>();
+            foreach (CourseFeedBack s in feedbacks)
+            {
+                courseFeedBackDtos.Add(_mapper.Map<CourseFeedBackDto>(s));
+            }
+            Log.Information("Feedbacks finded ->{@courseFeedBackDtos}", courseFeedBackDtos);
+            return courseFeedBackDtos;
+        }
     }
 }

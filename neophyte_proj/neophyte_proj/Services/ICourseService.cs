@@ -17,6 +17,7 @@ namespace neophyte_proj.WebApi.Services
         Task<IEnumerable<TeacherDto>> GetTeachers(int id);
         Task<IEnumerable<StudentDto>> GetStudents(int id);
         Task<IEnumerable<CourseBageDto>> GetBages(int id);
+        Task<IEnumerable<CourseFeedBackDto>> GetFeedbacks(int id);
 
     }
 }
