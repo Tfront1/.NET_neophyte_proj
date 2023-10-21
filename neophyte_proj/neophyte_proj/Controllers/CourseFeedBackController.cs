@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using neophyte_proj.WebApi.Models.CourseModel;
-using neophyte_proj.WebApi.Services;
 using System.Threading.Tasks;
 using WebApi.Services;
 
@@ -9,25 +8,25 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CourseBageController : ControllerBase
+    public class CourseFeedBackController : ControllerBase
     {
-        private readonly ICourseBageService _courseBageService;
-        public CourseBageController(ICourseBageService courseBageService)
+        private readonly ICourseFeedBackService _courseFeedBackService;
+        public CourseFeedBackController(ICourseFeedBackService courseFeedBackService)
         {
-            _courseBageService = courseBageService;
+            _courseFeedBackService = courseFeedBackService;
         }
         /// <summary>
-        /// Method for creating new Course bage. 
+        /// Method for creating new Course feedback. 
         /// </summary>
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
-        public async Task<IActionResult> Create(CourseBageDto courseBageDto)
+        public async Task<IActionResult> Create(CourseFeedBackDto courseFeedBackDto)
         {
-            _ = courseBageDto ?? throw new ArgumentNullException(nameof(courseBageDto));
-            if (await _courseBageService.Create(courseBageDto).ConfigureAwait(false))
+            _ = courseFeedBackDto ?? throw new ArgumentNullException(nameof(courseFeedBackDto));
+            if (await _courseFeedBackService.Create(courseFeedBackDto).ConfigureAwait(false))
             {
-                return new JsonResult(Created(nameof(CourseBageDto), courseBageDto))
+                return new JsonResult(Created(nameof(CourseBageDto), courseFeedBackDto))
                 {
                     StatusCode = 201
                 };
@@ -40,17 +39,17 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// Method for getting course bage by id. 
+        /// Method for getting course feedback by id. 
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet]
         public async Task<IActionResult> GetById(int id)
         {
-            var courseBageDto = await _courseBageService.GetById(id).ConfigureAwait(false);
-            if (courseBageDto != null)
+            var courseFeedbackDto = await _courseFeedBackService.GetById(id).ConfigureAwait(false);
+            if (courseFeedbackDto != null)
             {
-                return new JsonResult(Ok(courseBageDto))
+                return new JsonResult(Ok(courseFeedbackDto))
                 {
                     StatusCode = 200
                 };
@@ -62,14 +61,14 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// Method for deleting course bage by id. 
+        /// Method for deleting course feedback by id. 
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            if (await _courseBageService.Delete(id).ConfigureAwait(false))
+            if (await _courseFeedBackService.Delete(id).ConfigureAwait(false))
             {
                 return new JsonResult(Ok())
                 {
@@ -83,15 +82,15 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// Method for updating course bage. 
+        /// Method for updating course feedback. 
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPut]
-        public async Task<IActionResult> Update(CourseBageDto courseBageDto)
+        public async Task<IActionResult> Update(CourseFeedBackDto courseFeedBackDto)
         {
-            _ = courseBageDto ?? throw new ArgumentNullException(nameof(courseBageDto));
-            if (await _courseBageService.Update(courseBageDto).ConfigureAwait(false))
+            _ = courseFeedBackDto ?? throw new ArgumentNullException(nameof(courseFeedBackDto));
+            if (await _courseFeedBackService.Update(courseFeedBackDto).ConfigureAwait(false))
             {
                 return new JsonResult(Ok())
                 {
@@ -105,14 +104,14 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// Method for getting all courses bage. 
+        /// Method for getting all courses feedback. 
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _courseBageService.GetAll();
+            var result = await _courseFeedBackService.GetAll();
             if (result != null)
             {
                 return new JsonResult(Ok(result))
@@ -125,18 +124,18 @@ namespace WebApi.Controllers
                 StatusCode = 404
             };
         }
-
         /// <summary>
-        /// Method for getting course bages by course id. 
+        /// Method for getting course feedback by course id. 
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetByCourseId(int id) {
-            var courseBageDto = await _courseBageService.GetByCourseId(id).ConfigureAwait(false);
-            if (courseBageDto != null)
+        public async Task<IActionResult> GetByCourseId(int id)
+        {
+            var courseFeedBackDto = await _courseFeedBackService.GetByCourseId(id).ConfigureAwait(false);
+            if (courseFeedBackDto != null)
             {
-                return new JsonResult(Ok(courseBageDto))
+                return new JsonResult(Ok(courseFeedBackDto))
                 {
                     StatusCode = 200
                 };
