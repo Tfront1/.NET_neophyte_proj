@@ -108,7 +108,7 @@ namespace neophyte_proj.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll() {
-            var result = _courseService.GetAll();
+            var result = await _courseService.GetAll();
             if (result != null) {
                 return new JsonResult(Ok(result))
                 {
