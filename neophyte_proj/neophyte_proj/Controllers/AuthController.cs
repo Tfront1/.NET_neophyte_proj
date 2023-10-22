@@ -18,6 +18,11 @@ namespace WebApi.Controllers
             _authService = authService;
         }
 
+        /// <summary>
+        /// Method for log in like student. 
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost("StudentLogin")]
         public async Task<IActionResult> StudentLogin(UserStudentDto userStudentDto)
         {
@@ -34,6 +39,11 @@ namespace WebApi.Controllers
             };
         }
 
+        /// <summary>
+        /// Method for log in like teacher. 
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost("TeacherLogin")]
         public async Task<IActionResult> TeacherLogin(UserTeacherDto userTeacherDto)
         {
@@ -50,6 +60,12 @@ namespace WebApi.Controllers
                 StatusCode = 200
             };
         }
+
+        /// <summary>
+        /// Method for log in like admin (admin,admin). 
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost("AdminLogin")]
         public async Task<IActionResult> AdminLogin(AdminDto adminDto)
         {
