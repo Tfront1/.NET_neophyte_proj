@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using DataAccess.Models;
+using DataAccess.Repositories.AdminRepo;
 using DataAccess.Repositories.StudentRepo.Interfaces;
 using DataAccess.Repositories.TeacherRepo.Interfaces;
 using DataAccess.Repositories.TeacherRepo.Repos;
 using Microsoft.IdentityModel.Tokens;
 using neophyte_proj.DataAccess.Context;
+using neophyte_proj.DataAccess.Models;
 using neophyte_proj.DataAccess.Models.StudentModel;
 using neophyte_proj.DataAccess.Models.TeacherModel;
 using neophyte_proj.WebApi.Models.StudentModel;
@@ -21,14 +24,17 @@ namespace WebApi.Services
         private readonly IMapper _mapper;
         private readonly IStudentAccountInfoRepository _studentAccountInfoRepository;
         private readonly ITeacherAccountInfoRepository _teacherAccountInfoRepository;
+        private readonly IAdminRepository _adminRepository;
         private readonly IConfiguration _configuration;
 
         public AuthService(IMapper mapper, IStudentAccountInfoRepository studentAccountInfoRepository,
-            ITeacherAccountInfoRepository teacherAccountInfoRepository,IConfiguration configuration)
+            ITeacherAccountInfoRepository teacherAccountInfoRepository,IConfiguration configuration,
+            IAdminRepository adminRepository)
         {
             _mapper = mapper;
             _studentAccountInfoRepository = studentAccountInfoRepository;
             _teacherAccountInfoRepository = teacherAccountInfoRepository;
+            _adminRepository = adminRepository;
             _configuration = configuration;
         }
         public async Task<string> StudentLogin(UserStudentDto userStudentDto)
@@ -36,11 +42,7 @@ namespace WebApi.Services
             var studs = await _studentAccountInfoRepository.GetByUsername(userStudentDto.UserName);
             foreach (StudentAccountInfo s in studs) {
                 if (s.Password == userStudentDto.Password) {
-                    List<Claim> claims = new List<Claim> {
-                        new Claim(ClaimTypes.NameIdentifier, s.UserName),
-                        new Claim(ClaimTypes.Role, "Student")
-                    };
-                    return GenerateToken(claims);
+                    return GenerateToken("Student", userStudentDto.UserName);
                 }
             }
             return null;
@@ -53,17 +55,30 @@ namespace WebApi.Services
             {
                 if (s.Password == userTeacherDto.Password)
                 {
-                    List<Claim> claims = new List<Claim> {
-                        new Claim(ClaimTypes.NameIdentifier, s.UserName),
-                        new Claim(ClaimTypes.Role, "Teacher")
-                    };
-                    return GenerateToken(claims);
+                    return GenerateToken("Teacher", userTeacherDto.UserName);
                 }
             }
             return null;
         }
 
-        private string GenerateToken(List<Claim> claims) {
+        public async Task<string> AdminLogin(AdminDto adminDto)
+        {
+            var admins = await _adminRepository.GetByUsername(adminDto.UserName);
+            foreach (Admin a in admins)
+            {
+                if (a.Password == adminDto.Password)
+                { 
+                    return GenerateToken("Admin", adminDto.UserName);
+                }
+            }
+            return null;
+        }
+
+        private string GenerateToken(string role,string username) {
+            List<Claim> claims = new List<Claim> {
+                        new Claim(ClaimTypes.NameIdentifier, username),
+                        new Claim(ClaimTypes.Role, role)
+            };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWTStrings:jwtstr"]));
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 

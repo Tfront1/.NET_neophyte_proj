@@ -50,5 +50,21 @@ namespace WebApi.Controllers
                 StatusCode = 200
             };
         }
+        [HttpPost("AdminLogin")]
+        public async Task<IActionResult> AdminLogin(AdminDto adminDto)
+        {
+            var res = await _authService.AdminLogin(adminDto);
+            if (res == null)
+            {
+                return new JsonResult(BadRequest("No such admin"))
+                {
+                    StatusCode = 400
+                };
+            }
+            return new JsonResult(Ok(res))
+            {
+                StatusCode = 200
+            };
+        }
     }
 }

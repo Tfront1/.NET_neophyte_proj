@@ -1,4 +1,5 @@
-﻿using DataAccess.Models.Configurations;
+﻿using DataAccess.Models;
+using DataAccess.Models.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using neophyte_proj.DataAccess.Models.CourseModel;
@@ -19,6 +20,7 @@ namespace neophyte_proj.DataAccess.Context
         public DbSet<TeacherFeedBack> TeacherFeedBacks { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<StudentAccountInfo> StudentAccountInfos { get; set; }
+        public DbSet<Admin> Admins { get; set; }
         public NeophyteApplicationContext(DbContextOptions<NeophyteApplicationContext> options) : base(options)
         {
         }

@@ -18,6 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using DataAccess.Repositories.AdminRepo;
 
 namespace neophyte_proj.WebApi
 {
@@ -145,6 +146,8 @@ namespace neophyte_proj.WebApi
             services.AddTransient<ITeacherRepository, TeacherRepository>();
             services.AddTransient<ITeacherFeedBackRepository, TeacherFeedBackRepository>();
             services.AddTransient<ITeacherAccountInfoRepository, TeacherAccountInfoRepository>();
+
+            services.AddTransient<IAdminRepository, AdminRepository>();
 
 
             services.AddTransient<ICourseService, CourseService>();

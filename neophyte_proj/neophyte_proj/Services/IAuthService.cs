@@ -11,5 +11,7 @@ namespace WebApi.Services
         public Task<string> StudentLogin(UserStudentDto userStudentDto);
 
         public Task<string> TeacherLogin(UserTeacherDto userTeacherDto);
+
+        public Task<string> AdminLogin(AdminDto adminDto);
     }
 }
