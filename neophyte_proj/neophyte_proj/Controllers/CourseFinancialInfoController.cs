@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using neophyte_proj.WebApi.Models.CourseModel;
 using neophyte_proj.WebApi.Services;
+using System.Data;
 using WebApi.Services;
 
 namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(Roles = "Teacher,Admin")]
     [ApiController]
     public class CourseFinancialInfoController : ControllerBase
     {
@@ -43,6 +46,7 @@ namespace WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetById(int id)
         {
@@ -64,6 +68,7 @@ namespace WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [AllowAnonymous]
         [HttpGet("GetByCourseId")]
         public async Task<IActionResult> GetByCourseId(int id)
         {
@@ -129,6 +134,7 @@ namespace WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [AllowAnonymous]
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {

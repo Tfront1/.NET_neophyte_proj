@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using neophyte_proj.WebApi.Models.IntermediateModel;
 using neophyte_proj.WebApi.Models.StudentModel;
 using neophyte_proj.WebApi.Models.TeacherModel;
+using System.Data;
 using WebApi.Services;
 
 namespace neophyte_proj.WebApi.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(Roles = "Teacher,Admin")]
     [ApiController]
     public class TeacherController : ControllerBase
     {
@@ -45,6 +48,7 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetById(int id)
         {
@@ -110,6 +114,7 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize]
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
@@ -132,6 +137,7 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize]
         [HttpGet("GetCourses")]
         public async Task<IActionResult> GetCourses(int id)
         {
@@ -175,6 +181,7 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize]
         [HttpGet("GetFeedbacks")]
         public async Task<IActionResult> GetFeedbacks(int id)
         {

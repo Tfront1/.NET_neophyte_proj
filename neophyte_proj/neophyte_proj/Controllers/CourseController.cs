@@ -10,6 +10,7 @@ using neophyte_proj.WebApi.Services;
 namespace neophyte_proj.WebApi.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(Roles = "Teacher,Admin")]
     [ApiController]
     public class CourseController : ControllerBase
     {
@@ -24,7 +25,6 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(CourseDto courseDto)
         {
@@ -47,7 +47,7 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [AllowAnonymous]
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetById(int id) {
             var courseDto = await _courseService.GetById(id).ConfigureAwait(false);
@@ -109,6 +109,7 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize]
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll() {
             var result = await _courseService.GetAll();
@@ -129,6 +130,7 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize]
         [HttpGet("GetTeachers")]
         public async Task<IActionResult> GetTeachers(int id)
         {
@@ -173,6 +175,7 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize]
         [HttpGet("GetBages")]
         public async Task<IActionResult> GetBages(int id)
         {

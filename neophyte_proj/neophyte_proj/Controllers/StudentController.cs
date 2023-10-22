@@ -1,15 +1,18 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using neophyte_proj.WebApi.Models.CourseModel;
 using neophyte_proj.WebApi.Models.IntermediateModel;
 using neophyte_proj.WebApi.Models.StudentModel;
 using neophyte_proj.WebApi.Services;
+using System.Data;
 using WebApi.Models.IntermediateModel;
 using WebApi.Services;
 
 namespace neophyte_proj.WebApi.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(Roles = "Student,Admin")]
     [ApiController]
     public class StudentController : ControllerBase
     {
@@ -199,6 +202,7 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "Admin,Teacher")]
         [HttpPost("AddBage")]
         public async Task<IActionResult> AddBage(BageStudentDto bageStudentDto)
         {

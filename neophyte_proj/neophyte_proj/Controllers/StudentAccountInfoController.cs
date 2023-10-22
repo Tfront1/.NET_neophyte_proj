@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using neophyte_proj.DataAccess.Models.StudentModel;
 using neophyte_proj.WebApi.Models.StudentModel;
 using neophyte_proj.WebApi.Models.TeacherModel;
+using System.Data;
 using WebApi.Services;
 
 namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(Roles = "Student,Admin")]
     [ApiController]
     public class StudentAccountInfoController : ControllerBase
     {
