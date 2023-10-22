@@ -64,7 +64,7 @@ namespace WebApi.Services
         }
 
         private string GenerateToken(List<Claim> claims) {
-            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration["JWTStrings:jwtstr"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWTStrings:jwtstr"]));
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
             var token = new JwtSecurityToken(

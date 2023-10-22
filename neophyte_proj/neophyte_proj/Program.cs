@@ -17,6 +17,7 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.OpenApi.Models;
 
 namespace neophyte_proj.WebApi
 {
@@ -33,10 +34,10 @@ namespace neophyte_proj.WebApi
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = builder.Configuration["Jwt:Issuer"],
@@ -47,11 +48,37 @@ namespace neophyte_proj.WebApi
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(
-                c => 
+                c =>
                 {
                     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                     c.IncludeXmlComments(xmlPath);
+
+                    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                    {
+                        Name = "Authorization",
+                        Type = SecuritySchemeType.ApiKey,
+                        Scheme = "Bearer",
+                        BearerFormat = "JWT",
+                        In = ParameterLocation.Header,
+                        Description = "Enter bearer[space]token"
+                    });
+                    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    {
+                        {
+                            new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
+                                }
+                                
+                            },
+                            new string[]{
+                            }
+                        }
+                    });
                 });
 
             Log.Logger = new LoggerConfiguration()
@@ -65,7 +92,7 @@ namespace neophyte_proj.WebApi
             //Context injection
             var connectionString = configuration.GetConnectionString("neophyte");
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 34));
-            builder.Services.AddDbContext<NeophyteApplicationContext>(options => 
+            builder.Services.AddDbContext<NeophyteApplicationContext>(options =>
                 options.UseMySql(connectionString, serverVersion));
 
             builder.Services.AddAutoMapper(typeof(Program).Assembly);
@@ -97,10 +124,10 @@ namespace neophyte_proj.WebApi
                 Log.Information("Application started.");
                 app.Run();
             }
-            catch(Exception ex) {
+            catch (Exception ex) {
                 Log.Fatal(ex, "Application failed to start.");
             }
-            
+
         }
     }
     public static class ServicesCl {
@@ -132,4 +159,6 @@ namespace neophyte_proj.WebApi
             services.AddTransient<IAuthService, AuthService>();
         }
     }
+
+    
 }

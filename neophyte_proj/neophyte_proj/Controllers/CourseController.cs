@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DataAccess.Repositories.CourseRepo.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using neophyte_proj.DataAccess.Models.CourseModel;
@@ -23,6 +24,7 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(CourseDto courseDto)
         {
@@ -45,6 +47,7 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetById(int id) {
             var courseDto = await _courseService.GetById(id).ConfigureAwait(false);
