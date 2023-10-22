@@ -1,4 +1,5 @@
 ﻿using neophyte_proj.DataAccess.Models.CourseModel;
+using neophyte_proj.DataAccess.Models.StudentModel;
 using neophyte_proj.DataAccess.Models.TeacherModel;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace DataAccess.Repositories.TeacherRepo.Interfaces
     public interface ITeacherAccountInfoRepository
     {
         Task<IEnumerable<TeacherAccountInfo>> GetAll();
+        Task<IEnumerable<TeacherAccountInfo>> GetByUsername(string username);
         Task<TeacherAccountInfo> GetById(int id);
         Task<TeacherAccountInfo> GetByTeacherId(int id);
         Task<bool> Create(TeacherAccountInfo teacherAccountInfo);

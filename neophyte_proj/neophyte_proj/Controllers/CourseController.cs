@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DataAccess.Repositories.CourseRepo.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using neophyte_proj.DataAccess.Models.CourseModel;
@@ -9,6 +10,7 @@ using neophyte_proj.WebApi.Services;
 namespace neophyte_proj.WebApi.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(Roles = "Teacher,Admin")]
     [ApiController]
     public class CourseController : ControllerBase
     {
@@ -23,6 +25,8 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPost]
         public async Task<IActionResult> Create(CourseDto courseDto)
         {
@@ -45,6 +49,8 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetById(int id) {
             var courseDto = await _courseService.GetById(id).ConfigureAwait(false);
@@ -65,6 +71,8 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpDelete]
         public async Task<IActionResult> Delete(int id) {
             if (await _courseService.Delete(id).ConfigureAwait(false)) {
@@ -84,6 +92,8 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPut]
         public async Task<IActionResult> Update(CourseDto courseDto)
         {
@@ -106,6 +116,8 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize]
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll() {
             var result = await _courseService.GetAll();
@@ -126,6 +138,8 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize]
         [HttpGet("GetTeachers")]
         public async Task<IActionResult> GetTeachers(int id)
         {
@@ -148,6 +162,8 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpGet("GetStudents")]
         public async Task<IActionResult> GetStudents(int id)
         {
@@ -170,6 +186,8 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize]
         [HttpGet("GetBages")]
         public async Task<IActionResult> GetBages(int id)
         {
@@ -192,6 +210,8 @@ namespace neophyte_proj.WebApi.Controllers
         /// </summary>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize]
         [HttpGet("GetFeedbacks")]
         public async Task<IActionResult> GetFeedbacks(int id)
         {

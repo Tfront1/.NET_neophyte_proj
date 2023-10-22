@@ -11,6 +11,7 @@ namespace DataAccess.Repositories.StudentRepo.Interfaces
     public interface IStudentAccountInfoRepository
     {
         Task<IEnumerable<StudentAccountInfo>> GetAll();
+        Task<IEnumerable<StudentAccountInfo>> GetByUsername(string username);
         Task<StudentAccountInfo> GetById(int id);
         Task<StudentAccountInfo> GetByStudentId(int id);
         Task<bool> Create(StudentAccountInfo studentAccountInfo);

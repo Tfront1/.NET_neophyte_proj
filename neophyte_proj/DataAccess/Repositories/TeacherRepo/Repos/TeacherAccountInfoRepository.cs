@@ -93,5 +93,9 @@ namespace DataAccess.Repositories.TeacherRepo.Repos
             }
             return false;
         }
+
+        public async Task<IEnumerable<TeacherAccountInfo>> GetByUsername(string username) {
+            return _context.TeacherAccountInfos.Where(x => x.UserName == username).ToList();
+        }
     }
 }

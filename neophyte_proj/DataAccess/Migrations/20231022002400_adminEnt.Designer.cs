@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using neophyte_proj.DataAccess.Context;
 
@@ -10,9 +11,11 @@ using neophyte_proj.DataAccess.Context;
 namespace neophyte_proj.DataAccess.Migrations
 {
     [DbContext(typeof(NeophyteApplicationContext))]
-    partial class NeophyteApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20231022002400_adminEnt")]
+    partial class adminEnt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
